@@ -1,10 +1,10 @@
-from TP_general import solicitarValor
+from TP_general import solicitarNombreJugador
 
-def solicitarNombreJugador():
+def solicitarNombreJugadores():
     # pide nombre para la cantidad de personas
     lista_personas = []
     for indice in range(cant_personas()):
-        lista_personas.append(solicitarValor())
+        lista_personas.append(solicitarNombreJugador("Ingrese nombre de la futura víctima: "))
     return lista_personas
 
 def cant_personas():
