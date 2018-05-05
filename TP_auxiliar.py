@@ -60,15 +60,15 @@ def solicitarNombreJugador():
 def generarDiccionarioJugadores(cant_jugadores):
     #a partir de una cantidad de jugadores pasada por parametro, se solicita dicha cantidad de veces el nombre de jugadores. Se valida que los nombres no hayan sido utilizados ya en el diccionario.
     #el cual tiene el siguiente formato:
-    #clave = jugador valor = lista compuesta por [puntaje, lista de palabras utilizadas, ganador_ultima_partida?, jugador_eliminado?]
+    #clave = jugador valor = lista compuesta por [orden, puntaje, lista de palabras utilizadas, ganador_ultima_partida?, jugador_eliminado?]
     dic_jugadores = {}
     for numero_jugador in range(cant_jugadores):
         jugador = solicitarNombreJugador()
         if formatearPalabra(jugador) not in dic_jugadores:
-            dic_jugadores[formatearPalabra(jugador)] = [0, [], False, False]
+            dic_jugadores[formatearPalabra(jugador)] = [0,0, [], False, False]
         else:
             while formatearPalabra(jugador) in dic_jugadores:
                 print("El nombre ingresado ya fue utilizado por otra persona. Ingrese un nombre distinto")
                 jugador = solicitarNombreJugador()
-            dic_jugadores[formatearPalabra(jugador)] = [0, [], False, False]
+            dic_jugadores[formatearPalabra(jugador)] = [0,0, [], False, False]
     return dic_jugadores
