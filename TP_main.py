@@ -30,3 +30,4 @@ def main():
 
     print(len(dic_palabras))
 main()
+print("hola")
