@@ -1,5 +1,4 @@
 from TP_general import solicitarValor
-from TP_jugadores import ingresarNombrePersonas
 from TP_jugadores import mostrarAciertos
 from TP_jugadores import mostrarDatosJugador
 from TP_jugadores import mostrarDesaciertos
@@ -55,7 +54,7 @@ def buscarPalabra(longitud, dic_palabras_validas):
 
 
 def solicitarLongitudPalabras(persona, dic_palabras_validas):
-    #para cada persona se solicita una lista de posibles palabras, segun la longitud ingresada.
+    #se solicita por unica vez una lista de posibles palabras, segun la longitud ingresada.
     dic_palabra_persona = {}
     longitud_palabra = solicitarValor("Ingrese longitud palabra para adivinar: ")
     dic_palabras = buscarPalabra(longitud_palabra, dic_palabras_validas)
@@ -76,4 +75,35 @@ def procesarTurno(jugador):
     mostrarAciertos(jugador)
     mostrarDesaciertos(jugador)
     return numero_turno
+
+def inicializarPuntajes(lista_jugadores):
+    #inicializa los diccionarios de puntajes de cada jugador
+    dic_puntaje_jugador = {}
+    for jugador in lista_jugadores:
+        dic_puntaje_jugador[jugador] = 0
+
+def inicializarPartida(lista_jugadores):
+    #inicializa los diccionarios de puntajes de cada jugador
+    dic_partida = {}
+    inicializarPuntajes(lista_jugadores)
+
+    dic_puntaje_jugador = {}
+    for jugador in lista_jugadores:
+        dic_puntaje_jugador[jugador] = 0
+
+def sumarPuntos(jugador, dic_puntaje_jugador, puntos):
+    #sumariza los puntos ingresados para el jugador
+    if jugador in dic_puntaje_jugador:
+        dic_puntaje_jugador[jugador] += puntos
+
+def restarPuntos(jugador, dic_puntaje_jugador, puntos):
+    #resta los puntos ingresados para el jugador
+    if jugador in dic_puntaje_jugador:
+        dic_puntaje_jugador[jugador] -= puntos
+
+def ganarPartida(jugador):
+    print("El jugador {0} ganó la partida".format(jugador))
+
+def ganarPartida(jugador):
+    print("Ningun jugador acertó la palabra. Gana la casa")
 

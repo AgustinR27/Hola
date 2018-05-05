@@ -30,3 +30,6 @@ def mostrarDesaciertos(jugador):
 def mostrarAciertos(jugador):
     print("aciertos jugador")
 
+def eliminarJugador(lista_personas, jugador):
+    #elimina un jugador. Se espera un nombre valido.
+    lista_personas.remove(jugador)
