@@ -104,6 +104,6 @@ def restarPuntos(jugador, dic_puntaje_jugador, puntos):
 def ganarPartida(jugador):
     print("El jugador {0} ganó la partida".format(jugador))
 
-def ganarPartida(jugador):
+def perderPartida(jugador):
     print("Ningun jugador acertó la palabra. Gana la casa")
 

@@ -32,3 +32,10 @@ def generarDiccionario():
                         dic_palabras[formatearPalabra(palabra)][0] += 1
 
     return dic_palabras
+
+
+def turno_aleatorio(lista):
+    lista_ordenada = []
+    for i in range(len(lista)):
+        lista_ordenada.append(lista.pop(random.randint(0, len(lista) - 1)))
+    return lista_ordenada
