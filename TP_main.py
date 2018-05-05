@@ -1,7 +1,8 @@
 from texto import obtener_texto
 
+
 def formatearPalabra(palabra):
-    dic_a_reemplazar = {"Ñ":"NI","Á":"A","É":"E","Í":"I","Ó":"O","Ú":"U"}
+    dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
     palabra_vieja = palabra.upper()
     palabra_nueva = ''
     for letra in palabra_vieja:
@@ -11,6 +12,7 @@ def formatearPalabra(palabra):
             palabra_nueva += dic_a_reemplazar[letra]
 
     return palabra_nueva
+
 
 def main():
     variable = obtener_texto()
@@ -29,5 +31,7 @@ def main():
         print(clave)
 
     print(len(dic_palabras))
+
+
 main()
 print("hola")

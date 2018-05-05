@@ -57,7 +57,7 @@ def buscarPalabra(longitud, dic_palabras_validas):
 def solicitarLongitudPalabras(persona, dic_palabras_validas):
     #para cada persona se solicita una lista de posibles palabras, segun la longitud ingresada.
     dic_palabra_persona = {}
-    longitud_palabra = solicitarValor("Ingrese longitud palabra para adivinar")
+    longitud_palabra = solicitarValor("Ingrese longitud palabra para adivinar: ")
     dic_palabras = buscarPalabra(longitud_palabra, dic_palabras_validas)
     return dic_palabras
 

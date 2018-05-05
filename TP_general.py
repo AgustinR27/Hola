@@ -3,6 +3,7 @@ def validarLetra(valor):
         valor = solicitarLetra("Por favor ingrese solo una letra valida: ")
     return valor
 
+
 def validarNombre(nombre):
     while len(nombre) < 3 or not nombre.isalpha():
         nombre = solicitarNombreJugador("Por favor ingrese un nombre válido: ")

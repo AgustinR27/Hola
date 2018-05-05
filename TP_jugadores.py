@@ -1,11 +1,13 @@
 from TP_general import solicitarNombreJugador
 
+
 def solicitarNombreJugadores():
     # pide nombre para la cantidad de personas
     lista_personas = []
     for indice in range(cant_personas()):
         lista_personas.append(solicitarNombreJugador("Ingrese nombre de la futura víctima: "))
     return lista_personas
+
 
 def cant_personas():
     personas = int(input('Ingrese el número de personas a ahorcar: '))
@@ -16,11 +18,14 @@ def cant_personas():
         jugadores = cant_personas()
     return jugadores
 
+
 def mostrarDatosJugador(jugador):
     print("datos jugador")
 
+
 def mostrarDesaciertos(jugador):
     print("desaciertos jugador")
+
 
 def mostrarAciertos(jugador):
     print("aciertos jugador")
