@@ -1,4 +1,5 @@
 from texto import obtener_texto
+import random
 
 def formatearPalabra(palabra):
     dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
@@ -73,8 +74,14 @@ def generarDiccionarioJugadores(cant_jugadores):
             dic_jugadores[formatearPalabra(jugador)] = [0,0, [], False, False]
     return dic_jugadores
 
-def turno_aleatorio(lista):
-    lista_ordenada = []
-    for i in range(len(lista)):
-        lista_ordenada.append(lista.pop(random.randint(0, len(lista) - 1)))
-    return lista_ordenada
+def generarDiccionarioPartida():
+    dic_partida = {"nro_partida" : 1}
+    return dic_partida
+
+def otorgarOrdenJugadores(numero_partida, dic_jugadores):
+    lista_jugadores = list(dic_jugadores.keys())
+    nro_turno = 1
+    for i in range(len(lista_jugadores)):
+        jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
+        dic_jugadores[jugador][0] = nro_turno
+        nro_turno += 1
