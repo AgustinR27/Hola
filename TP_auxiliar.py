@@ -43,7 +43,7 @@ def esCantidadJugadoresValida(cantidad_jugadores):
 
 
 def solicitarCantJugadores():
-    cant_jugadores = int(solicitarValor("Ingrese cantidad de jugadores"))
+    cant_jugadores = int(solicitarValor("Ingrese cantidad de jugadores: "))
     while not esCantidadJugadoresValida(cant_jugadores):
         cant_jugadores = int(solicitarValor("Cantidad incorrecta, tienen que ser al menos dos y máximo diez jugadores.\n Ingrese cantidad de jugadores:"))
     return cant_jugadores
@@ -53,9 +53,9 @@ def esNombreValido(nombre_jugador):
     return True
 
 def solicitarNombreJugador():
-    jugador = str(solicitarValor("Ingrese Nombre Jugador"))
+    jugador = str(solicitarValor("Ingrese Nombre Jugador: "))
     while not esNombreValido(jugador):
-        jugador = int(solicitarValor("Nombre incorrecto.\n Ingrese Nombre Jugador:"))
+        jugador = int(solicitarValor("Nombre incorrecto.\n Ingrese Nombre Jugador: "))
     return jugador
 
 def generarDiccionarioJugadores(cant_jugadores):
@@ -90,7 +90,7 @@ def esCantidadLetrasValida(cantidad_jugadores):
     return cantidad_jugadores > 5
 
 def solicitarCantLetras():
-    cant_letras = int(solicitarValor("Ingrese cantidad de letras de las palabras a adivinar"))
+    cant_letras = int(solicitarValor("Ingrese cantidad de letras de las palabras a adivinar: "))
     while not esCantidadLetrasValida(cant_letras):
         cant_letras = int(solicitarValor("Cantidad incorrecta, tienen que ser al menos cinco letras.\n Ingrese cantidad de letras de las palabras a adivinar :"))
     return cant_letras
