@@ -12,5 +12,8 @@ def jugar_ahorcado():
     for jugador in lista_jugadores_ordenado:
         print(jugador[0])
 
+    lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
+    print(lista_palabras)
+
 
 jugar_ahorcado()

@@ -19,7 +19,7 @@ def esPalabraValida(palabra):
 
 def generarDiccionarioPalabras():
     #a partir del string pasado por los profesores, se genera un diccionario de palabras con el siguiente formato:
-    #clave = palabra valor = lista compuesta por [cantidad_de_repeticiones, palabra_ya_utilizada]
+    #clave = palabra valor = lista compuesta por [cantidad_de_repeticiones, cant_letras, palabra_ya_utilizada]
     texto = obtener_texto()
     dic_palabras = {}
     for linea in texto:
@@ -28,7 +28,7 @@ def generarDiccionarioPalabras():
             for palabra in lista_auxiliar:
                 if esPalabraValida(palabra):
                     if formatearPalabra(palabra) not in dic_palabras:
-                        dic_palabras[formatearPalabra(palabra)] = [1, False]
+                        dic_palabras[formatearPalabra(palabra)] = [1, len(palabra), False]
                     else:
                         dic_palabras[formatearPalabra(palabra)][0] += 1
 
@@ -38,13 +38,13 @@ def solicitarValor(mensaje):
     valor = input(mensaje)
     return valor
 
-def esCantidadValida(cantidad_jugadores):
+def esCantidadJugadoresValida(cantidad_jugadores):
     return cantidad_jugadores > 1 and cantidad_jugadores <= 10
 
 
 def solicitarCantJugadores():
     cant_jugadores = int(solicitarValor("Ingrese cantidad de jugadores"))
-    while not esCantidadValida(cant_jugadores):
+    while not esCantidadJugadoresValida(cant_jugadores):
         cant_jugadores = int(solicitarValor("Cantidad incorrecta, tienen que ser al menos dos y máximo diez jugadores.\n Ingrese cantidad de jugadores:"))
     return cant_jugadores
 
@@ -85,3 +85,23 @@ def otorgarOrdenJugadores(numero_partida, dic_jugadores):
         jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
         dic_jugadores[jugador][0] = nro_turno
         nro_turno += 1
+
+def esCantidadLetrasValida(cantidad_jugadores):
+    return cantidad_jugadores > 5
+
+def solicitarCantLetras():
+    cant_letras = int(solicitarValor("Ingrese cantidad de letras de las palabras a adivinar"))
+    while not esCantidadLetrasValida(cant_letras):
+        cant_letras = int(solicitarValor("Cantidad incorrecta, tienen que ser al menos cinco letras.\n Ingrese cantidad de letras de las palabras a adivinar :"))
+    return cant_letras
+
+def generarListaPalabrasPorCantLetras(dic_palabras):
+    lista_palabras = []
+    while lista_palabras == []:
+        cant_letras = solicitarCantLetras()
+        for clave in dic_palabras:
+            if dic_palabras[clave][1] == cant_letras:
+                lista_palabras.append(clave)
+        if lista_palabras == []:
+            print("No se encontraron palabras con esa cantidad de letras.")
+    return lista_palabras
