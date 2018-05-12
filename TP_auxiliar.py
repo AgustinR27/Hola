@@ -38,15 +38,19 @@ def solicitarValor(mensaje):
     valor = input(mensaje)
     return valor
 
-def esCantidadJugadoresValida(cantidad_jugadores):
-    return cantidad_jugadores > 1 and cantidad_jugadores <= 10
-
 
 def solicitarCantJugadores():
-    cant_jugadores = int(solicitarValor("Ingrese cantidad de jugadores: "))
-    while not esCantidadJugadoresValida(cant_jugadores):
-        cant_jugadores = int(solicitarValor("Cantidad incorrecta, tienen que ser al menos dos y máximo diez jugadores.\n Ingrese cantidad de jugadores:"))
-    return cant_jugadores
+    cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+    while cant_jugadores.isdigit():
+        if int(cant_jugadores) > 11:
+            print("cantidad de jugadores incorrecto, los jugadores deben ir de 1 hasta 10")
+            cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+        elif int(cant_jugadores) == 0:
+            print("Mucha lógica por suerte... Ingresa de nuevo un valor: ")
+            cant_jugadores = input("Ingrese la cantidad de jugadores")
+        else:
+            return cant_jugadores
+
 
 def esNombreValido(nombre_jugador):
     #pendiente. Hay que validar que sea un nombre correcto. ¿verificamos acá que no sea una clave ya usada en el diccionario?
@@ -86,17 +90,10 @@ def otorgarOrdenJugadores(numero_partida, dic_jugadores):
         dic_jugadores[jugador][0] = nro_turno
         nro_turno += 1
 
-def esCantidadLetrasValida(cantidad_jugadores):
-    return cantidad_jugadores >= 5
-
-def solicitarCantLetras():
-    cant_letras = int(solicitarValor("Ingrese cantidad de letras de las palabras a adivinar: "))
-    while not esCantidadLetrasValida(cant_letras):
-        cant_letras = int(solicitarValor("Cantidad incorrecta, tienen que ser al menos cinco letras.\n Ingrese cantidad de letras de las palabras a adivinar :"))
-    return cant_letras
 
 def generarListaPalabrasPorCantLetras(dic_palabras):
     lista_palabras = []
+    #HAY QUE MODIFICAR ESTE DE NUEVO, ah por que en mayusculas
     while lista_palabras == []:
         cant_letras = solicitarCantLetras()
         for clave in dic_palabras:
@@ -105,3 +102,12 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
         if lista_palabras == []:
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
+
+def palabra_adivinar(dic_palabras, cant_jugadores):
+    longitud = input("Ingrese la longitud de la palabra a adivinar: ")
+    while int(longitud) < 5 or int(longitud) > 20:
+        print("La palabra debe tener como mínimo 5 letras y maximo 19")
+        longitud = input("Ingrese la longitud de la palabra a adivinar: ")
+    lista_palabras_nueva = []
+    palabra_adivinar = random.choice(lista_palabras_nueva)
+    return palabra_adivinar
