@@ -87,7 +87,7 @@ def otorgarOrdenJugadores(numero_partida, dic_jugadores):
         nro_turno += 1
 
 def esCantidadLetrasValida(cantidad_jugadores):
-    return cantidad_jugadores > 5
+    return cantidad_jugadores >= 5
 
 def solicitarCantLetras():
     cant_letras = int(solicitarValor("Ingrese cantidad de letras de las palabras a adivinar: "))
