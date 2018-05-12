@@ -86,14 +86,11 @@ def otorgarOrdenJugadores(numero_partida, dic_jugadores):
         dic_jugadores[jugador][0] = nro_turno
         nro_turno += 1
 
-def esCantidadLetrasValida(cantidad_jugadores):
-    return cantidad_jugadores >= 5
-
 def solicitarCantLetras():
-    cant_letras = int(solicitarValor("Ingrese cantidad de letras de las palabras a adivinar: "))
-    while not esCantidadLetrasValida(cant_letras):
-        cant_letras = int(solicitarValor("Cantidad incorrecta, tienen que ser al menos cinco letras.\n Ingrese cantidad de letras de las palabras a adivinar :"))
-    return cant_letras
+    cant_letras = solicitarValor("Ingrese cantidad de letras de las palabras a adivinar: ")
+    while not str(cant_letras) >= '5' or not cant_letras.isdigit():
+        cant_letras = solicitarValor("Entrada incorrecta, la cantidad debe ser numerica y que ser de al menos cinco letras.\n Ingrese cantidad de letras de las palabras a adivinar :")
+    return int(cant_letras)
 
 def generarListaPalabrasPorCantLetras(dic_palabras):
     lista_palabras = []
