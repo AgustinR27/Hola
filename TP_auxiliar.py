@@ -93,7 +93,6 @@ def otorgarOrdenJugadores(numero_partida, dic_jugadores):
 
 def generarListaPalabrasPorCantLetras(dic_palabras):
     lista_palabras = []
-    #HAY QUE MODIFICAR ESTE DE NUEVO, ah por que en mayusculas
     while lista_palabras == []:
         cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
         for clave in dic_palabras:
@@ -103,11 +102,8 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
 
-def palabra_adivinar(dic_palabras, cant_jugadores):
-    longitud = input("Ingrese la longitud de la palabra a adivinar: ")
-    while int(longitud) < 5 or int(longitud) > 20:
-        print("La palabra debe tener como mínimo 5 letras y maximo 19")
-        longitud = input("Ingrese la longitud de la palabra a adivinar: ")
-    lista_palabras_nueva = []
-    palabra_adivinar = random.choice(lista_palabras_nueva)
+
+def palabra_adivinar(lista_palabras):
+    lista_palabras_elegidas = lista_palabras
+    palabra_adivinar = random.choice(lista_palabras_elegidas)
     return palabra_adivinar
