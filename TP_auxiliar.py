@@ -49,7 +49,7 @@ def solicitarCantJugadores():
             print("Mucha lógica por suerte... Ingresa de nuevo un valor: ")
             cant_jugadores = input("Ingrese la cantidad de jugadores")
         else:
-            return cant_jugadores
+            return int(cant_jugadores)
 
 
 def esNombreValido(nombre_jugador):
@@ -95,9 +95,9 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
     lista_palabras = []
     #HAY QUE MODIFICAR ESTE DE NUEVO, ah por que en mayusculas
     while lista_palabras == []:
-        cant_letras = 5
+        cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
         for clave in dic_palabras:
-            if dic_palabras[clave][1] == cant_letras:
+            if dic_palabras[clave][1] == int(cant_letras):
                 lista_palabras.append(clave)
         if lista_palabras == []:
             print("No se encontraron palabras con esa cantidad de letras.")
