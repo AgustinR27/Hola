@@ -1,4 +1,4 @@
-from texto import obtener_texto
+from TP_texto import obtener_texto
 import random
 
 def formatearPalabra(palabra):
