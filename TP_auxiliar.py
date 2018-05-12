@@ -95,7 +95,7 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
     lista_palabras = []
     #HAY QUE MODIFICAR ESTE DE NUEVO, ah por que en mayusculas
     while lista_palabras == []:
-        cant_letras = solicitarCantLetras()
+        cant_letras =
         for clave in dic_palabras:
             if dic_palabras[clave][1] == cant_letras:
                 lista_palabras.append(clave)
