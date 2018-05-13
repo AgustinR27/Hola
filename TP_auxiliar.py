@@ -53,13 +53,19 @@ def solicitarCantJugadores():
 
 
 def esNombreValido(nombre_jugador):
-    #pendiente. Hay que validar que sea un nombre correcto. ¿verificamos acá que no sea una clave ya usada en el diccionario?
-    return True
+    # pendiente. Hay que validar que sea un nombre correcto. ¿verificamos acá que no sea una clave ya usada en el diccionario?
+    valor = True
+    if nombre_jugador.isdigit():
+        valor = False
+    elif len(nombre_jugador) < 3 or len(nombre_jugador) > 15:
+        valor = False
+    return valor
+
 
 def solicitarNombreJugador():
     jugador = str(solicitarValor("Ingrese Nombre Jugador: "))
     while not esNombreValido(jugador):
-        jugador = int(solicitarValor("Nombre incorrecto.\n Ingrese Nombre Jugador: "))
+        jugador = solicitarValor("Nombre incorrecto.\n Ingrese Nombre Jugador: ")
     return jugador
 
 def generarDiccionarioJugadores(cant_jugadores):
@@ -70,12 +76,12 @@ def generarDiccionarioJugadores(cant_jugadores):
     for numero_jugador in range(cant_jugadores):
         jugador = solicitarNombreJugador()
         if formatearPalabra(jugador) not in dic_jugadores:
-            dic_jugadores[formatearPalabra(jugador)] = [0,0, [], False, False]
+            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], False, False]
         else:
             while formatearPalabra(jugador) in dic_jugadores:
                 print("El nombre ingresado ya fue utilizado por otra persona. Ingrese un nombre distinto")
                 jugador = solicitarNombreJugador()
-            dic_jugadores[formatearPalabra(jugador)] = [0,0, [], False, False]
+            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], False, False]
     return dic_jugadores
 
 def generarDiccionarioPartida():
