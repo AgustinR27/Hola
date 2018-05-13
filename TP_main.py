@@ -20,4 +20,5 @@ def jugar_ahorcado():
     palabra_a_adivinar = palabra_adivinar(lista_palabras)
     print(palabra_a_adivinar)
 
+
 jugar_ahorcado()

@@ -1,6 +1,7 @@
 from TP_texto import obtener_texto
 import random
 
+
 def formatearPalabra(palabra):
     dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
     palabra_vieja = palabra.upper()
@@ -16,6 +17,7 @@ def formatearPalabra(palabra):
 
 def esPalabraValida(palabra):
     return palabra.isalpha() and len(palabra) >= 5
+
 
 def generarDiccionarioPalabras():
     #a partir del string pasado por los profesores, se genera un diccionario de palabras con el siguiente formato:
@@ -33,6 +35,7 @@ def generarDiccionarioPalabras():
                         dic_palabras[formatearPalabra(palabra)][0] += 1
 
     return dic_palabras
+
 
 def solicitarValor(mensaje):
     valor = input(mensaje)
@@ -68,6 +71,7 @@ def solicitarNombreJugador():
         jugador = solicitarValor("Nombre incorrecto.\n Ingrese Nombre Jugador: ")
     return jugador
 
+
 def generarDiccionarioJugadores(cant_jugadores):
     #a partir de una cantidad de jugadores pasada por parametro, se solicita dicha cantidad de veces el nombre de jugadores. Se valida que los nombres no hayan sido utilizados ya en el diccionario.
     #el cual tiene el siguiente formato:
@@ -84,9 +88,11 @@ def generarDiccionarioJugadores(cant_jugadores):
             dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], False, False]
     return dic_jugadores
 
+
 def generarDiccionarioPartida():
     dic_partida = {"nro_partida" : 1}
     return dic_partida
+
 
 def otorgarOrdenJugadores(numero_partida, dic_jugadores):
     lista_jugadores = list(dic_jugadores.keys())
