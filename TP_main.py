@@ -1,5 +1,6 @@
 from TP_auxiliar import *
 
+
 def jugar_ahorcado():
     diccionario_palabras = generarDiccionarioPalabras()
     cant_jugadores = solicitarCantJugadores()
@@ -7,7 +8,7 @@ def jugar_ahorcado():
     diccionario_partida = generarDiccionarioPartida()
     partida = diccionario_partida["nro_partida"]
     otorgarOrdenJugadores(partida, diccionario_jugadores)
-    lista_jugadores_ordenado = sorted(diccionario_jugadores.items(), key = lambda x : x[1])
+    lista_jugadores_ordenado = sorted(diccionario_jugadores.items(), key=lambda x: x[1])
 
     print("los jugadores jugaran en el siguiente orden:\n")
     for jugador in lista_jugadores_ordenado:
