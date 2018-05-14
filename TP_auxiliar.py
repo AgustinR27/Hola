@@ -108,16 +108,17 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
     while lista_palabras == []:
         cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
         for clave in dic_palabras:
-            if dic_palabras[clave][1] == int(cant_letras):
+            if dic_palabras[clave][1] == int(cant_letras) and dic_palabras[clave][2] == False:
                 lista_palabras.append(clave)
         if lista_palabras == []:
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
 
 
-def palabra_adivinar(lista_palabras):
-    lista_palabras_elegidas = lista_palabras
-    palabra_adivinar = random.choice(lista_palabras_elegidas)
+def elegirPalabraAleatoria(lista_palabras):
+    print(lista_palabras)
+    palabra_adivinar = lista_palabras.pop(random.randint(0,len(lista_palabras)-1))
+    print("palabra a adivinar: ",palabra_adivinar)
     return palabra_adivinar
 
 """La función pide el diccionario de los jugadores, la lista de palabras procesada (válida) y el diccionario de palabras. 
@@ -128,11 +129,14 @@ Devuelve el diccionario jugadores, cada jugador con una palabra aleatoria asigna
 
 def agregarPalabras(diccionario_jugadores, lista_palabra, diccionario_palabras):
     for jugador in diccionario_jugadores:
-        palabraAleatoria = palabra_adivinar(lista_palabra)
+        palabraAleatoria = elegirPalabraAleatoria(lista_palabra)
+        print("Palabra aleatoria MAURO: ",palabraAleatoria)
         diccionario_jugadores[jugador][2].append(palabraAleatoria)
         diccionario_palabras[palabraAleatoria][2] = True  #no se si esto cambia el valor booleano, por ahi hay q usar un replace.
         print("CLAVE: {} - Valor: {}".format(palabraAleatoria, diccionario_palabras[palabraAleatoria]))
     return diccionario_jugadores
+
+
 
 
 """La función pide el diccionario de palabras. Se crea una lista con aquellas palabras cuyo valor booleano en el diccionario

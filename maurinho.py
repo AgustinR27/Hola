@@ -30,3 +30,4 @@ print(dibujarHombrecito(6))
 print("\n")
 print("turno 7:")
 print(dibujarHombrecito(7))
+
