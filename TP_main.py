@@ -16,8 +16,22 @@ def jugar_ahorcado():
         print(jugador[0])
 
     lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-    for jugador in lista_jugadores_ordenado:
-        agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras)
+    jugar = True
+    ronda = 1
+    while jugar:
+        for jugador in lista_jugadores_ordenado:
+            if ronda == 1:
+                agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras)
+            letra_ingresada = ingresarLetra()
+
+
+
+        continuar = input("Desea continuar?")
+
+        if continuar != "s":
+            jugar = False
+        ronda += 1
+
 
 
     #print(diccionario_jugadores) #lo agregue para checkear el diccionario antes de ser transformado
