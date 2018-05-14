@@ -74,7 +74,7 @@ dic_palabras = obtener_palabras()
 lista_palabras = enlistar_palabras(dic_palabras)
 palabraOculta = palabra_adivinar(lista_palabras)
 finJuego = False
-while True:
+while finJuego == False:
     juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
     letra = ingresar_letra()
     if letra in palabraOculta:
@@ -91,7 +91,7 @@ while True:
     else:
         letrasIncorrectas += letra + " "
         # Comprueba la cantidad de letras que ha ingresado el jugador y si perdió
-        if len(letrasIncorrectas) == 7:
+        if len(letrasIncorrectas) >= 14:
             juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
             print('¡Te quedaste sin intentos!\nDespues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
             finJuego = True
