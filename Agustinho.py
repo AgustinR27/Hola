@@ -1,5 +1,8 @@
 from TP_texto import obtener_texto
+from TP_auxiliar import generarDiccionarioJugadores
+from TP_auxiliar import solicitarCantJugadores
 import random
+
 
 def formatear_palabras(palabra):
     dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
@@ -60,10 +63,10 @@ def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
     palabra = ""
     print('Letras incorrectas:', letrasIncorrectas)
     espacio = '_' * len(palabraOculta)
-    for i in range(len(palabraOculta)): # Remplaza los espacios en blanco por la letra bien escrita
+    for i in range(len(palabraOculta)):  # Remplaza los espacios por la letra en la posicion
         if palabraOculta[i] in letrasCorrectas:
             espacio = espacio[:i] + palabraOculta[i] + espacio[i+1:]
-    for letra in espacio: # Mostrará la palabra secreta con espacios entre letras
+    for letra in espacio:  # Muestra la palabra oculta con espacios entre las letras
         palabra += letra + " "
     print(palabra)
 
@@ -73,25 +76,56 @@ letrasCorrectas = ""
 dic_palabras = obtener_palabras()
 lista_palabras = enlistar_palabras(dic_palabras)
 palabraOculta = palabra_adivinar(lista_palabras)
+cant_jugadores = solicitarCantJugadores()
+diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores)
+lista_jugadores_ordenado = sorted(diccionario_jugadores.items(), key=lambda x: x[1])
+
 finJuego = False
 while finJuego == False:
     juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
     letra = ingresar_letra()
-    if letra in palabraOculta:
+    if letra in palabraOculta:  # analiza si el jugador ganó
         letrasCorrectas = letrasCorrectas + letra
-        # Se fija si el jugador ganó
+        for jugador in lista_jugadores_ordenado:
+            jugador[1][1] += 1
         letrasEncontradas = True
         for i in range(len(palabraOculta)):
             if palabraOculta[i] not in letrasCorrectas:
                 letrasEncontradas = False
                 break
         if letrasEncontradas:
-            print('¡Ganaste! Despues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
+            print('¡Ganaste! Despues de ' + str(len(letrasIncorrectas)//2) + ' fallas y ' + str(len(letrasCorrectas)) +
+                  " aciertos, la palabra era " + palabraOculta)
+            for jugador in lista_jugadores_ordenado:
+                jugador[1][1] += 30  # Suma los 30 puntos si el jugador gana
+                jugador[1][6] = True
             finJuego = True
     else:
         letrasIncorrectas += letra + " "
-        # Comprueba la cantidad de letras que ha ingresado el jugador y si perdió
+        for jugador in lista_jugadores_ordenado:
+            jugador[1][1] -= 2  # Resta los 2 puntos por equivocarse
+        # Comprueba la cantidad de letras que ha ingresado el jugador, si son 7, pierde su partida
         if len(letrasIncorrectas) >= 14:
             juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
-            print('¡Te quedaste sin intentos!\nDespues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
+            print('¡Te quedaste sin intentos y has sido eliminado!\n'
+                  'Despues de ' + str(len(letrasIncorrectas)//2) + ' fallas y ' + str(len(letrasCorrectas)) +
+                  ' aciertos, la palabra era ' + palabraOculta)
+            for jugador in lista_jugadores_ordenado:
+                jugador[1][7] = True
             finJuego = True
+
+for jugador in lista_jugadores_ordenado:
+    print("El jugador", jugador[0], "obtuvo", jugador[1][1] ,"puntos")
+    print(jugador[1][6])  # Imprime si el jugador gano = a True
+    print(jugador[1][7])  # Se guarda si el jugador fue eliminado con un True
+
+# La lista de los jugadores esta compuesto por las posiciones:
+# [0] = Nombre
+# [1][0] = Orden
+# [1][1] = Puntaje
+# [1][2] = Palabra que tiene que adivinar
+# [1][3] = Palabra oculta ( queda la palabra con los "_" pero con las letras que puso bien"
+# [1][4] = Letras que puso bien
+# [1][5] = Letras que erro
+# [1][6] = Ganador ultima partida
+# [1][7] = Jugador fue eliminado? si=True, no=False
