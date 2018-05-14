@@ -1,3 +1,6 @@
+from Agustinho import*
+from mauro_sera_violado import *
+from TP_auxiliar import *
 from string import ascii_uppercase
 abecedario = ascii_uppercase
 def ingresarLetra():
@@ -13,6 +16,4 @@ def ingresarLetra():
             print('Has ingresado un caracter invalido.')
         else:
             return letra
-
-print(ingresarLetra())
 
