@@ -1,5 +1,3 @@
-from pip._vendor.requests.utils import dict_from_cookiejar
-
 from TP_texto import obtener_texto
 import random
 
@@ -53,11 +51,6 @@ def ingresar_letra():
     return letra_ingresada
 
 
-def letra_usada(letras_usadas, letra_ingresada):
-    letras_usadas += letra_ingresada
-    return letras_usadas
-
-
 def separar_palabra(palabra_adivinar):
     palabra_a_averiguar = list(str(palabra_adivinar))
     return palabra_a_averiguar
@@ -65,14 +58,13 @@ def separar_palabra(palabra_adivinar):
 
 def colocar_letras(letras_incorrectas, letras_correctas, letra_ingresada, palabra_a_averiguar):
     if letra_ingresada in palabra_a_averiguar:
-        letras_correctas += letra_ingresada
+        letras_correctas.append(letra_ingresada)
     else:
-        letras_incorrectas += letra_ingresada
+        letras_incorrectas.append(letra_ingresada)
     return letras_incorrectas, letras_correctas
 
 
 def juego(letras_incorrectas, letras_correctas, palabra_adivinar):
-    print(len(letras_incorrectas))
     print("letras incorrectas: ", letras_incorrectas)
     for letra in letras_incorrectas:
         print(letra, end=", ")
@@ -84,9 +76,10 @@ def juego(letras_incorrectas, letras_correctas, palabra_adivinar):
     print(espacios_de_letras)
 
 
-letras_incorrectas = ""
-letras_correctas = ""
-letras_usadas = ""
+letras_incorrectas = []
+letras_correctas = []
+letras_usadas = []
+ingresar_letra()
 dic_palabras = obtener_palabras()
 juego(letras_incorrectas,letras_correctas, "HOLA")
-ingresar_letra()
+
