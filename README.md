@@ -5,4 +5,9 @@ HOLA HELOWIS
 #AKA KON LOS TURROS
 ola k ase awante el faso jaja saludos
 Te odio profundamente pycharm
+
+#ACTUALIZO CON ALGO - MAURO - 13/05/2018
+Mandale Cumbia fuerte, atte Agustin
+
+Daroo
 EL ARCHIVO RED MI
