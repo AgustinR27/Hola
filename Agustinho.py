@@ -56,17 +56,6 @@ def separar_palabra(palabra_adivinar):
     return palabra_a_averiguar
 
 
-##def juego(letras_incorrectas, letras_correctas, palabra_adivinar):
-  #  for letra in letras_incorrectas:
-  #      print(letra, end=", ")
-  #  espacios_de_letras = "_ " * len(str(palabra_adivinar))
-   # for i in range(len(str(palabra_adivinar))):
-       # if str(palabra_adivinar)[i] in letras_correctas:
-            #espacios_de_letras = espacios_de_letras[:i] + palabra_adivinar[i] + espacios_de_letras[i + 1:]
-    #for letra in espacios_de_letras:
-    #print(espacios_de_letras)
-
-
 def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
     palabra = ""
     print('Letras incorrectas:', letrasIncorrectas)
@@ -87,7 +76,6 @@ palabraOculta = palabra_adivinar(lista_palabras)
 finJuego = False
 while True:
     juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
-    # El usuario elije una letra.
     letra = ingresar_letra()
     if letra in palabraOculta:
         letrasCorrectas = letrasCorrectas + letra
@@ -98,7 +86,7 @@ while True:
                 letrasEncontradas = False
                 break
         if letrasEncontradas:
-            print('¡Ganaste! La palabra secreta era ' + palabraOculta)
+            print('¡Ganaste! Despues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
             finJuego = True
     else:
         letrasIncorrectas += letra + " "
@@ -107,11 +95,3 @@ while True:
             juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
             print('¡Te quedaste sin intentos!\nDespues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
             finJuego = True
-
-
-letras_usadas = []
-letra_ingresada = ingresar_letra()
-
-palabra_adivinar = palabra_adivinar(lista_palabras)
-palabra_a_averiguar = separar_palabra(palabra_adivinar)
-juego(letra_ingresada, palabra_a_averiguar)
