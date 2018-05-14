@@ -44,20 +44,13 @@ def palabra_adivinar(lista_palabras):
     return palabra_adivinar
 
 
-def ingresar_letra(letras_usadas):
+def ingresar_letra():
     letra_ingresada = input("Ingrese una letra: ")
     letra_ingresada = letra_ingresada.upper()
-    abecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                  '\n'
-                  "U", "V", "W", "X", "Y", "Z"]
-    if len(letra_ingresada) != 1:
-        print("Creo que es bastante obvio lo que debia hacer: ")
-    elif letra_ingresada in letras_usadas:
-        print("Esa letra ya se uso, ingresa otra: ")
-    elif letra_ingresada not in abecedario:
-        print("caracter invalido")
-    else:
-        return letra_ingresada
+    while len(letra_ingresada) != 1 and not letra_ingresada.isalpha():
+        print("Ingreso un caracter invalido")
+        letra_ingresada = input("Ingrese una letra: ")
+    return letra_ingresada
 
 
 def letra_usada(letras_usadas, letra_ingresada):
@@ -96,3 +89,4 @@ letras_correctas = ""
 letras_usadas = ""
 dic_palabras = obtener_palabras()
 juego(letras_incorrectas,letras_correctas, "HOLA")
+ingresar_letra()
