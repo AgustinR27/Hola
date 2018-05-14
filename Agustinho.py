@@ -68,6 +68,7 @@ def separar_palabra(palabra_adivinar):
 
 
 def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
+    palabra = ""
     for letra in letrasIncorrectas:
         print('Letras incorrectas:', letrasIncorrectas)
     espacio = '_' * len(palabraOculta)
@@ -75,7 +76,8 @@ def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
         if palabraOculta[i] in letrasCorrectas:
             espacio = espacio[:i] + palabraOculta[i] + espacio[i+1:]
     for letra in espacio: # Mostrará la palabra secreta con espacios entre letras
-        print(letra)
+        palabra += letra + " "
+    print(palabra)
 
 
 letrasIncorrectas = ""
