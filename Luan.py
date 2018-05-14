@@ -2,6 +2,9 @@
 
 from TP_auxiliar import *
 
+for jugador
 
 def agregarPalabrasDiccJugadores(diccionario_jugadores):
-    diccionario_jugadores[2].append(palabras)
+    palabra = palabra_adivinar(lista_palabras)
+    diccionario_jugadores[2].append(palabra)
+    return diccionario_jugadores
