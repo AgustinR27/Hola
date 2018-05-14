@@ -17,17 +17,16 @@ def jugar_ahorcado():
 
     lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
     for jugador in lista_jugadores_ordenado:
-        diccionario_jugadores[jugador][2] = elegirPalabraAleatoria(lista_palabras)
-        diccionario_jugadores[jugador][2]
+        agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras)
 
 
-    print(diccionario_jugadores) #lo agregue para checkear el diccionario antes de ser transformado
-    lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-    agregarPalabras(diccionario_jugadores, lista_palabras, diccionario_palabras) #funcion a prueba (Luan)
-    print("\nDEBUG: Lista de palabras generada")
-    print(lista_palabras)
-    palabra_a_adivinar = elegirPalabraAleatoria(lista_palabras)
-    print(palabra_a_adivinar)
-    print(diccionario_jugadores) #mostrar el diccionario despues de asignarle palabras a los jugadores
+    #print(diccionario_jugadores) #lo agregue para checkear el diccionario antes de ser transformado
+    #lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
+    #agregarPalabras(diccionario_jugadores, lista_palabras, diccionario_palabras) #funcion a prueba (Luan)
+    #print("\nDEBUG: Lista de palabras generada")
+    #print(lista_palabras)
+    #palabra_a_adivinar = elegirPalabraAleatoria(lista_palabras)
+    #print(palabra_a_adivinar)
+    #print(diccionario_jugadores) #mostrar el diccionario despues de asignarle palabras a los jugadores
 
 jugar_ahorcado()

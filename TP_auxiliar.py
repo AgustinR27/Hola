@@ -127,14 +127,10 @@ Luego esa palabra asignada adquiere el valor booleano True en el diccionario de 
 Devuelve el diccionario jugadores, cada jugador con una palabra aleatoria asignada"""
 
 
-def agregarPalabras(diccionario_jugadores, lista_palabra, diccionario_palabras):
-    for jugador in diccionario_jugadores:
-        palabraAleatoria = elegirPalabraAleatoria(lista_palabra)
-        print("Palabra aleatoria MAURO: ",palabraAleatoria)
-        diccionario_jugadores[jugador][2].append(palabraAleatoria)
-        diccionario_palabras[palabraAleatoria][2] = True  #no se si esto cambia el valor booleano, por ahi hay q usar un replace.
-        print("CLAVE: {} - Valor: {}".format(palabraAleatoria, diccionario_palabras[palabraAleatoria]))
-    return diccionario_jugadores
+def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras):
+        palabra_aleatoria = elegirPalabraAleatoria(lista_palabras)
+        diccionario_jugadores[jugador[0]][2].append(palabra_aleatoria)
+        diccionario_palabras[palabra_aleatoria][2] = True
 
 
 
