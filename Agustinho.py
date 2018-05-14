@@ -42,25 +42,18 @@ def palabra_adivinar(lista_palabras):
 
 
 def ingresar_letra():
-    letra_ingresada = input("Ingrese una letra: ")
-    while len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
-        print("Ingreso un caracter invalido")
+    while True:
         letra_ingresada = input("Ingrese una letra: ")
-    letra_ingresada = letra_ingresada.upper()
-    return letra_ingresada
+        letra_ingresada = letra_ingresada.upper()
+        if len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
+            print("Ingreso un caracter invalido")
+        else:
+            return letra_ingresada
 
 
 def separar_palabra(palabra_adivinar):
     palabra_a_averiguar = list(str(palabra_adivinar))
     return palabra_a_averiguar
-
-
-def colocar_letras(letras_incorrectas, letras_correctas, letra_ingresada, palabra_a_averiguar):
-    if letra_ingresada in palabra_a_averiguar:
-        letras_correctas.append(letra_ingresada)
-    else:
-        letras_incorrectas.append(letra_ingresada)
-    return letras_incorrectas, letras_correctas
 
 
 ##def juego(letras_incorrectas, letras_correctas, palabra_adivinar):
@@ -73,22 +66,51 @@ def colocar_letras(letras_incorrectas, letras_correctas, letra_ingresada, palabr
     #for letra in espacios_de_letras:
     #print(espacios_de_letras)
 
-def juego(letra_ingresada, palabra_a_averiguar):
-    espacios_de_letras = "_ " * len(palabra_a_averiguar)
-    for i in range(len(palabra_a_averiguar)):
-        if letra_ingresada in palabra_a_averiguar[i]:
-            espacios_de_letras = espacios_de_letras[:i] + palabra_a_averiguar[i] + espacios_de_letras[i:]
-    #for letra in espacios_de_letras:
-    print(espacios_de_letras)
+
+def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
+    for letra in letrasIncorrectas:
+        print('Letras incorrectas:', letrasIncorrectas)
+    espacio = '_' * len(palabraOculta)
+    for i in range(len(palabraOculta)): # Remplaza los espacios en blanco por la letra bien escrita
+        if palabraOculta[i] in letrasCorrectas:
+            espacio = espacio[:i] + palabraOculta[i] + espacio[i+1:]
+    for letra in espacio: # Mostrará la palabra secreta con espacios entre letras
+        print(letra)
 
 
-#letras_incorrectas = []
-#letras_correctas = []
-letras_usadas = []
-letra_ingresada = ingresar_letra()
+letrasIncorrectas = ""
+letrasCorrectas = ""
 dic_palabras = obtener_palabras()
 lista_palabras = enlistar_palabras(dic_palabras)
+palabraOculta = palabra_adivinar(lista_palabras)
+finJuego = False
+while True:
+    juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
+    # El usuario elije una letra.
+    letra = ingresar_letra()
+    if letra in palabraOculta:
+        letrasCorrectas = letrasCorrectas + letra
+        # Se fija si el jugador ganó
+        letrasEncontradas = True
+        for i in range(len(palabraOculta)):
+            if palabraOculta[i] not in letrasCorrectas:
+                letrasEncontradas = False
+                break
+        if letrasEncontradas:
+            print('¡Ganaste! La palabra secreta era ' + palabraOculta)
+            finJuego = True
+    else:
+        letrasIncorrectas = letrasIncorrectas + letra
+        # Comprueba la cantidad de letras que ha ingresado el jugador y si perdió
+        if len(letrasIncorrectas) == 7:
+            juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
+            print('¡Te quedaste sin intentos!\nDespues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
+            finJuego = True
+
+
+letras_usadas = []
+letra_ingresada = ingresar_letra()
+
 palabra_adivinar = palabra_adivinar(lista_palabras)
 palabra_a_averiguar = separar_palabra(palabra_adivinar)
 juego(letra_ingresada, palabra_a_averiguar)
-print(palabra_a_averiguar)
