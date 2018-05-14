@@ -117,8 +117,8 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
 
 def elegirPalabraAleatoria(lista_palabras):
     print(lista_palabras)
-    palabra_adivinar = lista_palabras.pop(random.randint(0,len(lista_palabras)-1))
-    print("palabra a adivinar: ",palabra_adivinar)
+    palabra_adivinar = lista_palabras.pop(random.randint(0, len(lista_palabras)-1))
+    print("palabra a adivinar: ", palabra_adivinar)
     return palabra_adivinar
 
 """La función pide el diccionario de los jugadores, la lista de palabras procesada (válida) y el diccionario de palabras. 
@@ -129,19 +129,17 @@ Devuelve el diccionario jugadores, cada jugador con una palabra aleatoria asigna
 
 def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras):
         palabra_aleatoria = elegirPalabraAleatoria(lista_palabras)
-        diccionario_jugadores[jugador[0]][2].append(palabra_aleatoria)
+        diccionario_jugadores[jugador[0]][2].extend(list(palabra_aleatoria))
+        print(diccionario_jugadores[jugador[0]][2])
+        diccionario_jugadores[jugador[0]][3].extend("_" * len(palabra_aleatoria))
+        print(diccionario_jugadores[jugador[0]][3])
         diccionario_palabras[palabra_aleatoria][2] = True
 
-
-
-
-"""La función pide el diccionario de palabras. Se crea una lista con aquellas palabras cuyo valor booleano en el diccionario
-es False. Se devuelve una lista de palabras con aquellas que no han sido utilizadas aún."""
-
-
-def valorBooleano(diccionario_palabras):
-    lista_palabra = []
-    for palabra in diccionario_palabras:
-        if diccionario_palabras[palabra][2] == False:  #nose porque me dice que se puede reducir
-            lista_palabra.append(palabra)
-    return lista_palabra
+def ingresarLetra():
+    while True:
+        letra_ingresada = input("Ingrese una letra: ")
+        letra_ingresada = letra_ingresada.upper()
+        if len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
+            print("Ingreso un caracter invalido")
+        else:
+            return letra_ingresada
