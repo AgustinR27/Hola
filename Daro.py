@@ -15,3 +15,6 @@ def ingresarLetra():
             return letra
 
 print(ingresarLetra())
+
+def acierto():
+    if acierto = 
