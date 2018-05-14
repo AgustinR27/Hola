@@ -16,5 +16,5 @@ def ingresarLetra():
 
 print(ingresarLetra())
 
-def restarPuntos():
-    if letraIngresada
+
+
