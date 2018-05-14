@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/PycharmProjects/Ejercicios_Varios/.idea/Ejercicios_Varios.iml" filepath="$USER_HOME$/PycharmProjects/Ejercicios_Varios/.idea/Ejercicios_Varios.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../Guia de ejercicios/Guia Resuelta/.idea/Guia Resuelta.iml" filepath="$PROJECT_DIR$/../../../Guia de ejercicios/Guia Resuelta/.idea/Guia Resuelta.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/gp_nombre_creativo.iml" filepath="$PROJECT_DIR$/.idea/gp_nombre_creativo.iml" />
     </modules>
   </component>

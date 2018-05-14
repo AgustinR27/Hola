@@ -1,3 +1,5 @@
+from pip._vendor.requests.utils import dict_from_cookiejar
+
 from TP_texto import obtener_texto
 import random
 
@@ -81,15 +83,16 @@ def juego(letras_incorrectas, letras_correctas, palabra_adivinar):
     print("letras incorrectas: ", letras_incorrectas)
     for letra in letras_incorrectas:
         print(letra, end=", ")
-    espacios_de_letras = "_" * len(str(palabra_adivinar))
+    espacios_de_letras = "_ " * len(str(palabra_adivinar))
     for i in range(len(str(palabra_adivinar))):
         if str(palabra_adivinar)[i] in letras_correctas:
             espacios_de_letras = espacios_de_letras[:i] + palabra_adivinar[i] + espacios_de_letras[i + 1:]
-    for letra in espacios_de_letras:
-        print(letra)
+    #for letra in espacios_de_letras:
+    print(espacios_de_letras)
 
 
 letras_incorrectas = ""
 letras_correctas = ""
 letras_usadas = ""
 dic_palabras = obtener_palabras()
+juego(letras_incorrectas,letras_correctas, "HOLA")

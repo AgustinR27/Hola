@@ -15,7 +15,7 @@ def jugar_ahorcado():
         print(jugador[0])
 
     lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-    print("\nDEGUG: Lista de palabras generada")
+    print("\nDEBUG: Lista de palabras generada")
     print(lista_palabras)
     palabra_a_adivinar = palabra_adivinar(lista_palabras)
     print(palabra_a_adivinar)
