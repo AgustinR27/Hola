@@ -69,8 +69,7 @@ def separar_palabra(palabra_adivinar):
 
 def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
     palabra = ""
-    for letra in letrasIncorrectas:
-        print('Letras incorrectas:', letrasIncorrectas)
+    print('Letras incorrectas:', letrasIncorrectas)
     espacio = '_' * len(palabraOculta)
     for i in range(len(palabraOculta)): # Remplaza los espacios en blanco por la letra bien escrita
         if palabraOculta[i] in letrasCorrectas:
@@ -102,7 +101,7 @@ while True:
             print('¡Ganaste! La palabra secreta era ' + palabraOculta)
             finJuego = True
     else:
-        letrasIncorrectas = letrasIncorrectas + letra
+        letrasIncorrectas += letra + " "
         # Comprueba la cantidad de letras que ha ingresado el jugador y si perdió
         if len(letrasIncorrectas) == 7:
             juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
