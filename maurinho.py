@@ -1,6 +1,6 @@
 def dibujarHombrecito(rango):
     dibujo = ""
-    hombrecito = ["\n | \n | \n 0\n",r"/",r"|","\ \n","/"," \ \n"]
+    hombrecito = ["\n | \n | \n"," 0\n","/","|","\ \n","/"," \ \n"]
 
     for posicion in range(rango):
         dibujo += "".join(hombrecito[posicion])
@@ -27,3 +27,6 @@ print(dibujarHombrecito(5))
 print("\n")
 print("turno 6:")
 print(dibujarHombrecito(6))
+print("\n")
+print("turno 7:")
+print(dibujarHombrecito(7))
