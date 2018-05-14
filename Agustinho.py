@@ -95,5 +95,3 @@ while finJuego == False:
             juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
             print('¡Te quedaste sin intentos!\nDespues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
             finJuego = True
-    if finJuego:
-        break
