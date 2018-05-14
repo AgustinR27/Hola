@@ -17,4 +17,5 @@ def ingresarLetra():
 print(ingresarLetra())
 
 def acierto():
-    if acierto = 
+    if acierto == True:
+        
