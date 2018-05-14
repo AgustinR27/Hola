@@ -73,11 +73,11 @@ def colocar_letras(letras_incorrectas, letras_correctas, letra_ingresada, palabr
     #for letra in espacios_de_letras:
     #print(espacios_de_letras)
 
-def juego(letra_ingresada, palabra_adivinar):
-    espacios_de_letras = "_ " * len(str(palabra_adivinar))
-    for i in range(len(str(palabra_adivinar))):
-        if letra_ingresada in str(palabra_adivinar)[i]:
-            espacios_de_letras = espacios_de_letras[:i] + palabra_adivinar[i] + espacios_de_letras[i + 1:]
+def juego(letra_ingresada, palabra_a_averiguar):
+    espacios_de_letras = "_ " * len(palabra_a_averiguar)
+    for i in range(len(palabra_a_averiguar)):
+        if letra_ingresada in palabra_a_averiguar[i]:
+            espacios_de_letras = espacios_de_letras[:i] + palabra_a_averiguar[i] + espacios_de_letras[i:]
     #for letra in espacios_de_letras:
     print(espacios_de_letras)
 
@@ -87,6 +87,9 @@ def juego(letra_ingresada, palabra_adivinar):
 letras_usadas = []
 letra_ingresada = ingresar_letra()
 dic_palabras = obtener_palabras()
-juego(letra_ingresada, "HOLAAAAAA")
-
+lista_palabras = enlistar_palabras(dic_palabras)
+palabra_adivinar = palabra_adivinar(lista_palabras)
+palabra_a_averiguar = separar_palabra(palabra_adivinar)
+juego(letra_ingresada, palabra_a_averiguar)
+print(palabra_a_averiguar)
 
