@@ -19,17 +19,57 @@ def actualizarPuntos(diccionario_jugador, jugador, parametro):
 
 jugando = True
 
-def prueba(diccionario_jugador, jugador):
+def turnos(diccionario_jugador, jugador):
     for jugador in diccionario_jugador:
-        poder_jugar = True
-        while poder_jugar == True:
+        finTurno = False
+        while finTurno == False:
             letra = ingresar_letra()
             palabra = diccionario_jugador[jugador][2]
-            valor = juego(letra, palabra)
-            if valor == "se equivoco, etc":
-                poder_jugar = False
-            elif valor == "victoria":
-                poder_jugar = False
+            if letra not in palabra:
+                finTurno = True
 
 
 
+
+def evaluacion(letra_ingresada, palabra):
+    valor = False
+    if letra not in palabra:
+        valor = True
+    return valor
+
+def turnosYJuego(diccionario_jugador):
+    finJuego = False
+    while finJuego == False:
+        for jugador in diccionario_jugador:
+            print(jugador)
+            letrasIncorrectas = ""
+            letrasCorrectas = ""
+            dic_palabras = obtener_palabras()
+            lista_palabras = enlistar_palabras(dic_palabras)
+            palabraOculta = palabra_adivinar(lista_palabras)
+            finTurno = False
+            while finTurno == False:
+                juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
+                letra = ingresar_letra()
+                if letra in palabraOculta:
+                    letrasCorrectas = letrasCorrectas + letra
+                    # Se fija si el jugador ganó
+                    letrasEncontradas = True
+                    for i in range(len(palabraOculta)):
+                        if palabraOculta[i] not in letrasCorrectas:
+                            letrasEncontradas = False
+                            break
+                    if letrasEncontradas:
+                        print('¡Ganaste! Despues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
+                        finTurno = True
+                        funJuego = True
+                else:
+                    letrasIncorrectas += letra + " "
+                    # Comprueba la cantidad de letras que ha ingresado el jugador y si perdió
+                    if len(letrasIncorrectas) >= 14:
+                        juego(letrasIncorrectas, letrasCorrectas, palabraOculta)
+                        print('¡Te quedaste sin intentos!\nDespues de ' + str(len(letrasIncorrectas)) + ' fallas y ' + str(len(letrasCorrectas)) + ' aciertos, la palabra era ' + palabraOculta)
+                    finTurno = True
+
+list = ("Luan", "Luis")
+turnosYJuego(list)
