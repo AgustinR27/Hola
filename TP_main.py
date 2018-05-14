@@ -1,5 +1,4 @@
 from TP_auxiliar import *
-from Luan import agregarPalabras
 
 
 def jugar_ahorcado():

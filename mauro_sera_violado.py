@@ -47,7 +47,7 @@ def palabra_adivinar(lista_palabras):
 def ingresar_letra():
     letra_ingresada = input("Ingrese una letra: ")
     letra_ingresada = letra_ingresada.upper()
-    while len(letra_ingresada) != 1 and not letra_ingresada.isalpha():
+    while len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
         print("Ingreso un caracter invalido")
         letra_ingresada = input("Ingrese una letra: ")
     return letra_ingresada
