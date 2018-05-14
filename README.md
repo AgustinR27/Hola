@@ -10,3 +10,4 @@ Te odio profundamente pycharm
 Mandale Cumbia fuerte, atte Agustin
 
 Daroo
+EL ARCHIVO RED MI
