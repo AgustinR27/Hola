@@ -14,6 +14,7 @@ def agregarPalabras(diccionario_jugadores, lista_palabra, diccionario_palabras):
         palabraAleatoria = palabra_adivinar(lista_palabra)
         diccionario_jugadores[jugador][2].append(palabraAleatoria)
         diccionario_palabras[palabraAleatoria][2] = True #no se si esto cambia el valor booleano, por ahi hay q usar un replace.
+        print("CLAVE: {} - Valor: {}".format(palabraAleatoria,diccionario_palabras[palabraAleatoria]))
     return diccionario_jugadores
 
 
@@ -24,7 +25,7 @@ es False. Se devuelve una lista de palabras con aquellas que no han sido utiliza
 def valorBooleano(diccionario_palabras):
     lista_palabra = []
     for palabra in diccionario_palabras:
-        if diccionario_palabra[palabra][2] == False:
+        if diccionario_palabras[palabra][2] == False:
             lista_palabra.append(palabra)
     return lista_palabra
 
