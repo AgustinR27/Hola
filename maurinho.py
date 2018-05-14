@@ -1,16 +1,29 @@
-def agregarPalabras(diccionario_jugadores, lista_palabra):
-    palabraAleatoria = palabra_adivinar(lista_palabra)
-    for jugador in diccionario_jugadores:
-        diccionario_jugadores[jugador][2].append(palabraAleatoria)
-    return diccionario_jugadores
+def dibujarHombrecito(rango):
+    dibujo = ""
+    hombrecito = ["\n | \n | \n 0\n",r"/",r"|","\ \n","/"," \ \n"]
 
+    for posicion in range(rango):
+        dibujo += "".join(hombrecito[posicion])
+    return dibujo
 
-def ingresar_letra():
-    letra_ingresada = input("Ingrese una letra: ")
-    letra_ingresada = letra_ingresada.upper()
-    while len(letra_ingresada) != 1 and not letra_ingresada.isalpha():
-        print("Ingreso un caracter invalido")
-        letra_ingresada = input("Ingrese una letra: ")
-    return letra_ingresada
-
-ingresar_letra()
+print("turno 0:")
+print(dibujarHombrecito(0))
+print("NO MUESTRA NADA EN EL TURNO CERO")
+print("\n")
+print("turno 1:")
+print(dibujarHombrecito(1))
+print("\n")
+print("turno 2:")
+print(dibujarHombrecito(2))
+print("\n")
+print("turno 3:")
+print(dibujarHombrecito(3))
+print("\n")
+print("turno 4:")
+print(dibujarHombrecito(4))
+print("\n")
+print("turno 5:")
+print(dibujarHombrecito(5))
+print("\n")
+print("turno 6:")
+print(dibujarHombrecito(6))
