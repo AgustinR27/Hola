@@ -43,10 +43,10 @@ def palabra_adivinar(lista_palabras):
 
 def ingresar_letra():
     letra_ingresada = input("Ingrese una letra: ")
-    letra_ingresada = letra_ingresada.upper()
     while len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
         print("Ingreso un caracter invalido")
         letra_ingresada = input("Ingrese una letra: ")
+    letra_ingresada = letra_ingresada.upper()
     return letra_ingresada
 
 
@@ -92,4 +92,3 @@ palabra_adivinar = palabra_adivinar(lista_palabras)
 palabra_a_averiguar = separar_palabra(palabra_adivinar)
 juego(letra_ingresada, palabra_a_averiguar)
 print(palabra_a_averiguar)
-
