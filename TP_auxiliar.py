@@ -60,7 +60,7 @@ def esNombreValido(nombre_jugador):
     valor = True
     if nombre_jugador.isdigit():
         valor = False
-    elif len(nombre_jugador) < 3 or len(nombre_jugador) > 15:
+    elif len(nombre_jugador) < 1 or len(nombre_jugador) > 15:
         valor = False
     return valor
 
@@ -75,17 +75,17 @@ def solicitarNombreJugador():
 def generarDiccionarioJugadores(cant_jugadores):
     #a partir de una cantidad de jugadores pasada por parametro, se solicita dicha cantidad de veces el nombre de jugadores. Se valida que los nombres no hayan sido utilizados ya en el diccionario.
     #el cual tiene el siguiente formato:
-    #clave = jugador valor = lista compuesta por [orden, puntaje, lista de palabras utilizadas, ganador_ultima_partida?, jugador_eliminado?]
+    #clave = jugador valor = lista compuesta por [orden, puntaje, palabra a_adivinar, palabra_oculta, letras_acertadas,letras_falladas, ganador_ultima_partida, jugador_eliminado]
     dic_jugadores = {}
     for numero_jugador in range(cant_jugadores):
         jugador = solicitarNombreJugador()
         if formatearPalabra(jugador) not in dic_jugadores:
-            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], False, False]
+            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [],[],[],[], False, False]
         else:
             while formatearPalabra(jugador) in dic_jugadores:
                 print("El nombre ingresado ya fue utilizado por otra persona. Ingrese un nombre distinto")
                 jugador = solicitarNombreJugador()
-            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], False, False]
+            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [],[],[],[], False, False]
     return dic_jugadores
 
 
@@ -108,16 +108,17 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
     while lista_palabras == []:
         cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
         for clave in dic_palabras:
-            if dic_palabras[clave][1] == int(cant_letras):
+            if dic_palabras[clave][1] == int(cant_letras) and dic_palabras[clave][2] == False:
                 lista_palabras.append(clave)
         if lista_palabras == []:
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
 
 
-def palabra_adivinar(lista_palabras):
-    lista_palabras_elegidas = lista_palabras
-    palabra_adivinar = random.choice(lista_palabras_elegidas)
+def elegirPalabraAleatoria(lista_palabras):
+    print(lista_palabras)
+    palabra_adivinar = lista_palabras.pop(random.randint(0,len(lista_palabras)-1))
+    print("palabra a adivinar: ",palabra_adivinar)
     return palabra_adivinar
 
 """La función pide el diccionario de los jugadores, la lista de palabras procesada (válida) y el diccionario de palabras. 
@@ -126,13 +127,12 @@ Luego esa palabra asignada adquiere el valor booleano True en el diccionario de 
 Devuelve el diccionario jugadores, cada jugador con una palabra aleatoria asignada"""
 
 
-def agregarPalabras(diccionario_jugadores, lista_palabra, diccionario_palabras):
-    for jugador in diccionario_jugadores:
-        palabraAleatoria = palabra_adivinar(lista_palabra)
-        diccionario_jugadores[jugador][2].append(palabraAleatoria)
-        diccionario_palabras[palabraAleatoria][2] = True  #no se si esto cambia el valor booleano, por ahi hay q usar un replace.
-        print("CLAVE: {} - Valor: {}".format(palabraAleatoria, diccionario_palabras[palabraAleatoria]))
-    return diccionario_jugadores
+def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras):
+        palabra_aleatoria = elegirPalabraAleatoria(lista_palabras)
+        diccionario_jugadores[jugador[0]][2].append(palabra_aleatoria)
+        diccionario_palabras[palabra_aleatoria][2] = True
+
+
 
 
 """La función pide el diccionario de palabras. Se crea una lista con aquellas palabras cuyo valor booleano en el diccionario
