@@ -45,7 +45,7 @@ def solicitarValor(mensaje):
 def solicitarCantJugadores():
     cant_jugadores = input("Ingrese la cantidad de jugadores: ")
     while cant_jugadores.isdigit():
-        if int(cant_jugadores) > 11:
+        if int(cant_jugadores) > 10:
             print("cantidad de jugadores incorrecto, los jugadores deben ir de 1 hasta 10")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
         elif int(cant_jugadores) == 0:
