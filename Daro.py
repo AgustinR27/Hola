@@ -20,9 +20,31 @@ from maurinho import imprimirDatosJugador
 #            return letra
 
 ###############################################################################
-
 from TP_texto import obtener_texto
 import random
+from random import shuffle
+
+
+
+def dibujarHombrecito(nro_desaciertos):
+    dibujo = ""
+    hombrecito = ["\n | \n | \n"," 0\n","/","|","\ \n","/"," \ \n"]
+
+    for posicion in range(nro_desaciertos):
+        dibujo += "".join(hombrecito[posicion])
+    return dibujo
+
+
+def formatearPalabra(palabra):
+    dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
+    palabra_vieja = palabra.upper()
+    palabra_nueva = ''
+    for letra in palabra_vieja:
+        if letra not in dic_a_reemplazar:
+            palabra_nueva += letra
+        else:
+            palabra_nueva += dic_a_reemplazar[letra]
+    return palabra_nueva
 
 def generarDiccionarioPalabras():
     #a partir del string pasado por los profesores, se genera un diccionario de palabras con el siguiente formato:
@@ -40,49 +62,25 @@ def generarDiccionarioPalabras():
                         dic_palabras[formatearPalabra(palabra)][0] += 1
     return dic_palabras
 
-def formatearPalabra(palabra):
-    dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
-    palabra_vieja = palabra.upper()
-    palabra_nueva = ''
-    for letra in palabra_vieja:
-        if letra not in dic_a_reemplazar:
-            palabra_nueva += letra
-        else:
-            palabra_nueva += dic_a_reemplazar[letra]
-    return palabra_nueva
-
 def solicitarCantJugadores():
     continuar = True
     cant_jugadores = input("Ingrese la cantidad de jugadores: ")
     while continuar:
         if not cant_jugadores.isdigit():
-            print("La cantidad de jugadores debe ser numérica")
+            print("Valor incorrecto. La cantidad de jugadores debe ser numérica.")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
-            continuar = True
-        elif int(cant_jugadores) > 10:
-            print("cantidad de jugadores incorrecto, los jugadores deben ir de 1 hasta 10")
+        elif int(cant_jugadores) < 2 or int(cant_jugadores) > 10:
+            print("Valor incorrecto, la cantidad de jugadores jugadores minima es de dos jugadores y como máximo, pueden jugar diez personas.")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
-            continuar = True
-        elif int(cant_jugadores) == 0:
-            print("No te pedí tu coeficiente intelectual. Ingresá una cantidad de jugadores valida: ")
-            cant_jugadores = input("Ingrese la cantidad de jugadores")
-            continuar = True
         else:
             continuar = False
     return int(cant_jugadores)
 
-def esNombreValido(nombre_jugador):
-    # pendiente. Hay que validar que sea un nombre correcto. ¿verificamos acá que no sea una clave ya usada en el diccionario?
-    valor = True
-    if nombre_jugador.isdigit():
-        valor = False
-    return valor
-
 def solicitarNombreJugador():
-    jugador = str(input("Ingrese Nombre Jugador: "))
-    while not esNombreValido(jugador):
-        jugador = input("Nombre incorrecto.\n Ingrese Nombre Jugador: ")
-    return jugador
+    nombre_jugador = input("Ingrese Nombre para el Jugador: ")
+    while not nombre_jugador.replace(" ","").isalpha():
+        nombre_jugador = input("Nombre incorrecto. Ingrese Nombre Jugador: ")
+    return nombre_jugador
 
 def generarDiccionarioJugadores(cant_jugadores):
     #a partir de una cantidad de jugadores pasada por parametro, se solicita dicha cantidad de veces el nombre de jugadores. Se valida que los nombres no hayan sido utilizados ya en el diccionario.
@@ -95,69 +93,96 @@ def generarDiccionarioJugadores(cant_jugadores):
             dic_jugadores[formatearPalabra(jugador)] = [0, 0, [],[],[],[], False, False]
         else:
             while formatearPalabra(jugador) in dic_jugadores:
-                print("El nombre ingresado ya fue utilizado por otra persona. Ingrese un nombre distinto")
+                print("El nombre ingresado ya fue utilizado por otra persona. Ingrese un nombre distinto.")
                 jugador = solicitarNombreJugador()
             dic_jugadores[formatearPalabra(jugador)] = [0, 0, [],[],[],[], False, False]
     return dic_jugadores
 
-def generarDiccionarioPartida():
-    dic_partida = {"nro_partida": 1}
+
+def otorgarOrdenJugadoresPrimeraRonda(dic_jugadores,lista_jugadores):
+    for indice in range(len(lista_jugadores)):
+        jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
+        dic_jugadores[jugador][0] = indice+1
+
+def separarGanadorAnteriorPartida(dic_jugadores,lista_jugadores):
+    condicion = True
+    cont = 0
+    while condicion and cont <= len(lista_jugadores) - 1:
+        valor_jugador = lista_jugadores[cont]
+        ganador_ultima_partida = dic_jugadores[valor_jugador][6]
+        if ganador_ultima_partida == True:
+            dic_jugadores[valor_jugador][0] = 1
+            valor_jugador.pop(cont)
+            condicion = False
+        cont += 1
+
+def otorgarOrdenJugadoresGeneral(dic_jugadores,lista_jugadores):
+    dic_auxiliar = {}
+    for indice, jugador in enumerate(lista_jugadores):
+
+        if dic_jugadores[jugador][1] not in dic_auxiliar:
+            dic_auxiliar[dic_jugadores[jugador][1]] = [jugador]
+        else:
+            dic_auxiliar[dic_jugadores[jugador][1]].append(jugador)
+
+    lista_auxiliar = sorted(dic_auxiliar.items(), reverse=True)
+    cont = 2
+    for item in lista_auxiliar:
+        if len(item[1]) == 1:
+            dic_jugadores[item[1]][0] = cont
+            cont += 1
+        else:
+            print(item[1])
+
+            shuffle(item[1])
+            print(item[1])
+            for elemento in item[1]:
+                dic_jugadores[elemento][0] = cont
+                cont += 1
+
+
+
+def otorgarOrdenJugadores(nro_partida, dic_jugadores):
+    lista_jugadores = list(dic_jugadores.keys())
+    if nro_partida == 1:
+        otorgarOrdenJugadoresPrimeraRonda(dic_jugadores, lista_jugadores)
+    else:
+        separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores)
+        otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores)
+
+def imprimirDatosJugador(jugador):
+    print("NOMBRE_JUGADOR: {}".format(jugador))
+    print("ORDEN_JUGADOR: {}".format(diccionario_jugadores[jugador][0]))
+    print("PUNTAJE_JUGADOR: {}".format(diccionario_jugadores[jugador][1]))
+    print("PALABRA_A_ADIVINAR: {}".format(diccionario_jugadores[jugador][2]))
+    print("PALABRA_OCULTA: {}".format(diccionario_jugadores[jugador][3]))
+    print("LETRAS ACERTADAS: {}".format(diccionario_jugadores[jugador][4]))
+    print("LETRAS_ERRADAS: {}".format(diccionario_jugadores[jugador][5]))
+    print("GANADOR_ULTIMA_PARTIDA: {}".format(diccionario_jugadores[jugador][6]))
+    print("JUGADOR_ELIMINADO: {}\n\n".format(diccionario_jugadores[jugador][7]))
+
+def generarDiccionarioPartida(nro_partida):
+    dic_partida = {nro_partida: []}
     return dic_partida
 
-def otorgarOrdenJugadores(numero_partida, dic_jugadores):
-    lista_jugadores = list(dic_jugadores.keys())
-    for indice, valor_jugador in enumerate(lista_jugadores):
-        jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
-        dic_jugadores[jugador][0] = indice
+def almacenarDatosPartida(diccionario_partida, datos_partida):
+    #espera una lista con los datos de cada jugador, al finalizar el turno y los almacena en la partida
+    diccionario_partida.append(datos_partida)
 
-def generarListaPalabrasPorCantLetras(dic_palabras):
-    lista_palabras = []
-    while lista_palabras == []:
-        cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
-        for clave in dic_palabras:
-            if dic_palabras[clave][1] == int(cant_letras) and dic_palabras[clave][2] == False:
-                lista_palabras.append(clave)
-        if lista_palabras == []:
-            print("No se encontraron palabras con esa cantidad de letras.")
-    return lista_palabras
+diccionario_palabras = generarDiccionarioPalabras()
+cant_jugadores = solicitarCantJugadores()
 
-def elegirPalabraAleatoria(lista_palabras):
-    print(lista_palabras)
-    palabra_adivinar = lista_palabras.pop(random.randint(0, len(lista_palabras)-1))
-    print("palabra a adivinar: ", palabra_adivinar)
-    return palabra_adivinar
+diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores)
+nro_partida = 1
+
+diccionario_partida = generarDiccionarioPartida(nro_partida)
 
 
-"""La función pide el diccionario de los jugadores, la lista de palabras procesada (válida) y el diccionario de palabras. 
-Se usa una palabra aleatoria de la lista de palabras y se le asigna a una lista vacia dentro del diccionario de los jugadores.
-Luego esa palabra asignada adquiere el valor booleano True en el diccionario de palabras-
-Devuelve el diccionario jugadores, cada jugador con una palabra aleatoria asignada"""
 
+for jugador in diccionario_jugadores:
+    almacenarDatosPartida(diccionario_partida[nro_partida], diccionario_jugadores[jugador])
+print(diccionario_partida)
 
-def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras):
-        palabra_aleatoria = elegirPalabraAleatoria(lista_palabras)
-        diccionario_jugadores[jugador[0]][2].extend(list(palabra_aleatoria))
-        print(diccionario_jugadores[jugador[0]][2])
-        diccionario_jugadores[jugador[0]][3].extend("_" * len(palabra_aleatoria))
-        print(diccionario_jugadores[jugador[0]][3])
-        diccionario_palabras[palabra_aleatoria][2] = True
+otorgarOrdenJugadores(nro_partida+1, diccionario_jugadores)
+print(diccionario_jugadores)
 
-def ingresar_letra():
-    while True:
-        letra_ingresada = input("Ingrese una letra: ")
-        letra_ingresada = letra_ingresada.upper()
-        if len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
-            print("Ingreso un caracter invalido")
-        else:
-            return letra_ingresada
-
-def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
-    palabra = ""
-    print('Letras incorrectas:', letrasIncorrectas)
-    espacio = '_' * len(palabraOculta)
-    for i in range(len(palabraOculta)):  # Remplaza los espacios por la letra en la posicion
-        if palabraOculta[i] in letrasCorrectas:
-            espacio = espacio[:i] + palabraOculta[i] + espacio[i+1:]
-    for letra in espacio:  # Muestra la palabra oculta con espacios entre las letras
-        palabra += letra + " "
-    print(palabra)

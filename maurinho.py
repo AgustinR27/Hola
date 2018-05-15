@@ -90,7 +90,7 @@ def separarGanadorAnteriorPartida(dic_jugadores,lista_jugadores):
         ganador_ultima_partida = dic_jugadores[valor_jugador][6]
         if ganador_ultima_partida == True:
             dic_jugadores[valor_jugador][0] = 1
-            valor_jugador.pop(cont)
+            lista_jugadores.pop(cont)
             condicion = False
         cont += 1
 
@@ -107,7 +107,7 @@ def otorgarOrdenJugadoresGeneral(dic_jugadores,lista_jugadores):
     cont = 2
     for item in lista_auxiliar:
         if len(item[1]) == 1:
-            dic_jugadores[item[1]][0] = cont
+            dic_jugadores[item[1][0]][0] = cont
             cont += 1
         else:
             print(item[1])
@@ -155,9 +155,16 @@ nro_partida = 1
 
 diccionario_partida = generarDiccionarioPartida(nro_partida)
 
+
 for jugador in diccionario_jugadores:
     almacenarDatosPartida(diccionario_partida[nro_partida], diccionario_jugadores[jugador])
 print(diccionario_partida)
 
+diccionario_jugadores["A"][6] = True
+diccionario_jugadores["A"][1] = 30
+diccionario_jugadores["B"][1] = 25
+diccionario_jugadores["C"][1] = 20
+diccionario_jugadores["D"][1] = 20
+diccionario_jugadores["E"][1] = -13
 otorgarOrdenJugadores(nro_partida+1, diccionario_jugadores)
 print(diccionario_jugadores)
