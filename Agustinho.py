@@ -115,7 +115,7 @@ while finJuego == False:
             finJuego = True
 
 for jugador in lista_jugadores_ordenado:
-    print("El jugador", jugador[0], "obtuvo", jugador[1][1] ,"puntos")
+    print("El jugador", jugador[0], "obtuvo", jugador[1][1], "puntos")
     print(jugador[1][6])  # Imprime si el jugador gano = a True
     print(jugador[1][7])  # Se guarda si el jugador fue eliminado con un True
 
