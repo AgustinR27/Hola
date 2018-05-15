@@ -135,6 +135,7 @@ def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_
         print(diccionario_jugadores[jugador[0]][3])
         diccionario_palabras[palabra_aleatoria][2] = True
 
+
 def ingresarLetra():
     while True:
         letra_ingresada = input("Ingrese una letra: ")
