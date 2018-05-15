@@ -15,10 +15,6 @@ def formatearPalabra(palabra):
     return palabra_nueva
 
 
-def esPalabraValida(palabra):
-    return palabra.isalpha() and len(palabra) >= 5
-
-
 def generarDiccionarioPalabras():
     #a partir del string pasado por los profesores, se genera un diccionario de palabras con el siguiente formato:
     #clave = palabra valor = lista compuesta por [cantidad_de_repeticiones, cant_letras, palabra_ya_utilizada]
@@ -28,18 +24,12 @@ def generarDiccionarioPalabras():
         if len(linea) > 0:
             lista_auxiliar = linea.split(" ")
             for palabra in lista_auxiliar:
-                if esPalabraValida(palabra):
+                if palabra.isalpha() and len(palabra) >= 5:
                     if formatearPalabra(palabra) not in dic_palabras:
                         dic_palabras[formatearPalabra(palabra)] = [1, len(palabra), False]
                     else:
                         dic_palabras[formatearPalabra(palabra)][0] += 1
-
     return dic_palabras
-
-
-def solicitarValor(mensaje):
-    valor = input(mensaje)
-    return valor
 
 
 def solicitarCantJugadores():
@@ -72,9 +62,9 @@ def esNombreValido(nombre_jugador):
 
 
 def solicitarNombreJugador():
-    jugador = str(solicitarValor("Ingrese Nombre Jugador: "))
+    jugador = str(input("Ingrese Nombre Jugador: "))
     while not esNombreValido(jugador):
-        jugador = solicitarValor("Nombre incorrecto.\n Ingrese Nombre Jugador: ")
+        jugador = input("Nombre incorrecto.\n Ingrese Nombre Jugador: ")
     return jugador
 
 
