@@ -60,8 +60,6 @@ def esNombreValido(nombre_jugador):
     valor = True
     if nombre_jugador.isdigit():
         valor = False
-    elif len(nombre_jugador) < 1 or len(nombre_jugador) > 15:
-        valor = False
     return valor
 
 
