@@ -43,16 +43,24 @@ def solicitarValor(mensaje):
 
 
 def solicitarCantJugadores():
+    continuar = True
     cant_jugadores = input("Ingrese la cantidad de jugadores: ")
-    while cant_jugadores.isdigit():
-        if int(cant_jugadores) > 10:
+    while continuar:
+        if not cant_jugadores.isdigit():
+            print("La cantidad de jugadores debe ser numérica")
+            cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+            continuar = True
+        elif int(cant_jugadores) > 10:
             print("cantidad de jugadores incorrecto, los jugadores deben ir de 1 hasta 10")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+            continuar = True
         elif int(cant_jugadores) == 0:
-            print("Mucha lógica por suerte... Ingresa de nuevo un valor: ")
+            print("No te pedí tu coeficiente intelectual. Ingresá una cantidad de jugadores valida: ")
             cant_jugadores = input("Ingrese la cantidad de jugadores")
+            continuar = True
         else:
-            return int(cant_jugadores)
+            continuar = False
+    return int(cant_jugadores)
 
 
 def esNombreValido(nombre_jugador):
