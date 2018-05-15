@@ -92,11 +92,10 @@ def generarDiccionarioPartida():
 
 def otorgarOrdenJugadores(numero_partida, dic_jugadores):
     lista_jugadores = list(dic_jugadores.keys())
-    nro_turno = 1
-    for i in range(len(lista_jugadores)):
+    for indice, valor_jugador in enumerate(lista_jugadores):
         jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
-        dic_jugadores[jugador][0] = nro_turno
-        nro_turno += 1
+        dic_jugadores[jugador][0] = indice
+
 
 
 def generarListaPalabrasPorCantLetras(dic_palabras):

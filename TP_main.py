@@ -1,7 +1,6 @@
 from TP_auxiliar import *
 
 
-
 def jugar_ahorcado():
     diccionario_palabras = generarDiccionarioPalabras()
     cant_jugadores = solicitarCantJugadores()
@@ -16,9 +15,9 @@ def jugar_ahorcado():
         print(jugador[0])
 
     lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-    jugar = True
+    finJuego = False
     ronda = 1
-    while jugar:
+    while not finJuego:
         for jugador in lista_jugadores_ordenado:
             if ronda == 1:
                 agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras)
@@ -29,7 +28,7 @@ def jugar_ahorcado():
         continuar = input("Desea continuar?")
 
         if continuar != "s":
-            jugar = False
+            finJuego = True
         ronda += 1
 
 
