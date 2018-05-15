@@ -1,4 +1,8 @@
 from TP_texto import obtener_texto
+import random
+from random import shuffle
+
+
 
 def dibujarHombrecito(nro_desaciertos):
     dibujo = ""
@@ -72,6 +76,58 @@ def generarDiccionarioJugadores(cant_jugadores):
             dic_jugadores[formatearPalabra(jugador)] = [0, 0, [],[],[],[], False, False]
     return dic_jugadores
 
+
+def otorgarOrdenJugadoresPrimeraRonda(dic_jugadores,lista_jugadores):
+    for indice in range(len(lista_jugadores)):
+        jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
+        dic_jugadores[jugador][0] = indice+1
+
+def separarGanadorAnteriorPartida(dic_jugadores,lista_jugadores):
+    condicion = True
+    cont = 0
+    while condicion and cont <= len(lista_jugadores) - 1:
+        valor_jugador = lista_jugadores[cont]
+        ganador_ultima_partida = dic_jugadores[valor_jugador][6]
+        if ganador_ultima_partida == True:
+            dic_jugadores[valor_jugador][0] = 1
+            valor_jugador.pop(cont)
+            condicion = False
+        cont += 1
+
+def otorgarOrdenJugadoresGeneral(dic_jugadores,lista_jugadores):
+    dic_auxiliar = {}
+    for indice, jugador in enumerate(lista_jugadores):
+
+        if dic_jugadores[jugador][1] not in dic_auxiliar:
+            dic_auxiliar[dic_jugadores[jugador][1]] = [jugador]
+        else:
+            dic_auxiliar[dic_jugadores[jugador][1]].append(jugador)
+
+    lista_auxiliar = sorted(dic_auxiliar.items(), reverse=True)
+    cont = 2
+    for item in lista_auxiliar:
+        if len(item[1]) == 1:
+            dic_jugadores[item[1]][0] = cont
+            cont += 1
+        else:
+            print(item[1])
+
+            shuffle(item[1])
+            print(item[1])
+            for elemento in item[1]:
+                dic_jugadores[elemento][0] = cont
+                cont += 1
+
+
+
+def otorgarOrdenJugadores(nro_partida, dic_jugadores):
+    lista_jugadores = list(dic_jugadores.keys())
+    if nro_partida == 1:
+        otorgarOrdenJugadoresPrimeraRonda(dic_jugadores, lista_jugadores)
+    else:
+        separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores)
+        otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores)
+
 def imprimirDatosJugador(jugador):
     print("NOMBRE_JUGADOR: {}".format(jugador))
     print("ORDEN_JUGADOR: {}".format(diccionario_jugadores[jugador][0]))
@@ -83,10 +139,25 @@ def imprimirDatosJugador(jugador):
     print("GANADOR_ULTIMA_PARTIDA: {}".format(diccionario_jugadores[jugador][6]))
     print("JUGADOR_ELIMINADO: {}\n\n".format(diccionario_jugadores[jugador][7]))
 
+def generarDiccionarioPartida(nro_partida):
+    dic_partida = {nro_partida: []}
+    return dic_partida
+
+def almacenarDatosPartida(diccionario_partida, datos_partida):
+    #espera una lista con los datos de cada jugador, al finalizar el turno y los almacena en la partida
+    diccionario_partida.append(datos_partida)
+
 diccionario_palabras = generarDiccionarioPalabras()
 cant_jugadores = solicitarCantJugadores()
 
 diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores)
+nro_partida = 1
+
+diccionario_partida = generarDiccionarioPartida(nro_partida)
 
 for jugador in diccionario_jugadores:
-    imprimirDatosJugador(jugador)
+    almacenarDatosPartida(diccionario_partida[nro_partida], diccionario_jugadores[jugador])
+print(diccionario_partida)
+
+otorgarOrdenJugadores(nro_partida+1, diccionario_jugadores)
+print(diccionario_jugadores)
