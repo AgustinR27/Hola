@@ -11,7 +11,6 @@ def formatearPalabra(palabra):
             palabra_nueva += letra
         else:
             palabra_nueva += dic_a_reemplazar[letra]
-
     return palabra_nueva
 
 
@@ -86,7 +85,7 @@ def generarDiccionarioJugadores(cant_jugadores):
 
 
 def generarDiccionarioPartida():
-    dic_partida = {"nro_partida" : 1}
+    dic_partida = {"nro_partida": 1}
     return dic_partida
 
 
