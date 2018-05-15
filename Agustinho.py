@@ -1,10 +1,11 @@
 from TP_texto import obtener_texto
 from TP_auxiliar import generarDiccionarioJugadores
+from TP_auxiliar import generarDiccionarioPartida
 from TP_auxiliar import solicitarCantJugadores
 import random
 
 
-def formatear_palabras(palabra):
+def formatearPalabra(palabra):
     dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
     palabra_vieja = palabra.upper()
     palabra_nueva = ''
@@ -15,29 +16,58 @@ def formatear_palabras(palabra):
             palabra_nueva += dic_a_reemplazar[letra]
     return palabra_nueva
 
-
-def obtener_palabras():
+#################################################################################################################
+def generarDiccionarioPalabras():
+    #a partir del string pasado por los profesores, se genera un diccionario de palabras con el siguiente formato:
+    #clave = palabra valor = lista compuesta por [cantidad_de_repeticiones, cant_letras, palabra_ya_utilizada]
     texto = obtener_texto()
     dic_palabras = {}
     for linea in texto:
         if len(linea) > 0:
-            lista_aux = linea.split(" ")
-            for palabra in lista_aux:
+            lista_auxiliar = linea.split(" ")
+            for palabra in lista_auxiliar:
                 if palabra.isalpha() and len(palabra) >= 5:
-                    if formatear_palabras(palabra) not in dic_palabras:
-                        dic_palabras[formatear_palabras(palabra)] = 1
+                    if formatearPalabra(palabra) not in dic_palabras:
+                        dic_palabras[formatearPalabra(palabra)] = [1, len(palabra), False]
                     else:
-                        dic_palabras[formatear_palabras(palabra)] += 1
+                        dic_palabras[formatearPalabra(palabra)][0] += 1
+
     return dic_palabras
 
+#def obtener_palabras():
+ #   texto = obtener_texto()
+  #  dic_palabras = {}
+   # for linea in texto:
+    #    if len(linea) > 0:
+     #       lista_aux = linea.split(" ")
+      #      for palabra in lista_aux:
+       #         if palabra.isalpha() and len(palabra) >= 5:
+        #            if formatear_palabras(palabra) not in dic_palabras:
+         #               dic_palabras[formatear_palabras(palabra)] = 1
+          #          else:
+           #             dic_palabras[formatear_palabras(palabra)] += 1
+    #return dic_palabras
 
-def enlistar_palabras(dic_palabras):
+
+#def enlistar_palabras(dic_palabras):
+    #lista_palabras = []
+    #for clave in dic_palabras:
+        #if clave not in lista_palabras:
+            #lista_palabras.append(clave)
+    #return lista_palabras
+
+
+def generarListaPalabrasPorCantLetras(dic_palabras):
     lista_palabras = []
-    for clave in dic_palabras:
-        if clave not in lista_palabras:
-            lista_palabras.append(clave)
+    while lista_palabras == []:
+        cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
+        for clave in dic_palabras:
+            if dic_palabras[clave][1] == int(cant_letras) and dic_palabras[clave][2] == False:
+                lista_palabras.append(clave)
+        if lista_palabras == []:
+            print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
-
+#########################################################################################################
 
 def palabra_adivinar(lista_palabras):
     palabra_adivinar = random.choice(lista_palabras)
@@ -58,6 +88,23 @@ def separar_palabra(palabra_adivinar):
     palabra_a_averiguar = list(str(palabra_adivinar))
     return palabra_a_averiguar
 
+############################################################################################
+def elegirPalabraAleatoria(lista_palabras):
+    print(lista_palabras)
+    palabra_adivinar = lista_palabras.pop(random.randint(0, len(lista_palabras)-1))
+    print("palabra a adivinar: ", palabra_adivinar)
+    return palabra_adivinar
+
+
+def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras):
+    palabra_aleatoria = elegirPalabraAleatoria(lista_palabras)
+    diccionario_jugadores[jugador[0]][2].extend(list(palabra_aleatoria))
+    print(diccionario_jugadores[jugador[0]][2])
+    diccionario_jugadores[jugador[0]][3].extend("_" * len(palabra_aleatoria))
+    print(diccionario_jugadores[jugador[0]][3])
+    diccionario_palabras[palabra_aleatoria][2] = True
+
+###################################################################################################
 
 def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
     palabra = ""
@@ -73,11 +120,16 @@ def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
 
 letrasIncorrectas = ""
 letrasCorrectas = ""
-dic_palabras = obtener_palabras()
-lista_palabras = enlistar_palabras(dic_palabras)
-palabraOculta = palabra_adivinar(lista_palabras)
+##########################################################################################################
+dic_palabras = generarDiccionarioPalabras()
 cant_jugadores = solicitarCantJugadores()
 diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores)
+lista_palabras = generarListaPalabrasPorCantLetras(dic_palabras)
+diccionario_palabras = generarDiccionarioPalabras()
+diccionario_partida = generarDiccionarioPartida()
+palabraOculta = palabra_adivinar(lista_palabras)
+partida = diccionario_partida["nro_partida"]
+#######################################################################################################
 lista_jugadores_ordenado = sorted(diccionario_jugadores.items(), key=lambda x: x[1])
 
 finJuego = False
@@ -115,7 +167,11 @@ while finJuego == False:
             finJuego = True
 
 for jugador in lista_jugadores_ordenado:
-    print("El jugador", jugador[0], "obtuvo", jugador[1][1] ,"puntos")
+    print("El jugador", jugador[0], "obtuvo", jugador[1][1], "puntos")
+    print("palabra adivinar", jugador[1][2])
+    print("palabra oculta", jugador[1][3])
+    print("letras pegadas", jugador[1][4])
+    print("palabra erradas", jugador[1][5])
     print(jugador[1][6])  # Imprime si el jugador gano = a True
     print(jugador[1][7])  # Se guarda si el jugador fue eliminado con un True
 

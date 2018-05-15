@@ -11,12 +11,7 @@ def formatearPalabra(palabra):
             palabra_nueva += letra
         else:
             palabra_nueva += dic_a_reemplazar[letra]
-
     return palabra_nueva
-
-
-def esPalabraValida(palabra):
-    return palabra.isalpha() and len(palabra) >= 5
 
 
 def generarDiccionarioPalabras():
@@ -28,31 +23,33 @@ def generarDiccionarioPalabras():
         if len(linea) > 0:
             lista_auxiliar = linea.split(" ")
             for palabra in lista_auxiliar:
-                if esPalabraValida(palabra):
+                if palabra.isalpha() and len(palabra) >= 5:
                     if formatearPalabra(palabra) not in dic_palabras:
                         dic_palabras[formatearPalabra(palabra)] = [1, len(palabra), False]
                     else:
                         dic_palabras[formatearPalabra(palabra)][0] += 1
-
     return dic_palabras
 
 
-def solicitarValor(mensaje):
-    valor = input(mensaje)
-    return valor
-
-
 def solicitarCantJugadores():
+    continuar = True
     cant_jugadores = input("Ingrese la cantidad de jugadores: ")
-    while cant_jugadores.isdigit():
-        if int(cant_jugadores) > 10:
+    while continuar:
+        if not cant_jugadores.isdigit():
+            print("La cantidad de jugadores debe ser numérica")
+            cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+            continuar = True
+        elif int(cant_jugadores) > 10:
             print("cantidad de jugadores incorrecto, los jugadores deben ir de 1 hasta 10")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+            continuar = True
         elif int(cant_jugadores) == 0:
-            print("Mucha lógica por suerte... Ingresa de nuevo un valor: ")
+            print("No te pedí tu coeficiente intelectual. Ingresá una cantidad de jugadores valida: ")
             cant_jugadores = input("Ingrese la cantidad de jugadores")
+            continuar = True
         else:
-            return int(cant_jugadores)
+            continuar = False
+    return int(cant_jugadores)
 
 
 def esNombreValido(nombre_jugador):
@@ -60,15 +57,13 @@ def esNombreValido(nombre_jugador):
     valor = True
     if nombre_jugador.isdigit():
         valor = False
-    elif len(nombre_jugador) < 1 or len(nombre_jugador) > 15:
-        valor = False
     return valor
 
 
 def solicitarNombreJugador():
-    jugador = str(solicitarValor("Ingrese Nombre Jugador: "))
+    jugador = str(input("Ingrese Nombre Jugador: "))
     while not esNombreValido(jugador):
-        jugador = solicitarValor("Nombre incorrecto.\n Ingrese Nombre Jugador: ")
+        jugador = input("Nombre incorrecto.\n Ingrese Nombre Jugador: ")
     return jugador
 
 
@@ -90,17 +85,16 @@ def generarDiccionarioJugadores(cant_jugadores):
 
 
 def generarDiccionarioPartida():
-    dic_partida = {"nro_partida" : 1}
+    dic_partida = {"nro_partida": 1}
     return dic_partida
 
 
 def otorgarOrdenJugadores(numero_partida, dic_jugadores):
     lista_jugadores = list(dic_jugadores.keys())
-    nro_turno = 1
-    for i in range(len(lista_jugadores)):
+    for indice, valor_jugador in enumerate(lista_jugadores):
         jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
-        dic_jugadores[jugador][0] = nro_turno
-        nro_turno += 1
+        dic_jugadores[jugador][0] = indice
+
 
 
 def generarListaPalabrasPorCantLetras(dic_palabras):
@@ -134,6 +128,7 @@ def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_
         diccionario_jugadores[jugador[0]][3].extend("_" * len(palabra_aleatoria))
         print(diccionario_jugadores[jugador[0]][3])
         diccionario_palabras[palabra_aleatoria][2] = True
+
 
 def ingresarLetra():
     while True:

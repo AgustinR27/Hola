@@ -82,4 +82,3 @@ letras_usadas = []
 ingresar_letra()
 dic_palabras = obtener_palabras()
 juego(letras_incorrectas,letras_correctas, "HOLA")
-
