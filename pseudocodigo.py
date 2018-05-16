@@ -49,18 +49,47 @@ while juego:
 
         #cuando arranca el turno, inicializo turno en True. Mientras sea True, un jugador está jugando un turno.
         turno = True
+
+        #aca hice un truquito con listas por comprension.
+        # Armé una lista de la clave de los jugadores ordenados por el campo orden
         lista_jugadores_ordenada = [item[0] for item in sorted(diccionario_jugadores.items(), key=lambda x: x[1])]
+
+        #inicializo la posicion por la que voy a recorrer lista_jugadores_ordenada
         posicion = 0
+
+        #mientras el turno esté jugandose
         while turno:
-            jugador = lista_jugadores_ordenada[posicion] 
+            #para facilitar la lectura, guardo en una variable al jugador actual.
+            jugador = lista_jugadores_ordenada[posicion]
+
+            #el jugador sólo puede jugar si no está eliminado.
             if diccionario_jugadores[jugador][jugador_eliminado] == False:
+                #se le solicita ingresar una letra al jugador.
                 letra = ingresarLetra()
+
+                #inicializo el puntaje que va a obtener el jugador durante su turno.
                 puntos = 0
+
+                #guardo una variable de tipo lista con la palabra a adivinar, para poder ir modificandola.
+                # De todas formas, vamos a tener que modificarlo por una posicion del diccionario,
+                # para poder acceder a ella en el siguiente turno. Sino la perderíamos cuando cambie el turno.
+                # IMPORTANTE: Tener en cuenta que al cambiar el diccionario, cambian las constantes arriba definidas.
                 v_palabra_a_adivinar = diccionario_jugadores[jugador][palabra_a_adivinar]
+
+                #esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
                 while letra in v_palabra_a_adivinar:
+                    #este if es para evitar agregar letras repetidas. OBSERVACION IMPORTANTE: por ahi es mejor dejar
+                    # que se repitan para que si el jugador, por ejemplo, adivinó las primeras 4 letras
+                    # de ABACO (o sea, ABAC), marque 4 letras acertadas haciendo el
+                    # len(diccionario_jugadores[jugador][letras_acertadas])
                     if letra not in diccionario_jugadores[jugador][letras_acertadas]:
+                        # agregamos la letra a una lista de letras acertadas durante el turno.
+                        # IMPORTANTE: CAMPO PARA INICIALIZAR EN SIGUIENTE PARTIDA (me faltaria revisar el resto de los campos)
                         diccionario_jugadores[jugador][letras_acertadas].append(letra)
+                    #actualizo la palabra oculta, borrando los guiones bajos y guardando la posicion en la que lo borré
                     pos = diccionario_jugadores[jugador][palabra_oculta].transformarGuionesBajos(letra)
+                    #conociendo la posicion, directamente la modifico por un guión bajo en palabra adivinar,
+                    # para marcarla como "encontrada"
                     v_palabra_a_adivinar[pos] = "_"
                     puntos += 1
 
