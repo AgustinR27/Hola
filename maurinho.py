@@ -2,7 +2,7 @@ from TP_texto import obtener_texto
 import random
 from random import shuffle
 from TP_auxiliar import *
-
+import time
 
 def dibujarHombrecito(nro_desaciertos):
     dibujo = ""
@@ -139,9 +139,8 @@ def imprimirDatosJugador(jugador):
     print("GANADOR_ULTIMA_PARTIDA: {}".format(diccionario_jugadores[jugador][6]))
     print("JUGADOR_ELIMINADO: {}\n\n".format(diccionario_jugadores[jugador][7]))
 
-def generarDiccionarioPartida(nro_partida):
-    dic_partida = {nro_partida: []}
-    return dic_partida
+def generarDiccionarioPartida(dic_partida, nro_partida):
+    dic_partida[nro_partida] = []
 
 def almacenarDatosPartida(diccionario_partida, datos_partida):
     #espera una lista con los datos de cada jugador, al finalizar el turno y los almacena en la partida
@@ -153,7 +152,8 @@ cant_jugadores = solicitarCantJugadores()
 diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores)
 nro_partida = 1
 
-diccionario_partida = generarDiccionarioPartida(nro_partida)
+diccionario_partida = {}
+generarDiccionarioPartida(diccionario_partida,nro_partida)
 
 for jugador in diccionario_jugadores:
     turno = True
@@ -164,11 +164,19 @@ for jugador in diccionario_jugadores:
     almacenarDatosPartida(diccionario_partida[nro_partida], diccionario_jugadores[jugador])
 print(diccionario_partida)
 
-diccionario_jugadores["A"][6] = True
-diccionario_jugadores["A"][1] = 30
-diccionario_jugadores["B"][1] = 25
-diccionario_jugadores["C"][1] = 20
-diccionario_jugadores["D"][1] = 20
-diccionario_jugadores["E"][1] = -13
-otorgarOrdenJugadores(nro_partida+1, diccionario_jugadores)
-print(diccionario_jugadores)
+#diccionario_jugadores["A"][6] = True
+#diccionario_jugadores["A"][1] = 30
+#diccionario_jugadores["B"][1] = 25
+#diccionario_jugadores["C"][1] = 20
+#diccionario_jugadores["D"][1] = 20
+#diccionario_jugadores["E"][1] = -13
+#otorgarOrdenJugadores(nro_partida+1, diccionario_jugadores)
+#print(diccionario_jugadores)
+
+lista_palabras_ordenadas = sorted(diccionario_palabras.keys())
+print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:\n")
+for indice, palabra in enumerate(lista_palabras_ordenadas):
+    print("Palabra: {} - Cantidad de repeticiones: {}".format(palabra, diccionario_palabras[palabra]))
+    if indice%500 == 0:
+        time.sleep(5.0)
+    print(indice)
