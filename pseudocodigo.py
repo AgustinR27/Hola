@@ -25,20 +25,29 @@ while juego:
     #genero diccionario de jugadores
 
     diccionario_jugadores = generarDiccionarioJugadores(2) #me salté la parte de preguntar cant jugadores
+
+    #al iniciar el juego, inicializo partida en True. Mientras sea True, se está jugando una partida.
     partida = True
+    #al iniciar el juego, inicializo partida_nueva en True. Al iniciar una partida nueva, deben ejecutarse algunas acciones especiales.
     partida_nueva = True
+
+    #mientras la partida esté jugándose.
     while partida:
-        if partida_nueva:
-            #diccionario_jugadores[orden_jugador]
-            otorgarOrdenJugadores(partida, diccionario_jugadores)
+        #ejecutar sólo si la partida es nueva.
+        if partida_nueva
+            #establezco el orden de los jugadores en diccionario_jugadores[orden_jugador]
+            otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
 
-            #diccionario_jugadores[palabra_a_adivinar]
-            #diccionario_jugadores[palabra_oculta]
-            #diccionario_palabras[palabra_usada] = True
-            lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-            lista_palabras_usadas = otorgarPalabrasJugadores(lista_palabras)
-            actualizarDiccionarioPalabras(lista_palabras_usadas)
+            #si es la primera partida, ordeno a los jugadores
+            if nro_partida == 1:
+                #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
+                #establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
+                #actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
+                lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
+                lista_palabras_usadas = otorgarPalabrasJugadores(lista_palabras)
+                actualizarDiccionarioPalabras(lista_palabras_usadas)
 
+        #cuando arranca el turno, inicializo turno en True. Mientras sea True, un jugador está jugando un turno.
         turno = True
         lista_jugadores_ordenada = [item[0] for item in sorted(diccionario_jugadores.items(), key=lambda x: x[1])]
         posicion = 0
@@ -76,3 +85,4 @@ while juego:
             #si posicion es mayor a la ultima posicion de la lista de jugadores, se termina el turno
             if posicion > len(lista_jugadores_ordenada) - 1:
                 turno = False
+        nro_partida += 1
