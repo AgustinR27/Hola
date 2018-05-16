@@ -1,4 +1,5 @@
 from TP_auxiliar import *
+from Luan import *
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -23,10 +24,13 @@ while juego:
     #genero diccionario de palabras
     diccionario_palabras = generarDiccionarioPalabras()
 
+    #pregunto la cantidad de jugadores
+    cant_jugadores = solicitarCantJugadores()
+
     #genero diccionario de jugadores
 
-    diccionario_jugadores = generarDiccionarioJugadores(2) #me salté la parte de preguntar cant jugadores
-
+    diccionario_jugadores = generarDiccionarioJugadores(palabra_a_adivinar) #me salté la parte de preguntar cant jugadores
+                                                       #aca puse lo que deberia ser la posicion pero no se si esta bien
     #al iniciar el juego, inicializo partida en True. Mientras sea True, se está jugando una partida.
     partida = True
 
