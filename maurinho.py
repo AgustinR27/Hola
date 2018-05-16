@@ -1,7 +1,7 @@
 from TP_texto import obtener_texto
 import random
 from random import shuffle
-
+from TP_auxiliar import *
 
 
 def dibujarHombrecito(nro_desaciertos):
@@ -154,6 +154,10 @@ diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores)
 nro_partida = 1
 
 diccionario_partida = generarDiccionarioPartida(nro_partida)
+
+for jugador in diccionario_jugadores:
+    turno = True
+    letra = ingresarLetra()
 
 
 for jugador in diccionario_jugadores:
