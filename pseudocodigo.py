@@ -19,8 +19,12 @@ juego = True
 nro_partida = 1
 
 while juego:
+    #genero diccionario de palabras
     diccionario_palabras = generarDiccionarioPalabras()
-    diccionario_jugadores = generarDiccionarioJugadores(2)
+
+    #genero diccionario de jugadores
+
+    diccionario_jugadores = generarDiccionarioJugadores(2) #me salté la parte de preguntar cant jugadores
     partida = True
     partida_nueva = True
     while partida:
@@ -57,6 +61,7 @@ while juego:
                         diccionario_jugadores[jugador][ganador_ultima_partida] = True
                         turno = False
                         partida = False
+                        partida_nueva = True
                         diccionario_jugadores[jugador][puntaje_jugador] += puntos
                 else:
                     puntos -= 2
@@ -65,3 +70,9 @@ while juego:
                         diccionario_jugadores[jugador][jugador_eliminado] = True
                         diccionario_jugadores[jugador][puntaje_jugador] += puntos
                     turno = False
+                    partida_nueva = False
+            posicion += 1
+
+            #si posicion es mayor a la ultima posicion de la lista de jugadores, se termina el turno
+            if posicion > len(lista_jugadores_ordenada) - 1:
+                turno = False
