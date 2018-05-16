@@ -151,22 +151,54 @@ while juego:
 
                     #si la cantidad de errores es igual a siete, es porque perdió.
                     if cantidad_de_errores == 7:
+                        #si el jugador perdió, queda eliminado, por lo que no podrá volver a jugar durante la partida.
                         diccionario_jugadores[jugador][jugador_eliminado] = True
+
+                    #si el jugador ingresa una letra incorrecta, se termina su turno.
                     turno = False
-                    partida_nueva = False
 
                 #al terminar de verificar si el usuario acertó o falló, ya tengo los puntos totales,
                 # por lo que actualizo el diccionario.
                 diccionario_jugadores[jugador][puntaje_jugador] += puntos
-            posicion += 1
 
-            #si posicion es mayor a la ultima posicion de la lista de jugadores, se termina el turno
-            if posicion > len(lista_jugadores_ordenada) - 1:
+                #si ya se ejecutó lo anterior, es porque la partida ya no es nueva. Se cambia la marca a False.
+                partida_nueva = False
+
+            #verifico si todos los jugadores fueron eliminados, con una funcion que recorra todos y verifique que:
+            todos_los_jugadores_eliminados = False
+            for jugador in diccionario_jugadores:
+                if diccionario_jugadores[jugador][jugador_eliminado] == True:
+                    todos_los_jugadores_eliminados = True
+
+            #si no están todos los jugadores eliminados, tiene sentido seguir avanzando. Sino no.
+            if not todos_los_jugadores_eliminados:
+                #una vez que terminé de ejecutar para este jugador, me muevo al siguiente,
+                # aumentando la posicion de la lista.
+                posicion += 1
+
+                #si posicion es mayor a la ultima posicion de la lista de jugadores, se termina el turno,
+                # para evitar un index of bounds
+                if posicion > len(lista_jugadores_ordenada) - 1:
+                    turno = False
+            else:
+                # si todos perdieron la partida, se acaba el turno.
                 turno = False
+
+                # si todos perdieron la partida, se acaba la partida.
+                partida = False
+
+        #una vez que se acaba la partida, se le pregunta al jugador si quiere continuar.
         continuar = input("desea continuar jugando? (S/N)")
+
+        #si decide continuar, se actualizan el numero de partida y se avisa que es una partida nueva.
         if continuar == 'S':
             nro_partida += 1
             partida_nueva = True
+
+            #como el usuario decide continuar, reactivo la partida.
+            partida = True
+
+        #sino, se finaliza la partida
         else:
             partida = False
             juego = False
