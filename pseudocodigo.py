@@ -37,8 +37,8 @@ while juego:
     while partida:
 
         #ejecutar sólo si la partida es nueva.
-        if partida_nueva
 
+        if partida_nueva:
             #establezco el orden de los jugadores en diccionario_jugadores[orden_jugador]
             otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
 
