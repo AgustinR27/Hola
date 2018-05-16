@@ -106,6 +106,7 @@ def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_
 
 ###################################################################################################
 
+
 def juego(letrasIncorrectas, letrasCorrectas, palabraOculta):
     palabra = ""
     print('Letras incorrectas:', letrasIncorrectas)

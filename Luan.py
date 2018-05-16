@@ -10,7 +10,7 @@ def generarPalabrasAleatorias(lista_palabras):
 def otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras_no_usadas):
     for jugador in diccionario_jugadores:
         palabra = generarPalabrasAleatorias(lista_palabras_no_usadas)
-        diccionario_jugadores[jugador][2].append(palabra)
+        diccionario_jugadores[jugador][palabra_a_adivinar].append(palabra)
     return diccionario_jugadores
 
 
