@@ -44,7 +44,7 @@ def solicitarCantJugadores():
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
             continuar = True
         elif int(cant_jugadores) == 0:
-            print("No te pedí tu coeficiente intelectual. Ingresá una cantidad de jugadores valida: ")
+            print("No creo que sea posible. Ingresá una cantidad de jugadores valida: ")
             cant_jugadores = input("Ingrese la cantidad de jugadores")
             continuar = True
         else:

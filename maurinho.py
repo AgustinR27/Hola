@@ -2,7 +2,7 @@ from TP_texto import obtener_texto
 import random
 from random import shuffle
 from TP_auxiliar import *
-import time
+
 
 def dibujarHombrecito(nro_desaciertos):
     dibujo = ""
@@ -54,11 +54,13 @@ def solicitarCantJugadores():
             continuar = False
     return int(cant_jugadores)
 
+
 def solicitarNombreJugador():
     nombre_jugador = input("Ingrese Nombre para el Jugador: ")
     while not nombre_jugador.replace(" ","").isalpha():
         nombre_jugador = input("Nombre incorrecto. Ingrese Nombre Jugador: ")
     return nombre_jugador
+
 
 def generarDiccionarioJugadores(cant_jugadores):
     #a partir de una cantidad de jugadores pasada por parametro, se solicita dicha cantidad de veces el nombre de jugadores. Se valida que los nombres no hayan sido utilizados ya en el diccionario.
@@ -82,6 +84,7 @@ def otorgarOrdenJugadoresPrimeraRonda(dic_jugadores,lista_jugadores):
         jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
         dic_jugadores[jugador][0] = indice+1
 
+
 def separarGanadorAnteriorPartida(dic_jugadores,lista_jugadores):
     condicion = True
     cont = 0
@@ -93,6 +96,7 @@ def separarGanadorAnteriorPartida(dic_jugadores,lista_jugadores):
             lista_jugadores.pop(cont)
             condicion = False
         cont += 1
+
 
 def otorgarOrdenJugadoresGeneral(dic_jugadores,lista_jugadores):
     dic_auxiliar = {}
@@ -128,6 +132,7 @@ def otorgarOrdenJugadores(nro_partida, dic_jugadores):
         separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores)
         otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores)
 
+
 def imprimirDatosJugador(jugador):
     print("NOMBRE_JUGADOR: {}".format(jugador))
     print("ORDEN_JUGADOR: {}".format(diccionario_jugadores[jugador][0]))
@@ -139,8 +144,11 @@ def imprimirDatosJugador(jugador):
     print("GANADOR_ULTIMA_PARTIDA: {}".format(diccionario_jugadores[jugador][6]))
     print("JUGADOR_ELIMINADO: {}\n\n".format(diccionario_jugadores[jugador][7]))
 
-def generarDiccionarioPartida(dic_partida, nro_partida):
-    dic_partida[nro_partida] = []
+
+def generarDiccionarioPartida(nro_partida):
+    dic_partida = {nro_partida: []}
+    return dic_partida
+
 
 def almacenarDatosPartida(diccionario_partida, datos_partida):
     #espera una lista con los datos de cada jugador, al finalizar el turno y los almacena en la partida
@@ -152,8 +160,7 @@ cant_jugadores = solicitarCantJugadores()
 diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores)
 nro_partida = 1
 
-diccionario_partida = {}
-generarDiccionarioPartida(diccionario_partida,nro_partida)
+diccionario_partida = generarDiccionarioPartida(nro_partida)
 
 for jugador in diccionario_jugadores:
     turno = True
@@ -164,19 +171,6 @@ for jugador in diccionario_jugadores:
     almacenarDatosPartida(diccionario_partida[nro_partida], diccionario_jugadores[jugador])
 print(diccionario_partida)
 
-#diccionario_jugadores["A"][6] = True
-#diccionario_jugadores["A"][1] = 30
-#diccionario_jugadores["B"][1] = 25
-#diccionario_jugadores["C"][1] = 20
-#diccionario_jugadores["D"][1] = 20
-#diccionario_jugadores["E"][1] = -13
-#otorgarOrdenJugadores(nro_partida+1, diccionario_jugadores)
-#print(diccionario_jugadores)
 
-lista_palabras_ordenadas = sorted(diccionario_palabras.keys())
-print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:\n")
-for indice, palabra in enumerate(lista_palabras_ordenadas):
-    print("Palabra: {} - Cantidad de repeticiones: {}".format(palabra, diccionario_palabras[palabra]))
-    if indice%500 == 0:
-        time.sleep(5.0)
-    print(indice)
+otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
+print(diccionario_jugadores)
