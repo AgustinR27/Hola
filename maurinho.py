@@ -201,6 +201,12 @@ def actualizarDiccionarioPalabras(diccionario_palabras, lista_palabras_utilizada
         diccionario_palabras[palabra][palabra_usada] = True
     return diccionario_palabras
 
+def transformarGuionesBajos(letraIngresada, jugador, diccionario_jugadores):
+    pos = diccionario_jugadores[jugador][palabra_a_adivinar].index(letraIngresada)
+    diccionario_jugadores[jugador][palabra_a_adivinar][pos] = "_"
+    diccionario_jugadores[jugador][palabra_oculta][pos] = diccionario_jugadores[jugador][palabra_actual][pos]
+
+
 diccionario_palabras = generarDiccionarioPalabras()
 cant_jugadores = solicitarCantJugadores()
 
