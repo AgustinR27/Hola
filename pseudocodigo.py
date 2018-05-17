@@ -112,7 +112,7 @@ while juego:
                 if not diccionario_jugadores[jugador][jugador_eliminado]:
                     print("\n" * 100)
                     print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
-                    print("Su palabra era", diccionario_jugadores[jugador][palabra_actual])
+                    print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
                     print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                     print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                     print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
@@ -168,7 +168,7 @@ while juego:
 
                         print("\n" * 100)
                         print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
-                        print("Su palabra era", "".join(diccionario_jugadores[jugador][palabra_actual]))
+                        print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
                         print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                         print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                         print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
@@ -192,7 +192,7 @@ while juego:
                         hombrecito = dibujarHombrecito(cantidad_de_errores)
                         print("\n" * 100)
                         print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
-                        print("Su palabra era", "".join(diccionario_jugadores[jugador][palabra_actual]))
+                        print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
                         print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                         print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                         print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
