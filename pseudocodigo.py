@@ -12,12 +12,13 @@ palabra_usada = 2
 #DICCIONARIO JUGADORES
 orden_jugador = 0
 puntaje_jugador = 1
-palabra_a_adivinar = 2
-palabra_oculta = 3
-letras_acertadas = 4
-letras_erradas = 5
-ganador_ultima_partida = 6
-jugador_eliminado = 7
+palabra = 2
+palabra_a_adivinar = 3
+palabra_oculta = 4
+letras_acertadas = 5
+letras_erradas = 6
+ganador_ultima_partida = 7
+jugador_eliminado = 8
 
 
 
@@ -56,39 +57,35 @@ while juego:
         #establezco el orden de los jugadores en diccionario_jugadores[orden_jugador]
         otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
 
-        ####IMPORTANTE#####
-        #acá habria que meter el borrado de los datos de los diccionarios de jugadores.
-        # Ya que si la partida es nueva, no hay letras erradas ni letras acertadas. Ni palabra elegida, ni palabra oculta.
-        for jugador in diccionario_jugadores:
-            diccionario_jugadores[jugador][palabra_a_adivinar] = []
-            diccionario_jugadores[jugador][palabra_oculta] = []
-            diccionario_jugadores[jugador][letras_acertadas] = []
-            diccionario_jugadores[jugador][letras_erradas] =  []
-            diccionario_jugadores[jugador][jugador_eliminado] = False
-            diccionario_jugadores[jugador][ganador_ultima_partida] = False
+        if partida > 1:
+            ####IMPORTANTE#####
+            #borro datos residuales de la partida anterior
+            for jugador in diccionario_jugadores:
+                diccionario_jugadores[jugador][palabra_a_adivinar] = []
+                diccionario_jugadores[jugador][palabra_oculta] = []
+                diccionario_jugadores[jugador][letras_acertadas] = []
+                diccionario_jugadores[jugador][letras_erradas] =  []
+                diccionario_jugadores[jugador][jugador_eliminado] = False
+                diccionario_jugadores[jugador][ganador_ultima_partida] = False
 
 
-            #si es la primera partida, ordeno a los jugadores
-        if nro_partida == 1:
-
-            #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
-            #establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
-            #actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
-            lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-            lista_palabras_usadas = otorgarPalabrasJugadores(lista_palabras)
-            actualizarDiccionarioPalabras(lista_palabras_usadas)
-
-        #cuando arranca el turno, inicializo turno en True. Mientras sea True, un jugador está jugando un turno.
-        turno = True
+        #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
+        #establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
+        #actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
+        lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
+        lista_palabras_usadas = otorgarPalabrasJugadores(lista_palabras)
+        actualizarDiccionarioPalabras(lista_palabras_usadas)
 
         #aca hice un truquito con listas por comprension.
         # Armé una lista de la clave de los jugadores ordenados por el campo orden
         lista_jugadores_ordenada = [item[0] for item in sorted(diccionario_jugadores.items(), key=lambda x: x[1])]
 
-        #inicializo la posicion por la que voy a recorrer lista_jugadores_ordenada
-        posicion = 0
         ronda = True
         while ronda:
+            # cuando arranca el turno, inicializo turno en True. Mientras sea True, un jugador está jugando un turno.
+            turno = True
+            # inicializo la posicion por la que voy a recorrer lista_jugadores_ordenada
+            posicion = 0
             #mientras el turno esté jugandose
             while turno:
 
@@ -96,7 +93,7 @@ while juego:
                 jugador = lista_jugadores_ordenada[posicion]
 
                 #el jugador sólo puede jugar si no está eliminado.
-                if diccionario_jugadores[jugador][jugador_eliminado] == False:
+                if not diccionario_jugadores[jugador][jugador_eliminado]:
 
                     #se le solicita ingresar una letra al jugador.
                     letra = ingresarLetra()
