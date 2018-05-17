@@ -38,7 +38,7 @@ nro_partida = 1
 
 while juego:
 
-    #genero diccionario de palabras
+    #genero diccionario de palabrasq
     diccionario_palabras = generarDiccionarioPalabras()
 
     #genero cantidad de jugadores
