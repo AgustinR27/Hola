@@ -175,6 +175,14 @@ while juego:
                         #al terminar de correr el while, si coincide la palabra oculta con la palabra a adivinar,
                         # es porque el jugador ganó la partida.
                         elif diccionario_jugadores[jugador][palabra_oculta] == diccionario_jugadores[jugador][palabra_actual]:
+                            print("\n" * 100)
+                            print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
+                            print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
+                            print("Ingreso correctamente las letras: ",
+                                  diccionario_jugadores[jugador][letras_acertadas])
+                            print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
+                            print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+                            print(diccionario_jugadores[jugador][hombrecito])
                             continuar_buscando_letra = False
 
                             #suma treinta puntos al acumulador
