@@ -235,7 +235,7 @@ while juego:
 
         #una vez que se acaba la partida, se le pregunta al jugador si quiere continuar.
         continuar = input("desea continuar jugando? (S/N)")
-        while not continuar.upper() not in ("S", "N"):
+        while not continuar.upper() in ("S", "N"):
             continuar = input("Opcion incorrecta. ¿desea continuar jugando? (S/N)")
 
         #si decide continuar, se actualizan el numero de partida
