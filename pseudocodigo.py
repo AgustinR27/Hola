@@ -29,7 +29,7 @@ letras_acertadas = 5
 letras_erradas = 6
 ganador_ultima_partida = 7
 jugador_eliminado = 8
-
+hombrecito = 9
 
 
 
@@ -81,6 +81,7 @@ while juego:
                 diccionario_jugadores[jugador][letras_erradas] = []
                 diccionario_jugadores[jugador][jugador_eliminado] = False
                 diccionario_jugadores[jugador][ganador_ultima_partida] = False
+                diccionario_jugadores[jugador][hombrecito] = ""
 
 
         #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
@@ -101,7 +102,7 @@ while juego:
             turno = True
             # inicializo la posicion por la que voy a recorrer lista_jugadores_ordenada
             posicion = 0
-            hombrecito =""
+
             #mientras el turno esté jugandose
             while turno:
                 #para facilitar la lectura, guardo en una variable al jugador actual.
@@ -116,7 +117,7 @@ while juego:
                     print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                     print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                     print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
-                    print(hombrecito)
+                    print(diccionario_jugadores[jugador][hombrecito])
 
                     #se le solicita ingresar una letra al jugador.
                     letra_ingresada = ingresarLetra()
@@ -172,7 +173,7 @@ while juego:
                         print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                         print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                         print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
-                        print(hombrecito)
+                        print(diccionario_jugadores[jugador][hombrecito])
                         letra_ingresada = ingresarLetra()
 
                     # Si letra_ingresada not in diccionario_jugadores[jugador][palabra_a_adivinar], por lo que es un intento fallado.
@@ -189,14 +190,14 @@ while juego:
                         cantidad_de_errores = len(diccionario_jugadores[jugador][letras_erradas])
 
                         #dibujo en pantalla el ahorcado. Por cada error se dibuja una parte del cuerpo
-                        hombrecito = dibujarHombrecito(cantidad_de_errores)
+                        diccionario_jugadores[jugador][hombrecito] = dibujarHombrecito(cantidad_de_errores)
                         print("\n" * 100)
                         print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
                         print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
                         print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                         print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                         print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
-                        print(hombrecito)
+                        print(diccionario_jugadores[jugador][hombrecito])
 
                         #si la cantidad de errores es igual a siete, es porque perdió.
                         if cantidad_de_errores == 7:

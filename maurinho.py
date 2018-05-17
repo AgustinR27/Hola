@@ -17,6 +17,7 @@ letras_acertadas = 5
 letras_erradas = 6
 ganador_ultima_partida = 7
 jugador_eliminado = 8
+hombrecito = 9
 
 
 def dibujarHombrecito(nro_desaciertos):
@@ -91,12 +92,12 @@ def generarDiccionarioJugadores(cant_jugadores):
     for numero_jugador in range(cant_jugadores):
         jugador = solicitarNombreJugador()
         if formatearPalabra(jugador) not in dic_jugadores:
-            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], [], [], [], [], False, False]
+            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], [], [], [], [], False, False, ""]
         else:
             while formatearPalabra(jugador) in dic_jugadores:
                 print("El nombre ingresado ya fue utilizado por otra persona. Ingrese un nombre distinto.")
                 jugador = solicitarNombreJugador()
-            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], [], [], [], [], False, False]
+            dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], [], [], [], [], False, False,""]
     return dic_jugadores
 
 
