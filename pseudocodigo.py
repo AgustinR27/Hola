@@ -126,8 +126,8 @@ while juego:
                     # De todas formas, vamos a tener que modificarlo por una posicion del diccionario,
                     # para poder acceder a ella en el siguiente turno. Sino la perderíamos cuando cambie el turno.
                     # IMPORTANTE: Tener en cuenta que al cambiar el diccionario, cambian las constantes arriba definidas.
-
-                    while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
+                    continuar_buscando_letra = True
+                    while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar] and continuar_buscando_letra:
                         #esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
                         while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
 
@@ -150,6 +150,7 @@ while juego:
                         #al terminar de correr el while, si coincide la palabra oculta con la palabra a adivinar,
                         # es porque el jugador ganó la partida.
                         if diccionario_jugadores[jugador][palabra_oculta] == diccionario_jugadores[jugador][palabra_actual]:
+                            continuar_buscando_letra = False
 
                             #suma treinta puntos al acumulador
                             diccionario_jugadores[jugador][puntaje_jugador] += 30
@@ -269,4 +270,5 @@ while juego:
                     print(auxiliar)
                     auxiliar = ""
             if auxiliar != "":
-                print(auxiliar)
+                for indice, palabra in enumerate(lista_palabras_ordenadas):
+                    print(auxiliar)
