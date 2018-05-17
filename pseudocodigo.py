@@ -4,6 +4,7 @@ from maurinho import almacenarDatosPartida
 from maurinho import otorgarPalabrasJugadores
 from maurinho import actualizarDiccionarioPalabras
 from maurinho import transformarGuionesBajos
+from maurinho import dibujarHombrecito
 import time
 
 
@@ -34,8 +35,10 @@ while juego:
     #genero diccionario de palabras
     diccionario_palabras = generarDiccionarioPalabras()
 
+    #genero cantidad de jugadores
+    cant_jugadores = 2 #solicitarCantJugadores()
     #genero diccionario de jugadores
-    diccionario_jugadores = generarDiccionarioJugadores(2) #me salté la parte de preguntar cant jugadores
+    diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores) #me salté la parte de preguntar cant jugadores
 
     #como todavia no se jugó una partida, genero un diccionario vacío.
     diccionario_partida = {}
@@ -85,6 +88,7 @@ while juego:
         lista_jugadores_ordenada = [item[0] for item in sorted(diccionario_jugadores.items(), key=lambda x: x[1][orden_jugador])]
 
         ronda = True
+        contador_jugadores_eliminados = 0
         while ronda:
             # cuando arranca el turno, inicializo turno en True. Mientras sea True, un jugador está jugando un turno.
             turno = True
@@ -107,36 +111,32 @@ while juego:
                     # para poder acceder a ella en el siguiente turno. Sino la perderíamos cuando cambie el turno.
                     # IMPORTANTE: Tener en cuenta que al cambiar el diccionario, cambian las constantes arriba definidas.
 
+                    if letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
+                        #esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
+                        while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
 
-                    #esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
-                    while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
-
-                        #este if es para evitar agregar letras repetidas. OBSERVACION IMPORTANTE: por ahi es mejor dejar
-                        # que se repitan para que si el jugador, por ejemplo, adivinó las primeras 4 letras
-                        # de ABACO (o sea, ABAC), marque 4 letras acertadas haciendo el
-                        # len(diccionario_jugadores[jugador][letras_acertadas])
+                            #este if es para evitar agregar letras repetidas. OBSERVACION IMPORTANTE: por ahi es mejor dejar
+                            # que se repitan para que si el jugador, por ejemplo, adivinó las primeras 4 letras
+                            # de ABACO (o sea, ABAC), marque 4 letras acertadas haciendo el
+                            # len(diccionario_jugadores[jugador][letras_acertadas])
 
 
-                        # agregamos la letra a una lista de letras acertadas durante el turno.
-                        # IMPORTANTE: CAMPO PARA INICIALIZAR EN SIGUIENTE PARTIDA (me faltaria revisar el resto de los campos)
-                        diccionario_jugadores[jugador][letras_acertadas].append(letra_ingresada)
+                            # agregamos la letra a una lista de letras acertadas durante el turno.
+                            # IMPORTANTE: CAMPO PARA INICIALIZAR EN SIGUIENTE PARTIDA (me faltaria revisar el resto de los campos)
+                            diccionario_jugadores[jugador][letras_acertadas].append(letra_ingresada)
 
-                        #actualizo la palabra oculta, borrando los guiones bajos y guardando la posicion en la que lo borré
-                        transformarGuionesBajos(letra_ingresada, jugador, diccionario_jugadores)
+                            #actualizo la palabra oculta, borrando los guiones bajos y guardando la posicion en la que lo borré
+                            transformarGuionesBajos(letra_ingresada, jugador, diccionario_jugadores)
 
-                        #por cada vez que encuentre la letra, sumo un punto al acumulador.
-                        puntos += 1
-
-                    #al pasar el while anterior (que seguramente se pueda modularizar), debería haber sumado puntos.
-                    #si sumó, es porque acertó puntos. Se pasa a ejecutar la lógica para actualizar los diccionarios.
-                    if puntos > 0:
+                            #por cada vez que encuentre la letra, sumo un punto al acumulador.
+                            diccionario_jugadores[jugador][puntaje_jugador] += 1
 
                         #al terminar de correr el while, si coincide la palabra oculta con la palabra a adivinar,
                         # es porque el jugador ganó la partida.
-                        if diccionario_jugadores[jugador][palabra_oculta] == diccionario_jugadores[jugador][palabra_a_adivinar]:
+                        if diccionario_jugadores[jugador][palabra_oculta] == diccionario_jugadores[jugador][palabra_actual]:
 
                             #suma treinta puntos al acumulador
-                            puntos += 30
+                            diccionario_jugadores[jugador][puntaje_jugador] += 30
 
                             #le avisa al diccionario que ganó la última partida.
                             # OBSERVACION IMPORTANTE: ESTE DATO SE TIENE QUE REINICIAR CUANDO GANE OTRO LA SIGUIENTE PARTIDA
@@ -145,54 +145,48 @@ while juego:
                             #si ganó la partida, se acaba su turno.
                             turno = False
 
+                            # si ganó la partida, se acaba la ronda.
+                            ronda = False
+
                             #si ganó la partida, se acaba la partida.
                             partida = False
 
-                            #si ganó la partida, debería inicializarse una partida nueva.
-                            # (siempre y cuando los usuarios deseen continuar).
-
-                            #OBSERVACION: LO DEJO COMENTADO PORQUE AL FINALIZAR PREGUNTO SI SE QUIERE SEGUIR JUGANDO.
-                            #partida_nueva = True
-
-                    # Si no sumó, significa que la letra no estaba en la palabra, por lo que es un intento fallado.
+                    # Si letra_ingresada not in diccionario_jugadores[jugador][palabra_a_adivinar], por lo que es un intento fallado.
                     else:
                         #resto dos puntos al acumulador
-                        puntos -= 2
+                        diccionario_jugadores[jugador][puntaje_jugador] -= 2
 
                         # agregamos la letra a una lista de letras erradas durante el turno.
                         # IMPORTANTE: CAMPO PARA INICIALIZAR EN SIGUIENTE PARTIDA
                         # (me faltaria revisar el resto de los campos)
-                        diccionario_jugadores[jugador][letras_erradas].append(letra)
+                        diccionario_jugadores[jugador][letras_erradas].append(letra_ingresada)
 
                         #equivale a la cantidad de errores del usuario
                         cantidad_de_errores = len(diccionario_jugadores[jugador][letras_erradas])
 
                         #dibujo en pantalla el ahorcado. Por cada error se dibuja una parte del cuerpo
-                        dibujarHombrecito(len(diccionario_jugadores[jugador][letras_erradas]))
+                        dibujarHombrecito(cantidad_de_errores)
 
                         #si la cantidad de errores es igual a siete, es porque perdió.
                         if cantidad_de_errores == 7:
+                            contador_jugadores_eliminados += 1
                             #si el jugador perdió, queda eliminado, por lo que no podrá volver a jugar durante la partida.
                             diccionario_jugadores[jugador][jugador_eliminado] = True
 
-                        #si el jugador ingresa una letra incorrecta, se termina su turno.
-                        turno = False
-
-                    #al terminar de verificar si el usuario acertó o falló, ya tengo los puntos totales,
-                    # por lo que actualizo el diccionario.
-                    diccionario_jugadores[jugador][puntaje_jugador] += puntos
-
-                    #si ya se ejecutó lo anterior, es porque la partida ya no es nueva. Se cambia la marca a False.
-                    partida_nueva = False
-
                 #verifico si todos los jugadores fueron eliminados, con una funcion que recorra todos y verifique que:
-                todos_los_jugadores_eliminados = False
-                for jugador in diccionario_jugadores:
-                    if diccionario_jugadores[jugador][jugador_eliminado] == True:
-                        todos_los_jugadores_eliminados = True
+                if contador_jugadores_eliminados == cant_jugadores:
+                    print("Ganó COM.")
+                    # si todos perdieron la partida, se acaba su turno.
+                    turno = False
 
-                #si no están todos los jugadores eliminados, tiene sentido seguir avanzando. Sino no.
-                if not todos_los_jugadores_eliminados:
+                    # si todos perdieron la partida, se acaba la ronda.
+                    ronda = False
+
+                    # si todos perdieron la partida, se acaba la partida.
+                    partida = False
+
+                #si no están todos los jugadores eliminados, tiene sentido seguir avanzando.
+                else:
                     #una vez que terminé de ejecutar para este jugador, me muevo al siguiente,
                     # aumentando la posicion de la lista.
                     posicion += 1
@@ -201,12 +195,6 @@ while juego:
                     # para evitar un index of bounds
                     if posicion > len(lista_jugadores_ordenada) - 1:
                         turno = False
-                else:
-                    # si todos perdieron la partida, se acaba el turno.
-                    turno = False
-
-                    # si todos perdieron la partida, se acaba la partida.
-                    partida = False
 
         #una vez terminada la partida, se actualiza el diccionario de la partida para todos los jugadores.
         #haciendolo de esta forma, fuera de la ronda, me permite actualizar todos los datos juntos para
