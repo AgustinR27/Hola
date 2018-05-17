@@ -209,6 +209,7 @@ while juego:
                             print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
                             print(diccionario_jugadores[jugador][hombrecito])
                             letra_ingresada = ingresarLetra()
+                            cont_aciertos = 0
 
                 #verifico si todos los jugadores fueron eliminados, con una funcion que recorra todos y verifique que:
                 if contador_jugadores_eliminados == cant_jugadores:
