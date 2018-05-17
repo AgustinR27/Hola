@@ -45,32 +45,38 @@ while juego:
     #mientras la partida esté jugándose.
     while partida:
 
-        nro_turno = 1
-        #ejecutar sólo si la partida es nueva.
-        if partida_nueva:
+        nro_ronda = 1
 
-            #si la partida es nueva, debe generarse un registro con los datos de la partida.
-            if nro_partida not in diccionario_partida:
+        #si la partida es nueva, debe generarse un registro con los datos de la partida.
+        if nro_partida not in diccionario_partida:
 
-                # genero diccionario de Partida.
-                diccionario_partida = generarDiccionarioPartida(diccionario_partida, nro_partida)
+            # genero diccionario de Partida.
+            diccionario_partida = generarDiccionarioPartida(diccionario_partida, nro_partida)
 
-            #establezco el orden de los jugadores en diccionario_jugadores[orden_jugador]
-            otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
+        #establezco el orden de los jugadores en diccionario_jugadores[orden_jugador]
+        otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
 
-            ####IMPORTANTE#####
-            #acá habria que meter el borrado de los datos de los diccionarios de jugadores.
-            # Ya que si la partida es nueva, no hay letras erradas ni letras acertadas. Ni palabra elegida, ni palabra oculta.
+        ####IMPORTANTE#####
+        #acá habria que meter el borrado de los datos de los diccionarios de jugadores.
+        # Ya que si la partida es nueva, no hay letras erradas ni letras acertadas. Ni palabra elegida, ni palabra oculta.
+        for jugador in diccionario_jugadores:
+            diccionario_jugadores[jugador][palabra_a_adivinar] = []
+            diccionario_jugadores[jugador][palabra_oculta] = []
+            diccionario_jugadores[jugador][letras_acertadas] = []
+            diccionario_jugadores[jugador][letras_erradas] =  []
+            diccionario_jugadores[jugador][jugador_eliminado] = False
+            diccionario_jugadores[jugador][ganador_ultima_partida] = False
+
 
             #si es la primera partida, ordeno a los jugadores
-            if nro_partida == 1:
+        if nro_partida == 1:
 
-                #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
-                #establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
-                #actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
-                lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-                lista_palabras_usadas = otorgarPalabrasJugadores(lista_palabras)
-                actualizarDiccionarioPalabras(lista_palabras_usadas)
+            #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
+            #establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
+            #actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
+            lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
+            lista_palabras_usadas = otorgarPalabrasJugadores(lista_palabras)
+            actualizarDiccionarioPalabras(lista_palabras_usadas)
 
         #cuando arranca el turno, inicializo turno en True. Mientras sea True, un jugador está jugando un turno.
         turno = True
