@@ -11,6 +11,7 @@ from maurinho import actualizarDiccionarioPalabras
 from maurinho import transformarGuionesBajos
 from maurinho import dibujarHombrecito
 import time
+import os
 
 
 #DICCIONARIO PALABRAS
@@ -105,13 +106,15 @@ while juego:
                 #para facilitar la lectura, guardo en una variable al jugador actual.
                 jugador = lista_jugadores_ordenada[posicion]
 
-                print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
-                print("Su palabra era", diccionario_jugadores[jugador][palabra_actual])
-                print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
-                print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
 
                 #el jugador sólo puede jugar si no está eliminado.
                 if not diccionario_jugadores[jugador][jugador_eliminado]:
+                    print("\n" * 100)
+                    print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
+                    print("Su palabra era", diccionario_jugadores[jugador][palabra_actual])
+                    print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
+                    print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
+                    print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
 
                     #se le solicita ingresar una letra al jugador.
                     letra_ingresada = ingresarLetra()
@@ -160,6 +163,14 @@ while juego:
 
                             #si ganó la partida, se acaba la partida.
                             partida = False
+
+                        print("\n" * 100)
+                        print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
+                        print("Su palabra era", diccionario_jugadores[jugador][palabra_actual])
+                        print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
+                        print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
+                        print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+                        letra_ingresada = ingresarLetra()
 
                     # Si letra_ingresada not in diccionario_jugadores[jugador][palabra_a_adivinar], por lo que es un intento fallado.
                     else:
