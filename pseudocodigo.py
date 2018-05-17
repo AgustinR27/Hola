@@ -101,6 +101,7 @@ while juego:
             turno = True
             # inicializo la posicion por la que voy a recorrer lista_jugadores_ordenada
             posicion = 0
+            hombrecito =""
             #mientras el turno esté jugandose
             while turno:
                 #para facilitar la lectura, guardo en una variable al jugador actual.
@@ -115,6 +116,7 @@ while juego:
                     print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                     print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                     print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+                    print(hombrecito)
 
                     #se le solicita ingresar una letra al jugador.
                     letra_ingresada = ingresarLetra()
@@ -170,6 +172,7 @@ while juego:
                         print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                         print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                         print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+                        print(hombrecito)
                         letra_ingresada = ingresarLetra()
 
                     # Si letra_ingresada not in diccionario_jugadores[jugador][palabra_a_adivinar], por lo que es un intento fallado.
@@ -186,7 +189,14 @@ while juego:
                         cantidad_de_errores = len(diccionario_jugadores[jugador][letras_erradas])
 
                         #dibujo en pantalla el ahorcado. Por cada error se dibuja una parte del cuerpo
-                        print(dibujarHombrecito(cantidad_de_errores))
+                        hombrecito = dibujarHombrecito(cantidad_de_errores)
+                        print("\n" * 100)
+                        print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
+                        print("Su palabra era", "".join(diccionario_jugadores[jugador][palabra_actual]))
+                        print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
+                        print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
+                        print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+                        print(hombrecito)
 
                         #si la cantidad de errores es igual a siete, es porque perdió.
                         if cantidad_de_errores == 7:

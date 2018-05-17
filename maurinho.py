@@ -218,6 +218,8 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
     lista_palabras = []
     while lista_palabras == []:
         cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
+        while not cant_letras.isdigit():
+            cant_letras = input("Valor incorrecto. Debe ingresar un número. Ingrese la cantidad de letras de la palabra a adivinar: ")
         for clave in dic_palabras:
             if dic_palabras[clave][1] == int(cant_letras) and dic_palabras[clave][2] == False:
                 lista_palabras.append(clave)
