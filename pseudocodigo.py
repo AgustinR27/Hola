@@ -231,10 +231,14 @@ while juego:
             #además se muestra el número de palabra.
             lista_palabras_ordenadas = sorted(diccionario_palabras.keys())
             print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:\n")
+            auxiliar = ""
             for indice, palabra in enumerate(lista_palabras_ordenadas):
-
-                print("Nro Palabra: {} - Palabra: {} - Cantidad de repeticiones: {}".format(indice, palabra, diccionario_palabras[palabra]))
+                auxiliar += "Palabras: {} - Cantidad de repeticiones: {} - ".format(palabra,diccionario_palabras[palabra])
 
                 #esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
                 if indice % 5 == 0:
                     time.sleep(0.05)
+                    print(auxiliar)
+                    auxiliar = ""
+            if auxiliar != "":
+                print(auxiliar)
