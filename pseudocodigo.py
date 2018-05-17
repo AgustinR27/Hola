@@ -111,23 +111,23 @@ while juego:
 
                 #el jugador sólo puede jugar si no está eliminado.
                 if not diccionario_jugadores[jugador][jugador_eliminado]:
-                    print("\n" * 100)
-                    print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
-                    print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
-                    print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
-                    print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
-                    print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
-                    print(diccionario_jugadores[jugador][hombrecito])
-
-                    #se le solicita ingresar una letra al jugador.
-                    letra_ingresada = ingresarLetra()
 
                     #guardo una variable de tipo lista con la palabra a adivinar, para poder ir modificandola.
                     # De todas formas, vamos a tener que modificarlo por una posicion del diccionario,
                     # para poder acceder a ella en el siguiente turno. Sino la perderíamos cuando cambie el turno.
                     # IMPORTANTE: Tener en cuenta que al cambiar el diccionario, cambian las constantes arriba definidas.
                     continuar_buscando_letra = True
-                    while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar] and continuar_buscando_letra:
+                    while continuar_buscando_letra:
+                        print("\n" * 100)
+                        print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
+                        print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
+                        print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
+                        print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
+                        print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+                        print(diccionario_jugadores[jugador][hombrecito])
+
+                        # se le solicita ingresar una letra al jugador.
+                        letra_ingresada = ingresarLetra()
                         #esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
                         while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
 
@@ -175,7 +175,6 @@ while juego:
                             print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                             print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
                             print(diccionario_jugadores[jugador][hombrecito])
-                            letra_ingresada = ingresarLetra()
 
                     # Si letra_ingresada not in diccionario_jugadores[jugador][palabra_a_adivinar], por lo que es un intento fallado.
                     else:
@@ -240,7 +239,7 @@ while juego:
             continuar = input("Opcion incorrecta. ¿desea continuar jugando? (S/N)")
 
         #si decide continuar, se actualizan el numero de partida
-        if continuar == 'S':
+        if continuar.upper() == 'S':
             nro_partida += 1
 
             #como el usuario decide continuar, reactivo la partida.
