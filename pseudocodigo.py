@@ -266,7 +266,7 @@ while juego:
             print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:\n")
             auxiliar = ""
             for indice, palabra in enumerate(lista_palabras_ordenadas):
-                auxiliar += "Palabras: {} - Cantidad de repeticiones: {} - ".format(palabra,diccionario_palabras[palabra])
+                auxiliar += "Palabras: {} - Cantidad de repeticiones: {} - ".format(palabra,diccionario_palabras[palabra][cantidad_repeticiones_palabra])
 
                 #esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
                 if indice % 5 == 0:
@@ -274,5 +274,4 @@ while juego:
                     print(auxiliar)
                     auxiliar = ""
             if auxiliar != "":
-                for indice, palabra in enumerate(lista_palabras_ordenadas):
-                    print(auxiliar)
+                print(auxiliar)
