@@ -11,12 +11,13 @@ palabra_usada = 2
 #DICCIONARIO JUGADORES
 orden_jugador = 0
 puntaje_jugador = 1
-palabra_a_adivinar = 2
-palabra_oculta = 3
-letras_acertadas = 4
-letras_erradas = 5
-ganador_ultima_partida = 6
-jugador_eliminado = 7
+palabra = 2
+palabra_a_adivinar = 3
+palabra_oculta = 4
+letras_acertadas = 5
+letras_erradas = 6
+ganador_ultima_partida = 7
+jugador_eliminado = 8
 
 
 def dibujarHombrecito(nro_desaciertos):
