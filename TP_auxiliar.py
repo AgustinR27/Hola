@@ -1,6 +1,21 @@
 from TP_texto import obtener_texto
 import random
 
+#DICCIONARIO PALABRAS
+cantidad_repeticiones_palabra = 0
+cantidad_letras_palabra = 1
+palabra_usada = 2
+
+#DICCIONARIO JUGADORES
+orden_jugador = 0
+puntaje_jugador = 1
+palabra_a_adivinar = 2
+palabra_oculta = 3
+letras_acertadas = 4
+letras_erradas = 5
+ganador_ultima_partida = 6
+jugador_eliminado = 7
+
 
 def formatearPalabra(palabra):
     dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
@@ -27,7 +42,7 @@ def generarDiccionarioPalabras():
                     if formatearPalabra(palabra) not in dic_palabras:
                         dic_palabras[formatearPalabra(palabra)] = [1, len(palabra), False]
                     else:
-                        dic_palabras[formatearPalabra(palabra)][0] += 1
+                        dic_palabras[formatearPalabra(palabra)][cantidad_repeticiones_palabra] += 1
     return dic_palabras
 
 
@@ -102,7 +117,7 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
     while lista_palabras == []:
         cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
         for clave in dic_palabras:
-            if dic_palabras[clave][1] == int(cant_letras) and dic_palabras[clave][2] == False:
+            if dic_palabras[clave][cantidad_letras_palabra] == int(cant_letras) and dic_palabras[clave][palabra_usada] == False:
                 lista_palabras.append(clave)
         if lista_palabras == []:
             print("No se encontraron palabras con esa cantidad de letras.")
@@ -123,11 +138,11 @@ Devuelve el diccionario jugadores, cada jugador con una palabra aleatoria asigna
 
 def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_palabras):
         palabra_aleatoria = elegirPalabraAleatoria(lista_palabras)
-        diccionario_jugadores[jugador[0]][2].extend(list(palabra_aleatoria))
-        print(diccionario_jugadores[jugador[0]][2])
-        diccionario_jugadores[jugador[0]][3].extend("_" * len(palabra_aleatoria))
-        print(diccionario_jugadores[jugador[0]][3])
-        diccionario_palabras[palabra_aleatoria][2] = True
+        diccionario_jugadores[jugador[0]][palabra_a_adivinar].extend(list(palabra_aleatoria))
+        print(diccionario_jugadores[jugador[0]][palabra_a_adivinar])
+        diccionario_jugadores[jugador[0]][palabra_oculta].extend("_" * len(palabra_aleatoria))
+        print(diccionario_jugadores[jugador[0]][palabra_oculta])
+        diccionario_palabras[palabra_aleatoria][palabra_a_adivinar] = True
 
 
 def ingresarLetra():

@@ -2,6 +2,7 @@ from TP_auxiliar import *
 from maurinho import generarDiccionarioPartida
 from maurinho import almacenarDatosPartida
 import time
+from Luan import *
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -17,6 +18,9 @@ letras_acertadas = 4
 letras_erradas = 5
 ganador_ultima_partida = 6
 jugador_eliminado = 7
+
+
+
 
 juego = True
 nro_partida = 1
