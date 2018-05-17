@@ -143,6 +143,7 @@ def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_
         diccionario_jugadores[jugador[0]][palabra_oculta].extend("_" * len(palabra_aleatoria))
         print(diccionario_jugadores[jugador[0]][palabra_oculta])
         diccionario_palabras[palabra_aleatoria][palabra_usada] = True
+#Autor = Luan
 
 
 def ingresarLetra():
