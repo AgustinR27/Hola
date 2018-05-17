@@ -35,16 +35,20 @@ def generarPalabrasAleatorias(lista_palabras):
 #Autor = Luan
 
 
-def otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras_no_usadas):
+def otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras):
+    lista_palabras_utilizadas = []
     for jugador in diccionario_jugadores:
-        palabra = generarPalabrasAleatorias(lista_palabras_no_usadas)
-        diccionario_jugadores[jugador][palabra_a_adivinar].append(palabra)
-    return diccionario_jugadores
+        palabra_aleatoria = elegirPalabraAleatoria(lista_palabras)
+        lista_palabras_utilizadas.append(palabra_aleatoria)
+        diccionario_jugadores[jugador[0]][palabra_a_adivinar].extend(list(palabra_aleatoria))
+        diccionario_jugadores[jugador[0]][palabra_oculta].extend("_" * len(palabra_aleatoria))
+    return lista_palabras_utilizadas
 #Autor = Luan
 
 
-def actualizarDiccionarioPalabras(diccionario_palabras, palabra):
-    diccionario_palabras[palabra][palabra_usada] = True
+def actualizarDiccionarioPalabras(diccionario_palabras, lista_palabras_utilizadas):
+    for palabra in diccionario_palabras:
+        diccionario_palabras[palabra][palabra_usada] = True
     return diccionario_palabras
 #Autor = Luan
 

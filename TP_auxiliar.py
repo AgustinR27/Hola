@@ -9,7 +9,7 @@ palabra_usada = 2
 #DICCIONARIO JUGADORES
 orden_jugador = 0
 puntaje_jugador = 1
-palabra = 2
+palabra_actual = 2
 palabra_a_adivinar = 3
 palabra_oculta = 4
 letras_acertadas = 5
@@ -117,9 +117,9 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
     lista_palabras = []
     while lista_palabras == []:
         cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
-        for clave in dic_palabras:
-            if dic_palabras[clave][cantidad_letras_palabra] == int(cant_letras) and dic_palabras[clave][palabra_usada] == False:
-                lista_palabras.append(clave)
+        for palabra in dic_palabras:
+            if dic_palabras[palabra][cantidad_letras_palabra] == int(cant_letras) and dic_palabras[palabra][palabra_usada] == False:
+                lista_palabras.append(palabra)
         if lista_palabras == []:
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
@@ -155,3 +155,5 @@ def ingresarLetra():
             print("Ingreso un caracter invalido")
         else:
             return letra_ingresada
+
+

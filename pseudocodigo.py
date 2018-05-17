@@ -1,8 +1,10 @@
 from TP_auxiliar import *
 from maurinho import generarDiccionarioPartida
 from maurinho import almacenarDatosPartida
+from maurinho import otorgarPalabrasJugadores
+from maurinho import actualizarDiccionarioPalabras
 import time
-from Luan import *
+
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -12,7 +14,7 @@ palabra_usada = 2
 #DICCIONARIO JUGADORES
 orden_jugador = 0
 puntaje_jugador = 1
-palabra = 2
+palabra_actual = 2
 palabra_a_adivinar = 3
 palabra_oculta = 4
 letras_acertadas = 5
@@ -62,9 +64,10 @@ while juego:
             #borro datos residuales de la partida anterior
             for jugador in diccionario_jugadores:
                 diccionario_jugadores[jugador][palabra_a_adivinar] = []
+                diccionario_jugadores[jugador][palabra_actual] = []
                 diccionario_jugadores[jugador][palabra_oculta] = []
                 diccionario_jugadores[jugador][letras_acertadas] = []
-                diccionario_jugadores[jugador][letras_erradas] =  []
+                diccionario_jugadores[jugador][letras_erradas] = []
                 diccionario_jugadores[jugador][jugador_eliminado] = False
                 diccionario_jugadores[jugador][ganador_ultima_partida] = False
 
@@ -73,8 +76,8 @@ while juego:
         #establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
         #actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
         lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-        lista_palabras_usadas = otorgarPalabrasJugadores(lista_palabras)
-        actualizarDiccionarioPalabras(lista_palabras_usadas)
+        lista_palabras_usadas = otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras)
+        actualizarDiccionarioPalabras(diccionario_palabras, lista_palabras_usadas)
 
         #aca hice un truquito con listas por comprension.
         # Armé una lista de la clave de los jugadores ordenados por el campo orden
@@ -98,14 +101,11 @@ while juego:
                     #se le solicita ingresar una letra al jugador.
                     letra = ingresarLetra()
 
-                    #inicializo el puntaje que va a obtener el jugador durante su turno.
-                    puntos = 0
-
                     #guardo una variable de tipo lista con la palabra a adivinar, para poder ir modificandola.
                     # De todas formas, vamos a tener que modificarlo por una posicion del diccionario,
                     # para poder acceder a ella en el siguiente turno. Sino la perderíamos cuando cambie el turno.
                     # IMPORTANTE: Tener en cuenta que al cambiar el diccionario, cambian las constantes arriba definidas.
-                    v_palabra_a_adivinar = diccionario_jugadores[jugador][palabra_a_adivinar]
+                    diccionario_jugadores[jugador][palabra_a_adivinar] = diccionario_jugadores[jugador][palabra_a_adivinar]
 
                     #esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
                     while letra in v_palabra_a_adivinar:

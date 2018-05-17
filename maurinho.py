@@ -11,7 +11,7 @@ palabra_usada = 2
 #DICCIONARIO JUGADORES
 orden_jugador = 0
 puntaje_jugador = 1
-palabra = 2
+palabra_actual = 2
 palabra_a_adivinar = 3
 palabra_oculta = 4
 letras_acertadas = 5
@@ -184,6 +184,22 @@ def almacenarDatosPartida(diccionario_partida, datos_partida):
     #espera una lista con los datos de cada jugador, al finalizar el turno y los almacena en la partida
     diccionario_partida.append(datos_partida)
 
+def otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras):
+    lista_palabras_utilizadas = []
+    for jugador in diccionario_jugadores:
+        palabra_aleatoria = elegirPalabraAleatoria(lista_palabras)
+        lista_palabras_utilizadas.append(palabra_aleatoria)
+        diccionario_jugadores[jugador][palabra_actual].extend(list(palabra_aleatoria))
+        diccionario_jugadores[jugador][palabra_a_adivinar].extend(list(palabra_aleatoria))
+        diccionario_jugadores[jugador][palabra_oculta].extend("_" * len(palabra_aleatoria))
+    return lista_palabras_utilizadas
+#Autor = Luan
+
+
+def actualizarDiccionarioPalabras(diccionario_palabras, lista_palabras_utilizadas):
+    for palabra in lista_palabras_utilizadas:
+        diccionario_palabras[palabra][palabra_usada] = True
+    return diccionario_palabras
 
 diccionario_palabras = generarDiccionarioPalabras()
 cant_jugadores = solicitarCantJugadores()
