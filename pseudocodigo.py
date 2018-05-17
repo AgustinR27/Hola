@@ -127,7 +127,7 @@ while juego:
                     # para poder acceder a ella en el siguiente turno. Sino la perderíamos cuando cambie el turno.
                     # IMPORTANTE: Tener en cuenta que al cambiar el diccionario, cambian las constantes arriba definidas.
 
-                    if letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
+                    while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
                         #esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
                         while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
 
