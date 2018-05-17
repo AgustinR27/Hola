@@ -186,7 +186,7 @@ while juego:
                         cantidad_de_errores = len(diccionario_jugadores[jugador][letras_erradas])
 
                         #dibujo en pantalla el ahorcado. Por cada error se dibuja una parte del cuerpo
-                        dibujarHombrecito(cantidad_de_errores)
+                        print(dibujarHombrecito(cantidad_de_errores))
 
                         #si la cantidad de errores es igual a siete, es porque perdió.
                         if cantidad_de_errores == 7:
