@@ -105,7 +105,7 @@ while juego:
                 #para facilitar la lectura, guardo en una variable al jugador actual.
                 jugador = lista_jugadores_ordenada[posicion]
 
-                print(jugador[0], "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
+                print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
                 print("Su palabra era", diccionario_jugadores[jugador][palabra_actual])
                 print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                 print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])

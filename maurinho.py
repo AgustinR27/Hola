@@ -140,10 +140,7 @@ def otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores):
             dic_jugadores[item[1][0]][0] = cont
             cont += 1
         else:
-            print(item[1])
-
             shuffle(item[1])
-            print(item[1])
             for elemento in item[1]:
                 dic_jugadores[elemento][0] = cont
                 cont += 1
@@ -183,9 +180,7 @@ def almacenarDatosPartida(diccionario_partida, datos_partida):
     diccionario_partida.append(datos_partida)
 
 def elegirPalabraAleatoria(lista_palabras):
-    print(lista_palabras)
     palabra_adivinar = lista_palabras.pop(random.randint(0, len(lista_palabras)-1))
-    print("palabra a adivinar: ", palabra_adivinar)
     return palabra_adivinar
 
 def otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras):
