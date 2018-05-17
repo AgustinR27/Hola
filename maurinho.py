@@ -11,12 +11,13 @@ palabra_usada = 2
 #DICCIONARIO JUGADORES
 orden_jugador = 0
 puntaje_jugador = 1
-palabra_a_adivinar = 2
-palabra_oculta = 3
-letras_acertadas = 4
-letras_erradas = 5
-ganador_ultima_partida = 6
-jugador_eliminado = 7
+palabra = 2
+palabra_a_adivinar = 3
+palabra_oculta = 4
+letras_acertadas = 5
+letras_erradas = 6
+ganador_ultima_partida = 7
+jugador_eliminado = 8
 
 
 def dibujarHombrecito(nro_desaciertos):
@@ -87,7 +88,7 @@ def generarDiccionarioJugadores(cant_jugadores):
     #a partir de una cantidad de jugadores pasada por parametro, se solicita dicha cantidad de veces el nombre de jugadores.
     # Se valida que los nombres no hayan sido utilizados ya en el diccionario.
     #el cual tiene el siguiente formato:
-    #clave = jugador valor = lista compuesta por [orden, puntaje, palabra a_adivinar, palabra_oculta, letras_acertadas,letras_falladas, ganador_ultima_partida, jugador_eliminado]
+    #clave = jugador valor = lista compuesta por [orden, puntaje, palabra, palabra a_adivinar, palabra_oculta, letras_acertadas,letras_falladas, ganador_ultima_partida, jugador_eliminado]
     dic_jugadores = {}
     for numero_jugador in range(cant_jugadores):
         jugador = solicitarNombreJugador()
