@@ -96,6 +96,10 @@ while juego:
             posicion = 0
             #mientras el turno esté jugandose
             while turno:
+                print(jugador[0], "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
+                print("Su palabra era", diccionario_jugadores[jugador][palabra_actual])
+                print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
+                print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
 
                 #para facilitar la lectura, guardo en una variable al jugador actual.
                 jugador = lista_jugadores_ordenada[posicion]
@@ -199,16 +203,16 @@ while juego:
         #una vez terminada la partida, se actualiza el diccionario de la partida para todos los jugadores.
         #haciendolo de esta forma, fuera de la ronda, me permite actualizar todos los datos juntos para
         # esta partida.
-        for jugador in diccionario_jugadores:
-            almacenarDatosPartida(diccionario_partida,diccionario_jugadores[jugador])
+        almacenarDatosPartida(diccionario_partida, diccionario_jugadores.items())
 
         #una vez que se acaba la partida, se le pregunta al jugador si quiere continuar.
         continuar = input("desea continuar jugando? (S/N)")
+        while not continuar.upper() not in ("S", "N"):
+            continuar = input("Opcion incorrecta. ¿desea continuar jugando? (S/N)")
 
-        #si decide continuar, se actualizan el numero de partida y se avisa que es una partida nueva.
+        #si decide continuar, se actualizan el numero de partida
         if continuar == 'S':
             nro_partida += 1
-            partida_nueva = True
 
             #como el usuario decide continuar, reactivo la partida.
             partida = True
@@ -232,5 +236,5 @@ while juego:
                 print("Nro Palabra: {} - Palabra: {} - Cantidad de repeticiones: {}".format(indice, palabra, diccionario_palabras[palabra]))
 
                 #esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
-                if indice % 500 == 0:
-                    time.sleep(5.0)
+                if indice % 5 == 0:
+                    time.sleep(0.05)
