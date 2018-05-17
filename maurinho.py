@@ -115,8 +115,8 @@ def separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores):
     cont = 0
     while condicion and cont <= len(lista_jugadores) - 1:
         valor_jugador = lista_jugadores[cont]
-        ganador_ultima_partida = dic_jugadores[valor_jugador][ganador_ultima_partida]
-        if ganador_ultima_partida == True:
+        ganador_ult_partida = dic_jugadores[valor_jugador][ganador_ultima_partida]
+        if ganador_ult_partida == True:
             dic_jugadores[valor_jugador][orden_jugador] = 1
             lista_jugadores.pop(cont)
             condicion = False

@@ -142,7 +142,7 @@ def agregarPalabras(diccionario_jugadores, jugador, lista_palabras, diccionario_
         print(diccionario_jugadores[jugador[0]][palabra_a_adivinar])
         diccionario_jugadores[jugador[0]][palabra_oculta].extend("_" * len(palabra_aleatoria))
         print(diccionario_jugadores[jugador[0]][palabra_oculta])
-        diccionario_palabras[palabra_aleatoria][palabra_a_adivinar] = True
+        diccionario_palabras[palabra_aleatoria][palabra_usada] = True
 
 
 def ingresarLetra():
