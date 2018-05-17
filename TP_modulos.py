@@ -56,7 +56,7 @@ def generarDiccionarioPalabras():
                     else:
                         dic_palabras[formatearPalabra(palabra)][cantidad_repeticiones_palabra] += 1
     return dic_palabras
-# Autor: Daro., genera el diccionario de la partida
+# Autor: Dario G., genera el diccionario de la partida
 
 def solicitarCantJugadores():
     continuar = True
@@ -78,7 +78,7 @@ def solicitarNombreJugador():
     while not nombre_jugador.replace(" ", "").isalpha():
         nombre_jugador = input("Nombre incorrecto. Ingrese Nombre Jugador: ")
     return nombre_jugador
-# Autor: Daro., solicita el nombre al jugador y verifica que no se usen caracteres incorrectos
+# Autor: Dario G., solicita el nombre al jugador y verifica que no se usen caracteres incorrectos
 
 
 def generarDiccionarioJugadores(cant_jugadores):
@@ -104,7 +104,7 @@ def otorgarOrdenJugadoresPrimeraRonda(dic_jugadores, lista_jugadores):
     for indice in range(len(lista_jugadores)):
         jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
         dic_jugadores[jugador][orden_jugador] = indice+1
-# Autor: Daro.,otroga el orden a los jugadores de manera aleatoria
+# Autor: Dario G.,otorga el orden a los jugadores de manera aleatoria
 
 
 def separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores):
@@ -168,7 +168,7 @@ def imprimirDatosJugador(diccionario_jugadores, jugador):
 def generarDiccionarioPartida(diccionario_partida, nro_partida):
     diccionario_partida = {nro_partida: []}
     return diccionario_partida
-# Autor: Daro., genera el diccionario de la partida
+# Autor: Dario G., genera el diccionario de la partida
 
 
 def almacenarDatosPartida(diccionario_partida, datos_partida):
