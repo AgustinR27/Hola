@@ -65,8 +65,7 @@ def solicitarCantJugadores():
             print("Valor incorrecto. La cantidad de jugadores debe ser numérica.")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
         elif int(cant_jugadores) < 2 or int(cant_jugadores) > 10:
-            print("Valor incorrecto, la cantidad de jugadores jugadores minima es de dos jugadores y como máximo,"
-                  " pueden jugar diez personas.")
+            print("Valor incorrecto, la cantidad de jugadores jugadores minima es de dos jugadores y como máximo, pueden jugar diez personas.")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
         else:
             continuar = False
@@ -174,9 +173,9 @@ def imprimirDatosJugador(diccionario_jugadores, jugador):
     print("JUGADOR_ELIMINADO: {}\n\n".format(diccionario_jugadores[jugador][jugador_eliminado]))
 
 
-def generarDiccionarioPartida(nro_partida):
-    dic_partida = {nro_partida: []}
-    return dic_partida
+def generarDiccionarioPartida(diccionario_partida, nro_partida):
+    diccionario_partida = {nro_partida: []}
+    return diccionario_partida
 
 
 def almacenarDatosPartida(diccionario_partida, datos_partida):
