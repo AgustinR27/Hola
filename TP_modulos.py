@@ -1,6 +1,7 @@
 from TP_texto import obtener_texto
 import random
 from random import shuffle
+import time
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -56,7 +57,7 @@ def generarDiccionarioPalabras():
                     else:
                         dic_palabras[formatearPalabra(palabra)][cantidad_repeticiones_palabra] += 1
     return dic_palabras
-# Autor: Dario G., genera el diccionario de la partida
+# Autor: Daro., genera el diccionario de la partida
 
 def solicitarCantJugadores():
     continuar = True
@@ -78,7 +79,7 @@ def solicitarNombreJugador():
     while not nombre_jugador.replace(" ", "").isalpha():
         nombre_jugador = input("Nombre incorrecto. Ingrese Nombre Jugador: ")
     return nombre_jugador
-# Autor: Dario G., solicita el nombre al jugador y verifica que no se usen caracteres incorrectos
+# Autor: Daro., solicita el nombre al jugador y verifica que no se usen caracteres incorrectos
 
 
 def generarDiccionarioJugadores(cant_jugadores):
@@ -104,7 +105,7 @@ def otorgarOrdenJugadoresPrimeraRonda(dic_jugadores, lista_jugadores):
     for indice in range(len(lista_jugadores)):
         jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
         dic_jugadores[jugador][orden_jugador] = indice+1
-# Autor: Dario G.,otorga el orden a los jugadores de manera aleatoria
+# Autor: Daro.,otroga el orden a los jugadores de manera aleatoria
 
 
 def separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores):
@@ -168,7 +169,7 @@ def imprimirDatosJugador(diccionario_jugadores, jugador):
 def generarDiccionarioPartida(diccionario_partida, nro_partida):
     diccionario_partida = {nro_partida: []}
     return diccionario_partida
-# Autor: Dario G., genera el diccionario de la partida
+# Autor: Daro., genera el diccionario de la partida
 
 
 def almacenarDatosPartida(diccionario_partida, datos_partida):
@@ -233,3 +234,47 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
 # Autor: Mauro C., genera una lista de palabras segun la cantidad de letras que decida el usuario
+
+def mostrarDatosTurno(diccionario_jugadores, jugador, jugador_eliminado):
+    if not jugador_eliminado:
+        print("Puntaje jugador {}: {} puntos.\n".format(jugador,diccionario_jugadores[jugador][puntaje_jugador]))
+    else:
+        print("PERDISTE, {}. Tenés que esperar que acabe la partida para volver a jugar.\n".format(jugador))
+        print("La palabra era: {}\n".format(" ".join(diccionario_jugadores[jugador][palabra_actual])))
+    if len(diccionario_jugadores[jugador][letras_acertadas]) > 0:
+        print("Ingresaste las siguientes letras correctas: {}.\n".format(", ".join(diccionario_jugadores[jugador][letras_acertadas])))
+    if len(diccionario_jugadores[jugador][letras_erradas]) > 0:
+        print("Ingresaste las siguientes letras incorrectas: {}.\n".format(", ".join(diccionario_jugadores[jugador][letras_erradas])))
+    print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+    print(diccionario_jugadores[jugador][hombrecito])
+    print("\n" * 2)
+
+
+def esperar(tiempo):
+    time.sleep(tiempo)
+
+
+def mostrarPalabrasOrdenadas(diccionario_palabras):
+    lista_palabras_ordenadas = sorted(diccionario_palabras.keys())
+    print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:\n")
+    auxiliar = ""
+    for indice, palabra in enumerate(lista_palabras_ordenadas):
+        auxiliar += "Palabras: {} - Cantidad de repeticiones: {} - ".format(palabra, diccionario_palabras[palabra][
+            cantidad_repeticiones_palabra])
+
+        # esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
+        if indice % 5 == 0:
+            esperar(0.05)
+            print(auxiliar)
+            auxiliar = ""
+    if auxiliar != "":
+        print(auxiliar)
+
+
+def mostrarDatosPartidas(diccionario_partida):
+    print("DATOS DE LAS PARTIDAS:\n")
+    print(diccionario_partida)
+    print("Se jugaron", [], "partidas")
+    print("El jugador: ", [], "obtuvo en total ", [], "puntos, las palabras que tuvo que adivinar fueron",
+          diccionario_partida[nro_partida][palabra_actual])
+
