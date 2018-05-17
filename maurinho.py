@@ -1,7 +1,6 @@
 from TP_texto import obtener_texto
 import random
 from random import shuffle
-from TP_auxiliar import *
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -184,6 +183,12 @@ def almacenarDatosPartida(diccionario_partida, datos_partida):
     #espera una lista con los datos de cada jugador, al finalizar el turno y los almacena en la partida
     diccionario_partida.append(datos_partida)
 
+def elegirPalabraAleatoria(lista_palabras):
+    print(lista_palabras)
+    palabra_adivinar = lista_palabras.pop(random.randint(0, len(lista_palabras)-1))
+    print("palabra a adivinar: ", palabra_adivinar)
+    return palabra_adivinar
+
 def otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras):
     lista_palabras_utilizadas = []
     for jugador in diccionario_jugadores:
@@ -205,25 +210,3 @@ def transformarGuionesBajos(letraIngresada, jugador, diccionario_jugadores):
     pos = diccionario_jugadores[jugador][palabra_a_adivinar].index(letraIngresada)
     diccionario_jugadores[jugador][palabra_a_adivinar][pos] = "_"
     diccionario_jugadores[jugador][palabra_oculta][pos] = diccionario_jugadores[jugador][palabra_actual][pos]
-
-
-diccionario_palabras = generarDiccionarioPalabras()
-cant_jugadores = solicitarCantJugadores()
-
-diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores)
-nro_partida = 1
-
-diccionario_partida = generarDiccionarioPartida(nro_partida)
-
-for jugador in diccionario_jugadores:
-    turno = True
-    letra = ingresarLetra()
-
-
-for jugador in diccionario_jugadores:
-    almacenarDatosPartida(diccionario_partida[nro_partida], diccionario_jugadores[jugador])
-print(diccionario_partida)
-
-
-otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
-print(diccionario_jugadores)

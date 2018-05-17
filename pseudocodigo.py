@@ -1,3 +1,4 @@
+from maurinho import solicitarCantJugadores
 from maurinho import generarDiccionarioJugadores
 from maurinho import generarDiccionarioPalabras
 from maurinho import otorgarOrdenJugadores
@@ -40,7 +41,8 @@ while juego:
     diccionario_palabras = generarDiccionarioPalabras()
 
     #genero cantidad de jugadores
-    cant_jugadores = 2 #solicitarCantJugadores()
+    cant_jugadores = solicitarCantJugadores()
+
     #genero diccionario de jugadores
     diccionario_jugadores = generarDiccionarioJugadores(cant_jugadores) #me salté la parte de preguntar cant jugadores
 
