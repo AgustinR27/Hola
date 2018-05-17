@@ -1,5 +1,7 @@
 from TP_auxiliar import *
-from Luan import *
+from maurinho import generarDiccionarioPartida
+from maurinho import almacenarDatosPartida
+import time
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -24,13 +26,12 @@ while juego:
     #genero diccionario de palabras
     diccionario_palabras = generarDiccionarioPalabras()
 
-    #pregunto la cantidad de jugadores
-    cant_jugadores = solicitarCantJugadores()
-
     #genero diccionario de jugadores
-
     diccionario_jugadores = generarDiccionarioJugadores(2) #me salté la parte de preguntar cant jugadores
-                                                       #aca puse lo que deberia ser la posicion pero no se si esta bien
+
+    #como todavia no se jugó una partida, genero un diccionario vacío.
+    diccionario_partida = {}
+
     #al iniciar el juego, inicializo partida en True. Mientras sea True, se está jugando una partida.
     partida = True
 
@@ -40,11 +41,22 @@ while juego:
     #mientras la partida esté jugándose.
     while partida:
 
+        nro_turno = 1
         #ejecutar sólo si la partida es nueva.
-
         if partida_nueva:
+
+            #si la partida es nueva, debe generarse un registro con los datos de la partida.
+            if nro_partida not in diccionario_partida:
+
+                # genero diccionario de Partida.
+                diccionario_partida = generarDiccionarioPartida(diccionario_partida,nro_partida)
+
             #establezco el orden de los jugadores en diccionario_jugadores[orden_jugador]
             otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
+
+            ####IMPORTANTE#####
+            #acá habria que meter el borrado de los datos de los diccionarios de jugadores.
+            # Ya que si la partida es nueva, no hay letras erradas ni letras acertadas. Ni palabra elegida, ni palabra oculta.
 
             #si es la primera partida, ordeno a los jugadores
             if nro_partida == 1:
@@ -191,6 +203,12 @@ while juego:
                 # si todos perdieron la partida, se acaba la partida.
                 partida = False
 
+        #una vez terminada la partida, se actualiza el diccionario de la partida para todos los jugadores.
+        #haciendolo de esta forma, fuera de la ronda, me permite actualizar todos los datos juntos para
+        # esta partida.
+        for jugador in diccionario_jugadores:
+            almacenarDatosPartida(diccionario_partida,diccionario_jugadores[jugador])
+
         #una vez que se acaba la partida, se le pregunta al jugador si quiere continuar.
         continuar = input("desea continuar jugando? (S/N)")
 
@@ -206,3 +224,20 @@ while juego:
         else:
             partida = False
             juego = False
+
+            #una vez finalizado el juego, se muestran los datos de las partidas.
+            print("DATOS DE LAS PARTIDAS:\n")
+            print(diccionario_partida)
+
+            #tambien se muestran las palabras ordenadas alfabéticamente.
+            #se muestran de a 500 palabras, junto con su número de repeticiones.
+            #además se muestra el número de palabra.
+            lista_palabras_ordenadas = sorted(diccionario_palabras.keys())
+            print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:\n")
+            for indice, palabra in enumerate(lista_palabras_ordenadas):
+
+                print("Nro Palabra: {} - Palabra: {} - Cantidad de repeticiones: {}".format(indice, palabra, diccionario_palabras[palabra]))
+
+                #esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
+                if indice % 500 == 0:
+                    time.sleep(5.0)
