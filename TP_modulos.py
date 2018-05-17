@@ -1,6 +1,7 @@
 from TP_texto import obtener_texto
 import random
 from random import shuffle
+import time
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -233,3 +234,47 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
 # Autor: Mauro C., genera una lista de palabras segun la cantidad de letras que decida el usuario
+
+def mostrarDatosTurno(diccionario_jugadores, jugador, jugador_eliminado):
+    if not jugador_eliminado:
+        print("Puntaje jugador {}: {} puntos.\n".format(jugador,diccionario_jugadores[jugador][puntaje_jugador]))
+    else:
+        print("PERDISTE, {}. Tenés que esperar que acabe la partida para volver a jugar.\n".format(jugador))
+        print("La palabra era: {}\n".format(" ".join(diccionario_jugadores[jugador][palabra_actual])))
+    if len(diccionario_jugadores[jugador][letras_acertadas]) > 0:
+        print("Ingresaste las siguientes letras correctas: {}.\n".format(", ".join(diccionario_jugadores[jugador][letras_acertadas])))
+    if len(diccionario_jugadores[jugador][letras_erradas]) > 0:
+        print("Ingresaste las siguientes letras incorrectas: {}.\n".format(", ".join(diccionario_jugadores[jugador][letras_erradas])))
+    print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+    print(diccionario_jugadores[jugador][hombrecito])
+    print("\n" * 2)
+# Autor: Luan C., imprime los datos generados durante el turno
+
+def esperar(tiempo):
+    time.sleep(tiempo)
+
+
+def mostrarPalabrasOrdenadas(diccionario_palabras):
+    lista_palabras_ordenadas = sorted(diccionario_palabras.keys())
+    print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:\n")
+    auxiliar = ""
+    for indice, palabra in enumerate(lista_palabras_ordenadas):
+        auxiliar += "Palabras: {} - Cantidad de repeticiones: {} - ".format(palabra, diccionario_palabras[palabra][
+            cantidad_repeticiones_palabra])
+
+        # esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
+        if indice % 5 == 0:
+            esperar(0.05)
+            print(auxiliar)
+            auxiliar = ""
+    if auxiliar != "":
+        print(auxiliar)
+# Autor: Dario G., Imprime en pantalla las palabras del diccionario con sus respectivas repeticiones
+
+def mostrarDatosPartidas(diccionario_partida):
+    print("DATOS DE LAS PARTIDAS:\n")
+    print(diccionario_partida)
+    print("Se jugaron", [], "partidas")
+    print("El jugador: ", [], "obtuvo en total ", [], "puntos, las palabras que tuvo que adivinar fueron",
+          diccionario_partida[nro_partida][palabra_actual])
+# Autor: Agustin R., muestra los datos de las partidas en pantalla.
