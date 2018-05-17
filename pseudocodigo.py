@@ -166,15 +166,15 @@ while juego:
 
                             #si ganó la partida, se acaba la partida.
                             partida = False
-
-                        print("\n" * 100)
-                        print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
-                        print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
-                        print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
-                        print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
-                        print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
-                        print(diccionario_jugadores[jugador][hombrecito])
-                        letra_ingresada = ingresarLetra()
+                        else:
+                            print("\n" * 100)
+                            print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
+                            print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
+                            print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
+                            print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
+                            print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+                            print(diccionario_jugadores[jugador][hombrecito])
+                            letra_ingresada = ingresarLetra()
 
                     # Si letra_ingresada not in diccionario_jugadores[jugador][palabra_a_adivinar], por lo que es un intento fallado.
                     else:
