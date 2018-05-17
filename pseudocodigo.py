@@ -166,7 +166,7 @@ while juego:
 
                         print("\n" * 100)
                         print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
-                        print("Su palabra era", diccionario_jugadores[jugador][palabra_actual])
+                        print("Su palabra era", "".join(diccionario_jugadores[jugador][palabra_actual]))
                         print("Ingreso correctamente las letras: ", diccionario_jugadores[jugador][letras_acertadas])
                         print("Y fallo en: ", diccionario_jugadores[jugador][letras_erradas])
                         print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
