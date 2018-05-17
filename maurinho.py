@@ -162,7 +162,7 @@ def otorgarOrdenJugadores(nro_partida, dic_jugadores):
         otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores)
 
 
-def imprimirDatosJugador(jugador):
+def imprimirDatosJugador(diccionario_jugadores, jugador):
     print("NOMBRE_JUGADOR: {}".format(jugador))
     print("ORDEN_JUGADOR: {}".format(diccionario_jugadores[jugador][orden_jugador]))
     print("PUNTAJE_JUGADOR: {}".format(diccionario_jugadores[jugador][puntaje_jugador]))
