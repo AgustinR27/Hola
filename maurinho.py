@@ -210,3 +210,12 @@ def transformarGuionesBajos(letraIngresada, jugador, diccionario_jugadores):
     pos = diccionario_jugadores[jugador][palabra_a_adivinar].index(letraIngresada)
     diccionario_jugadores[jugador][palabra_a_adivinar][pos] = "_"
     diccionario_jugadores[jugador][palabra_oculta][pos] = diccionario_jugadores[jugador][palabra_actual][pos]
+
+def ingresarLetra():
+    while True:
+        letra_ingresada = input("Ingrese una letra: ")
+        letra_ingresada = letra_ingresada.upper()
+        if len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
+            print("Ingreso un caracter invalido")
+        else:
+            return letra_ingresada
