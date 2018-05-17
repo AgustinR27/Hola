@@ -29,7 +29,7 @@ while juego:
 
     #genero diccionario de jugadores
 
-    diccionario_jugadores = generarDiccionarioJugadores(palabra_a_adivinar) #me salté la parte de preguntar cant jugadores
+    diccionario_jugadores = generarDiccionarioJugadores(2) #me salté la parte de preguntar cant jugadores
                                                        #aca puse lo que deberia ser la posicion pero no se si esta bien
     #al iniciar el juego, inicializo partida en True. Mientras sea True, se está jugando una partida.
     partida = True
