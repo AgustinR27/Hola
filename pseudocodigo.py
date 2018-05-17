@@ -53,9 +53,6 @@ while juego:
     #al iniciar el juego, inicializo partida en True. Mientras sea True, se está jugando una partida.
     partida = True
 
-    #al iniciar el juego, inicializo partida_nueva en True. Al iniciar una partida nueva, deben ejecutarse algunas acciones especiales.
-    partida_nueva = True
-
     #mientras la partida esté jugándose.
     while partida:
 
@@ -70,18 +67,16 @@ while juego:
         #establezco el orden de los jugadores en diccionario_jugadores[orden_jugador]
         otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
 
-        if partida > 1:
-            ####IMPORTANTE#####
-            #borro datos residuales de la partida anterior
-            for jugador in diccionario_jugadores:
-                diccionario_jugadores[jugador][palabra_a_adivinar] = []
-                diccionario_jugadores[jugador][palabra_actual] = []
-                diccionario_jugadores[jugador][palabra_oculta] = []
-                diccionario_jugadores[jugador][letras_acertadas] = []
-                diccionario_jugadores[jugador][letras_erradas] = []
-                diccionario_jugadores[jugador][jugador_eliminado] = False
-                diccionario_jugadores[jugador][ganador_ultima_partida] = False
-                diccionario_jugadores[jugador][hombrecito] = ""
+        #borro datos residuales de la partida anterior
+        for jugador in diccionario_jugadores:
+            diccionario_jugadores[jugador][palabra_a_adivinar] = []
+            diccionario_jugadores[jugador][palabra_actual] = []
+            diccionario_jugadores[jugador][palabra_oculta] = []
+            diccionario_jugadores[jugador][letras_acertadas] = []
+            diccionario_jugadores[jugador][letras_erradas] = []
+            diccionario_jugadores[jugador][jugador_eliminado] = False
+            diccionario_jugadores[jugador][ganador_ultima_partida] = False
+            diccionario_jugadores[jugador][hombrecito] = ""
 
 
         #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
