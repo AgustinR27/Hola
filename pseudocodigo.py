@@ -231,7 +231,7 @@ while juego:
         #una vez terminada la partida, se actualiza el diccionario de la partida para todos los jugadores.
         #haciendolo de esta forma, fuera de la ronda, me permite actualizar todos los datos juntos para
         # esta partida.
-        almacenarDatosPartida(diccionario_partida, diccionario_jugadores.items())
+        almacenarDatosPartida(diccionario_partida[nro_partida], diccionario_jugadores.items())
 
         #una vez que se acaba la partida, se le pregunta al jugador si quiere continuar.
         continuar = input("desea continuar jugando? (S/N)")
