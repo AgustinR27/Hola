@@ -63,7 +63,7 @@ while juego:
             diccionario_jugadores[jugador][palabra_a_adivinar] = []
             diccionario_jugadores[jugador][palabra_oculta] = []
             diccionario_jugadores[jugador][letras_acertadas] = []
-            diccionario_jugadores[jugador][letras_erradas] =  []
+            diccionario_jugadores[jugador][letras_erradas] = []
             diccionario_jugadores[jugador][jugador_eliminado] = False
             diccionario_jugadores[jugador][ganador_ultima_partida] = False
 
@@ -218,7 +218,7 @@ while juego:
         #haciendolo de esta forma, fuera de la ronda, me permite actualizar todos los datos juntos para
         # esta partida.
         for jugador in diccionario_jugadores:
-            almacenarDatosPartida(diccionario_partida,diccionario_jugadores[jugador])
+            almacenarDatosPartida(diccionario_partida, diccionario_jugadores[jugador])
 
         #una vez que se acaba la partida, se le pregunta al jugador si quiere continuar.
         continuar = input("desea continuar jugando? (S/N)")
