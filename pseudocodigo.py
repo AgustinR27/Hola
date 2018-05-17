@@ -122,6 +122,7 @@ while juego:
 
                     # se le solicita ingresar una letra al jugador.
                     letra_ingresada = ingresarLetra()
+                    cont_aciertos = 0
                     while continuar_buscando_letra:
                         #esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
                         while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
@@ -141,7 +142,8 @@ while juego:
 
                             #por cada vez que encuentre la letra, sumo un punto al acumulador.
                             diccionario_jugadores[jugador][puntaje_jugador] += 1
-                        if letra_ingresada not in diccionario_jugadores[jugador][palabra_a_adivinar]:
+                            cont_aciertos +=1
+                        if cont_aciertos == 0:
                             # resto dos puntos al acumulador
                             diccionario_jugadores[jugador][puntaje_jugador] -= 2
 
@@ -199,10 +201,6 @@ while juego:
                             print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
                             print(diccionario_jugadores[jugador][hombrecito])
                             letra_ingresada = ingresarLetra()
-
-                    # Si letra_ingresada not in diccionario_jugadores[jugador][palabra_a_adivinar], por lo que es un intento fallado.
-                    else:
-
 
                 #verifico si todos los jugadores fueron eliminados, con una funcion que recorra todos y verifique que:
                 if contador_jugadores_eliminados == cant_jugadores:
