@@ -158,6 +158,7 @@ while juego:
                             # dibujo en pantalla el ahorcado. Por cada error se dibuja una parte del cuerpo
                             diccionario_jugadores[jugador][hombrecito] = dibujarHombrecito(cantidad_de_errores)
                             print("\n" * 100)
+                            print("GANASTE, {}".format(jugador))
                             print(jugador, "obtuvo ", diccionario_jugadores[jugador][puntaje_jugador], " puntos")
                             print("DEBUG: Su palabra es", " ".join(diccionario_jugadores[jugador][palabra_actual]))
                             print("Ingreso correctamente las letras: ",
