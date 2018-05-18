@@ -1,6 +1,7 @@
 from TP_texto import obtener_texto
 import random
 from random import shuffle
+import time
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -41,6 +42,28 @@ def formatearPalabra(palabra):
     return palabra_nueva
 # Autor: Luan.C, Reemplaza las letras "incorrectas" por las que se usaran en el juego
 
+
+def esperar(tiempo):
+    time.sleep(tiempo)
+
+
+def mostrarPalabrasOrdenadas(diccionario_palabras):
+    lista_palabras_ordenadas = sorted(diccionario_palabras.keys())
+    print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:")
+    auxiliar = ""
+    for indice, palabra in enumerate(lista_palabras_ordenadas):
+        auxiliar += "Palabras: {} - Cantidad de repeticiones: {} - ".format(palabra, diccionario_palabras[palabra][
+            cantidad_repeticiones_palabra])
+
+        # esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
+        if indice % 5 == 0:
+            esperar(0.05)
+            print(auxiliar)
+            auxiliar = ""
+    if auxiliar != "":
+        print(auxiliar)
+
+
 def generarDiccionarioPalabras():
     #a partir del string pasado por los profesores, se genera un diccionario de palabras con el siguiente formato:
     #clave = palabra valor = lista compuesta por [cantidad_de_repeticiones, cant_letras, palabra_ya_utilizada]
@@ -55,6 +78,18 @@ def generarDiccionarioPalabras():
                         dic_palabras[formatearPalabra(palabra)] = [1, len(palabra), False]
                     else:
                         dic_palabras[formatearPalabra(palabra)][cantidad_repeticiones_palabra] += 1
+
+    mostrar_diccionario = input("¿Desea ver las palabras del diccionario? (S/N): ")
+    while not mostrar_diccionario.upper() in ("S", "N"):
+        mostrar_diccionario = input("Opcion incorrecta. ¿Desea ver las palabras del diccionario? (S/N): ")
+
+    # si decide continuar, se actualizan el numero de partida
+    if mostrar_diccionario.upper() == 'S':
+        # tambien se muestran las palabras ordenadas alfabéticamente.
+        # se muestran de a 500 palabras, junto con su número de repeticiones.
+        # además se muestra el número de palabra.
+        mostrarPalabrasOrdenadas(dic_palabras)
+
     return dic_palabras
 # Autor: Daro., genera el diccionario de la partida
 
@@ -65,8 +100,8 @@ def solicitarCantJugadores():
         if not cant_jugadores.isdigit():
             print("Valor incorrecto. La cantidad de jugadores debe ser numérica.")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
-        elif int(cant_jugadores) < 2 or int(cant_jugadores) > 10:
-            print("Valor incorrecto, la cantidad de jugadores jugadores minima es de dos jugadores y como máximo, pueden jugar diez personas.")
+        elif int(cant_jugadores) < 1 or int(cant_jugadores) > 10:
+            print("Valor incorrecto, la cantidad de jugadores jugadores minima es de un jugador y como máximo, pueden jugar diez personas.")
             cant_jugadores = input("Ingrese la cantidad de jugadores: ")
         else:
             continuar = False
@@ -152,28 +187,15 @@ def otorgarOrdenJugadores(nro_partida, dic_jugadores):
 # Autor: Mauro C., genera una lista de palabras segun la cantidad de letras que decida el usuario
 
 
-def imprimirDatosJugador(diccionario_jugadores, jugador):
-    print("NOMBRE_JUGADOR: {}".format(jugador))
-    print("ORDEN_JUGADOR: {}".format(diccionario_jugadores[jugador][orden_jugador]))
-    print("PUNTAJE_JUGADOR: {}".format(diccionario_jugadores[jugador][puntaje_jugador]))
-    print("PALABRA_A_ADIVINAR: {}".format(diccionario_jugadores[jugador][palabra_a_adivinar]))
-    print("PALABRA_OCULTA: {}".format(diccionario_jugadores[jugador][palabra_oculta]))
-    print("LETRAS ACERTADAS: {}".format(diccionario_jugadores[jugador][letras_acertadas]))
-    print("LETRAS_ERRADAS: {}".format(diccionario_jugadores[jugador][letras_erradas]))
-    print("GANADOR_ULTIMA_PARTIDA: {}".format(diccionario_jugadores[jugador][ganador_ultima_partida]))
-    print("JUGADOR_ELIMINADO: {}\n\n".format(diccionario_jugadores[jugador][jugador_eliminado]))
-# Autor: Mauro C., imprime los datos del jugador
-
-
 def generarDiccionarioPartida(diccionario_partida, nro_partida):
-    diccionario_partida = {nro_partida: []}
+    diccionario_partida[nro_partida] = []
     return diccionario_partida
 # Autor: Daro., genera el diccionario de la partida
 
 
 def almacenarDatosPartida(diccionario_partida, datos_partida):
     #espera una lista con los datos de cada jugador, al finalizar el turno y los almacena en la partida
-    diccionario_partida.append(datos_partida)
+    diccionario_partida.extend(datos_partida)
 # Autor: Mauro C.
 
 
@@ -212,6 +234,7 @@ def transformarGuionesBajos(letraIngresada, jugador, diccionario_jugadores):
 def ingresarLetra():
     while True:
         letra_ingresada = input("Ingrese una letra: ")
+        print("\n")
         letra_ingresada = letra_ingresada.upper()
         if len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
             print("Ingreso un caracter invalido")
@@ -233,3 +256,60 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
 # Autor: Mauro C., genera una lista de palabras segun la cantidad de letras que decida el usuario
+
+def mostrarDatosTurno(diccionario_jugadores, jugador, jugador_eliminado):
+    if not jugador_eliminado:
+        print("\n"*100)
+        print("JUGADOR ACTUAL: {}".format(jugador))
+        print("Puntaje jugador {}: {} puntos.".format(jugador,diccionario_jugadores[jugador][puntaje_jugador]))
+    else:
+        print("PERDISTE, {}. Tenés que esperar que acabe la partida para volver a jugar.".format(jugador))
+        print("La palabra era: {}".format(" ".join(diccionario_jugadores[jugador][palabra_actual])))
+    if len(diccionario_jugadores[jugador][letras_acertadas]) > 0:
+        print("Ingresaste las siguientes letras correctas: {}.".format(", ".join(diccionario_jugadores[jugador][letras_acertadas])))
+    if len(diccionario_jugadores[jugador][letras_erradas]) > 0:
+        print("Ingresaste las siguientes letras incorrectas: {}.".format(", ".join(diccionario_jugadores[jugador][letras_erradas])))
+    print(" ".join(diccionario_jugadores[jugador][palabra_oculta]))
+    print("\n-----------------------------------------")
+    print(diccionario_jugadores[jugador][hombrecito])
+    print("-----------------------------------------\n")
+
+
+def calcularDatosPartidas(diccionario_partida, nro_partida):
+    for datos_jugador in diccionario_partida[nro_partida]:
+        v_nombre_jugador = datos_jugador[0]
+        v_puntaje_jugador = datos_jugador[1][puntaje_jugador]
+        v_cant_aciertos_jugador = len(datos_jugador[1][letras_acertadas])
+        v_cant_errores_jugador = len(datos_jugador[1][letras_erradas])
+    return v_nombre_jugador, v_puntaje_jugador, v_cant_aciertos_jugador,v_cant_errores_jugador
+
+def mostrarDatosPartida(diccionario_partida, nro_partida):
+    for jugador in diccionario_partida[nro_partida]:
+        print("\n-----------------------------------------")
+        print("DATOS DE LA PARTIDA {}:".format(nro_partida))
+        v_nombre_jugador, v_puntaje_jugador, v_cant_aciertos_jugador, v_cant_errores_jugador = calcularDatosPartidas(diccionario_partida, nro_partida)
+        print("NOMBRE JUGADOR: {}".format(v_nombre_jugador))
+        print("INFORMACION PUNTAJE: {}".format(v_puntaje_jugador))
+        print("INFORMACION CANTIDAD DE ACIERTOS: {}".format(v_cant_aciertos_jugador))
+        print("INFORMACION CANTIDAD DE ERRORES: {}".format(v_cant_errores_jugador))
+        print("-----------------------------------------\n")
+
+
+def mostrarDatosGeneralesPartidas(diccionario_partida):
+    print("\n-----------------------------------------")
+    print("DATOS GENERALES DE LA PARTIDAS JUGADAS:")
+    dic_datos_generales = {}
+    for nro_partida in diccionario_partida:
+        for i in range(len(diccionario_partida[nro_partida])):
+            v_nombre_jugador, v_puntaje_jugador, v_cant_aciertos_jugador, v_cant_errores_jugador = calcularDatosPartidas(diccionario_partida, nro_partida)
+            if v_nombre_jugador not in dic_datos_generales:
+                dic_datos_generales[v_nombre_jugador] =[v_puntaje_jugador,v_cant_aciertos_jugador, v_cant_errores_jugador]
+            else:
+                dic_datos_generales[v_nombre_jugador][1] += v_cant_aciertos_jugador
+                dic_datos_generales[v_nombre_jugador][2] += v_cant_errores_jugador
+    for jugador in dic_datos_generales:
+        print("NOMBRE JUGADOR: {}".format(jugador))
+        print("INFORMACION PUNTAJE TOTAL: {}".format(dic_datos_generales[jugador][0]))
+        print("INFORMACION CANTIDAD DE ACIERTOS TOTALES: {}".format(dic_datos_generales[jugador][1]))
+        print("INFORMACION CANTIDAD DE ERRORES TOTALES: {}".format(dic_datos_generales[jugador][2]))
+    print("-----------------------------------------\n")
