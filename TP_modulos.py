@@ -1,7 +1,6 @@
 from TP_texto import obtener_texto
 import random
 from random import shuffle
-import time
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
