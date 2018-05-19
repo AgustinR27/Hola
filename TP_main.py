@@ -33,7 +33,8 @@ juego = True
 nro_partida = 1
 
 while juego:
-
+    print("####AHORCADO####\nCreadores: Mauro Cuquejo, Luan Corrionero, Agustín Ramirez Perez, Darío Inserte su apellido aquí.\n"
+          "TIPS: cuando se ingrese una letra, correcta o incorrecta, la pantalla solicitará presionar Enter para continuar. Tenga en cuenta esto antes ingresar una letra, para evitar confusiones.")
     #genero diccionario de palabras
     diccionario_palabras = generarDiccionarioPalabras()
 
