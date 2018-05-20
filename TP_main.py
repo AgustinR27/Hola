@@ -84,7 +84,7 @@ while juego:
         #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
         #establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
         #actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
-        lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
+        lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras, cant_jugadores)
         lista_palabras_usadas = otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras)
         actualizarDiccionarioPalabras(diccionario_palabras, lista_palabras_usadas)
 

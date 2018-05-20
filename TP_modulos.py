@@ -254,16 +254,16 @@ def ingresarLetra():
 # Autor: Agustin.R, verifica que la letra ingresada sea correcta para el juego
 
 
-def generarListaPalabrasPorCantLetras(dic_palabras):
+def generarListaPalabrasPorCantLetras(dic_palabras, cant_jugadores):
     lista_palabras = []
-    while lista_palabras == []:
+    while lista_palabras == [] or len(lista_palabras) < cant_jugadores:
         cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar: ")
         while not cant_letras.isdigit():
             cant_letras = input("Valor incorrecto. Debe ingresar un número. Ingrese la cantidad de letras de la palabra a adivinar: ")
         for clave in dic_palabras:
             if dic_palabras[clave][1] == int(cant_letras) and dic_palabras[clave][2] == False:
                 lista_palabras.append(clave)
-        if lista_palabras == []:
+        if lista_palabras == [] or len(lista_palabras) < cant_jugadores:
             print("No se encontraron palabras con esa cantidad de letras.")
     return lista_palabras
 # Autor: Mauro C., genera una lista de palabras segun la cantidad de letras que decida el usuario
