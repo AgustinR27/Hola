@@ -22,15 +22,17 @@ hombrecito = 9
 
 
 def dibujarHombrecito(nro_desaciertos):
+    # Autor: Mauro C., retorna el gráfico del hombrecito ahorcado, agregando las partes del cuerpo según la cantidad de desaciertos.
     dibujo = ""
     hombrecito = ["\n | \n | \n", " 0\n", "/", "|", "\ \n", "/", " \ \n"]
 
     for posicion in range(nro_desaciertos):
         dibujo += "".join(hombrecito[posicion])
     return dibujo
-# Autor: Mauro C., genera una hombre mientras se va perdiendo
+
 
 def formatearPalabra(palabra):
+    # Autor: Luan.C, recibe una palabra cualquiera y transforma las vocales con acento o las eñes. Retorna la palabra ya corregida.
     dic_a_reemplazar = {"Ñ": "NI", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"}
     palabra_vieja = palabra.upper()
     palabra_nueva = ''
@@ -40,22 +42,23 @@ def formatearPalabra(palabra):
         else:
             palabra_nueva += dic_a_reemplazar[letra]
     return palabra_nueva
-# Autor: Luan.C, Reemplaza las letras "incorrectas" por las que se usaran en el juego
 
 
 def pausaParaContinuar():
+    # Autor: Mauro C. Se genera un input que se utilizará durante la partida, para poder visualizar mejor la información. Esto porque cada vez que cambie el turno de un jugador, se limpiará la pantalla.
+    # No retorna datos.
     input("presione un Enter para continuar...")
 
 
 def mostrarPalabrasOrdenadas(diccionario_palabras):
+    # Autor: , Imprime en pantalla el diccionario de palabras, ordenado alfabéticamente por clave. Se muestran en pantalla concatenaciones de cinco palabras, junto con sus repeticiones, cada 0.05 segundos.
+    # Al finalizar la muestra,se imprime el excedente de palabras (ya que si no se llegaron a concatenar cinco palabras, no se muestra la concatenación).
     lista_palabras_ordenadas = sorted(diccionario_palabras.keys())
     print("PALABRAS DEL DICCIONARIO y CANTIDAD DE REPETICIONES:")
     auxiliar = ""
     for indice, palabra in enumerate(lista_palabras_ordenadas):
         auxiliar += "Palabras: {} - Cantidad de repeticiones: {} - ".format(palabra, diccionario_palabras[palabra][
             cantidad_repeticiones_palabra])
-
-        # esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
         if indice % 5 == 0:
             time.sleep(0.05)
             print(auxiliar)
@@ -65,8 +68,11 @@ def mostrarPalabrasOrdenadas(diccionario_palabras):
 
 
 def generarDiccionarioPalabras():
-    #a partir del string pasado por los profesores, se genera un diccionario de palabras con el siguiente formato:
-    #clave = palabra valor = lista compuesta por [cantidad_de_repeticiones, cant_letras, palabra_ya_utilizada]
+    # Autor: Daro G. Se genera un diccionario de palabras con el siguiente formato:
+    # clave = palabra valor = lista compuesta por [cantidad_de_repeticiones (numérico), cant_letras (numérico), palabra_ya_utilizada (booleano)]
+    # se le pregunta a los jugadores si quieren visualizar dicho diccionario.
+    # Retorna el diccionario generado y formateado, excluyendo lo que no sean palabras o modificando las ñ y las vocales con acento.
+
     texto = obtener_texto()
     dic_palabras = {}
     for linea in texto:
@@ -83,17 +89,15 @@ def generarDiccionarioPalabras():
     while not mostrar_diccionario.upper() in ("S", "N"):
         mostrar_diccionario = input("Opcion incorrecta. ¿Desea ver las palabras del diccionario? (S/N): ")
 
-    # si decide continuar, se actualizan el numero de partida
     if mostrar_diccionario.upper() == 'S':
-        # tambien se muestran las palabras ordenadas alfabéticamente.
-        # se muestran de a 500 palabras, junto con su número de repeticiones.
-        # además se muestra el número de palabra.
         mostrarPalabrasOrdenadas(dic_palabras)
 
     return dic_palabras
-# Autor: Daro., genera el diccionario de la partida
+
 
 def solicitarCantJugadores():
+    # Autor: Agustin.R, solicita la cantidad de jugadores verificando que este dentro de los parametros del juego.
+    # Retorna la cantidad de jugadores.
     continuar = True
     cant_jugadores = input("Ingrese la cantidad de jugadores: ")
     while continuar:
@@ -106,21 +110,30 @@ def solicitarCantJugadores():
         else:
             continuar = False
     return int(cant_jugadores)
-# Autor: Agustin.R, solicita la cantidad de jugadores verificando que este dentro de los parametros del juego
+
 
 def solicitarNombreJugador():
+    # Autor: Daro,  solicita el nombre al jugador y verifica que no se usen caracteres incorrectos. Retorna nombre del jugador.
     nombre_jugador = input("Ingrese Nombre para el Jugador: ")
     while not nombre_jugador.replace(" ", "").isalpha():
         nombre_jugador = input("Nombre incorrecto. Ingrese Nombre Jugador: ")
     return nombre_jugador
-# Autor: Daro., solicita el nombre al jugador y verifica que no se usen caracteres incorrectos
 
 
 def generarDiccionarioJugadores(cant_jugadores):
-    #a partir de una cantidad de jugadores pasada por parametro, se solicita dicha cantidad de veces el nombre de jugadores.
+    # Autor, Mauro C. Recibe cantidad de jugadores, se solicita dicha cantidad de veces el nombre de jugadores.
     # Se valida que los nombres no hayan sido utilizados ya en el diccionario.
     #el cual tiene el siguiente formato:
-    #clave = jugador valor = lista compuesta por [orden, puntaje, palabra, palabra a_adivinar, palabra_oculta, letras_acertadas,letras_falladas, ganador_ultima_partida, jugador_eliminado]
+    #clave = jugador valor = lista compuesta por [orden (numérico), puntaje (numérico),
+    # palabra_actual (lista de caracteres que forman la palabra a adivinar),
+    # palabra a_adivinar (lista de caracteres que forman la palabra a adivinar y se utilizará para comparar
+    # con la letra ingresada por el usuario),
+    # palabra_oculta (lista con guiones bajos que se utilizará para dibujar en pantalla la palabra oculta.
+    # Se irá reemplazando con las letras acertadas,
+    # letras_acertadas (lista de caracteres acertados),
+    # letras_falladas (lista de caracteres fallados,
+    # ganador_ultima_partida (booleano que se utilizará para poner en primer lugar al jugador a partir de la segunda ronda),
+    # jugador_eliminado (booleano que determinará si el jugador puede jugar el resto de la partida)]
     dic_jugadores = {}
     for numero_jugador in range(cant_jugadores):
         jugador = solicitarNombreJugador()
@@ -132,17 +145,21 @@ def generarDiccionarioJugadores(cant_jugadores):
                 jugador = solicitarNombreJugador()
             dic_jugadores[formatearPalabra(jugador)] = [0, 0, [], [], [], [], [], False, False,""]
     return dic_jugadores
-# Autor: Mauro C., genera el diccionario de los jugadores en los que se almacenaran todos sus datos
 
 
 def otorgarOrdenJugadoresPrimeraRonda(dic_jugadores, lista_jugadores):
+    # Autor: Daro. Recibe diccionario de jugadores y lista de jugadores. Actualiza el orden en el diccionario de
+    # jugadores, para todos los jugadores de manera aleatoria. Se utiliza sólo si es la primera partida.
+    # No retorna datos.
     for indice in range(len(lista_jugadores)):
         jugador = lista_jugadores.pop(random.randint(0, len(lista_jugadores) - 1))
         dic_jugadores[jugador][orden_jugador] = indice+1
-# Autor: Daro.,otroga el orden a los jugadores de manera aleatoria
 
 
 def separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores):
+    # Autor: Agustin.R., Recibe diccionario de jugadores y lista de jugadores. Actualiza el diccionario de jugadores,
+    # poniendo primero en orden al ganador de la partida anterior. Se utiliza a partir de la segunda partida.
+    # No retorna datos.
     condicion = True
     cont = 0
     while condicion and cont <= len(lista_jugadores) - 1:
@@ -153,10 +170,14 @@ def separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores):
             lista_jugadores.pop(cont)
             condicion = False
         cont += 1
-# Autor: Agustin.R., separa al ganador de la ultima partida, asi quedaria primero en la sigunete partida
+
 
 def otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores):
-    #si sólo juega un jugador, siempre estará en la primera posición.
+    # Autor Mauro C. Recibe diccionario de jugadores y lista de jugadores. Si sólo juega un jugador, siempre estará
+    # en la primera posición. Si juega más de un jugador, primero agrupa por puntaje de mayor a menor.
+    # Actualiza el diccionario de jugadores ordenando a los jugadores con este criterio. Si hay más de un jugador con el
+    # mismo puntaje, se ordena aleatoriamente y se actualiza el diccionario.
+    # No retorna datos.
     if len(lista_jugadores) == 1:
         dic_jugadores[lista_jugadores[0]][orden_jugador] = 1
 
@@ -186,16 +207,17 @@ def otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores):
                 for v_nombre_jugador in lista_jugadores[1]:
                     dic_jugadores[v_nombre_jugador][orden_jugador] = cont
                     cont += 1
-# Autor: Mauro C., otroga el orden a los jugadores de manera aleatoria
+
 
 def otorgarOrdenJugadores(nro_partida, dic_jugadores):
+    # Autor: Mauro C., Recibe Nro de partida y diccionario de jugadores. Ordena a los jugadores dependiendo de si es la
+    # primera partida o no. No retorna datos.
     lista_jugadores = list(dic_jugadores.keys())
     if nro_partida == 1:
         otorgarOrdenJugadoresPrimeraRonda(dic_jugadores, lista_jugadores)
     else:
         separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores)
         otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores)
-# Autor: Mauro C., genera una lista de palabras segun la cantidad de letras que decida el usuario
 
 
 def generarDiccionarioPartida(diccionario_partida, nro_partida):
@@ -268,6 +290,7 @@ def generarListaPalabrasPorCantLetras(dic_palabras, cant_jugadores):
     return lista_palabras
 # Autor: Mauro C., genera una lista de palabras segun la cantidad de letras que decida el usuario
 
+
 def mostrarDatosTurno(diccionario_jugadores, jugador, jugador_eliminado):
     if not jugador_eliminado:
         print("\n"*100)
@@ -336,6 +359,7 @@ def mostrarDatosGeneralesPartidas(diccionario_partida):
             print("INFORMACION CANTIDAD DE ACIERTOS TOTALES: {}".format(dic_datos_generales[jugador][1]))
             print("INFORMACION CANTIDAD DE ERRORES TOTALES: {}".format(dic_datos_generales[jugador][2]))
         print("-----------------------------------------\n")
+
 
 def limpiarDatosJugadoresPartidaAnterior(diccionario_jugadores):
     for jugador in diccionario_jugadores:
