@@ -156,25 +156,36 @@ def separarGanadorAnteriorPartida(dic_jugadores, lista_jugadores):
 # Autor: Agustin.R., separa al ganador de la ultima partida, asi quedaria primero en la sigunete partida
 
 def otorgarOrdenJugadoresGeneral(dic_jugadores, lista_jugadores):
-    dic_auxiliar = {}
-    for indice, jugador in enumerate(lista_jugadores):
+    #si sólo juega un jugador, siempre estará en la primera posición.
+    if len(lista_jugadores) == 1:
+        dic_jugadores[lista_jugadores[0]][orden_jugador] = 1
 
-        if dic_jugadores[jugador][puntaje_jugador] not in dic_auxiliar:
-            dic_auxiliar[dic_jugadores[jugador][puntaje_jugador]] = [jugador]
-        else:
-            dic_auxiliar[dic_jugadores[jugador][puntaje_jugador]].append(jugador)
+    #si juega más de un jugador, se procede a ordenar.
+    else:
+        #primero se ordena por puntajes. De forma preliminar, se agrupan los jugadores segun su puntaje en un diccionario. Un puntaje puede contener uno o más jugadores.
+        dic_orden_preliminar = {}
+        for indice, jugador in enumerate(lista_jugadores):
 
-    lista_auxiliar = sorted(dic_auxiliar.items(), reverse=True)
-    cont = 2
-    for item in lista_auxiliar:
-        if len(item[1]) == 1:
-            dic_jugadores[item[1][0]][0] = cont
-            cont += 1
-        else:
-            shuffle(item[1])
-            for elemento in item[1]:
-                dic_jugadores[elemento][0] = cont
+            if dic_jugadores[jugador][puntaje_jugador] not in dic_orden_preliminar:
+                dic_orden_preliminar[dic_jugadores[jugador][puntaje_jugador]] = [jugador]
+            else:
+                dic_orden_preliminar[dic_jugadores[jugador][puntaje_jugador]].append(jugador)
+
+        #una vez agrupados, se ordenan de mayor puntaje a menor. Si para el puntaje, existe un solo jugador, al mismo se le otorgará el mayor número de orden posible.
+        # Si hay más de un jugador para el valor de lista, se realizará un orden aleatorio para estos valores, y luego se les dará el mayor número de orden posible.
+        lista_preliminar_ordenada = sorted(dic_orden_preliminar.items(), reverse=True)
+        cont = 2
+        for lista_jugadores in lista_preliminar_ordenada:
+            cant_jugadores_por_puntaje = len(lista_jugadores[1])
+            if cant_jugadores_por_puntaje == 1:
+                nombre_jugador = lista_jugadores[1][0]
+                dic_jugadores[nombre_jugador[0]][orden_jugador] = cont
                 cont += 1
+            else:
+                shuffle(lista_jugadores[1])
+                for v_nombre_jugador in lista_jugadores[1]:
+                    dic_jugadores[v_nombre_jugador][orden_jugador] = cont
+                    cont += 1
 # Autor: Mauro C., otroga el orden a los jugadores de manera aleatoria
 
 def otorgarOrdenJugadores(nro_partida, dic_jugadores):
