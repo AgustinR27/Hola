@@ -251,11 +251,4 @@ while juego:
             partida = False
             juego = False
 
-            #se le pregunta al jugador si desea visualizar los datos generales de las partidas jugadas.
-            mostrar_datos_generales = input("¿Desea visualizar las estadísticas generales de las partidas jugadas? (S/N)")
-            while not mostrar_datos_generales.upper() in ("S", "N"):
-                mostrar_datos_generales = input("Opcion incorrecta. ¿Desea ver las palabras del diccionario? (S/N)")
-
-            # si decide mostrarlos, se actualizan el numero de partida
-            if mostrar_datos_generales.upper() == 'S':
-                mostrarDatosGeneralesPartidas(diccionario_partida)
+            mostrarDatosGeneralesPartidas(diccionario_partida)

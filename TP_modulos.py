@@ -299,25 +299,32 @@ def mostrarDatosPartida(diccionario_partida, nro_partida):
 
 
 def mostrarDatosGeneralesPartidas(diccionario_partida):
-    print("\n-----------------------------------------")
-    print("DATOS GENERALES DE LA PARTIDAS JUGADAS:")
-    dic_datos_generales = {}
-    for nro_partida in diccionario_partida:
-        for datos_jugador in diccionario_partida[nro_partida]:
-            jugador = datos_jugador[0]
-            v_nombre_jugador, v_puntaje_jugador, v_cant_aciertos_jugador, v_cant_errores_jugador = calcularDatosPartidas(diccionario_partida, jugador, nro_partida)
-            if v_nombre_jugador not in dic_datos_generales:
-                dic_datos_generales[v_nombre_jugador] =[v_puntaje_jugador,v_cant_aciertos_jugador, v_cant_errores_jugador]
-            else:
-                dic_datos_generales[v_nombre_jugador][1] += v_cant_aciertos_jugador
-                dic_datos_generales[v_nombre_jugador][2] += v_cant_errores_jugador
-    for jugador in dic_datos_generales:
+    # se le pregunta al jugador si desea visualizar los datos generales de las partidas jugadas.
+    mostrar_datos_generales = input("¿Desea visualizar las estadísticas generales de las partidas jugadas? (S/N)")
+    while not mostrar_datos_generales.upper() in ("S", "N"):
+        mostrar_datos_generales = input("Opcion incorrecta. ¿Desea ver las palabras del diccionario? (S/N)")
+
+    # si decide mostrarlos, se actualizan el numero de partida
+    if mostrar_datos_generales.upper() == 'S':
         print("\n-----------------------------------------")
-        print("NOMBRE JUGADOR: {}".format(jugador))
-        print("INFORMACION PUNTAJE TOTAL: {}".format(dic_datos_generales[jugador][0]))
-        print("INFORMACION CANTIDAD DE ACIERTOS TOTALES: {}".format(dic_datos_generales[jugador][1]))
-        print("INFORMACION CANTIDAD DE ERRORES TOTALES: {}".format(dic_datos_generales[jugador][2]))
-    print("-----------------------------------------\n")
+        print("DATOS GENERALES DE LA PARTIDAS JUGADAS:")
+        dic_datos_generales = {}
+        for nro_partida in diccionario_partida:
+            for datos_jugador in diccionario_partida[nro_partida]:
+                jugador = datos_jugador[0]
+                v_nombre_jugador, v_puntaje_jugador, v_cant_aciertos_jugador, v_cant_errores_jugador = calcularDatosPartidas(diccionario_partida, jugador, nro_partida)
+                if v_nombre_jugador not in dic_datos_generales:
+                    dic_datos_generales[v_nombre_jugador] =[v_puntaje_jugador,v_cant_aciertos_jugador, v_cant_errores_jugador]
+                else:
+                    dic_datos_generales[v_nombre_jugador][1] += v_cant_aciertos_jugador
+                    dic_datos_generales[v_nombre_jugador][2] += v_cant_errores_jugador
+        for jugador in dic_datos_generales:
+            print("\n-----------------------------------------")
+            print("NOMBRE JUGADOR: {}".format(jugador))
+            print("INFORMACION PUNTAJE TOTAL: {}".format(dic_datos_generales[jugador][0]))
+            print("INFORMACION CANTIDAD DE ACIERTOS TOTALES: {}".format(dic_datos_generales[jugador][1]))
+            print("INFORMACION CANTIDAD DE ERRORES TOTALES: {}".format(dic_datos_generales[jugador][2]))
+        print("-----------------------------------------\n")
 
 def limpiarDatosJugadoresPartidaAnterior(diccionario_jugadores):
     for jugador in diccionario_jugadores:
