@@ -1,6 +1,7 @@
 from TP_texto import obtener_texto
 import random
 from random import shuffle
+import time
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -56,7 +57,7 @@ def mostrarPalabrasOrdenadas(diccionario_palabras):
 
         # esto verifica que se frene el print cada 500 registros. Se queda unos 5 segundos y continúa imprimiendo.
         if indice % 5 == 0:
-            esperar(0.05)
+            time.sleep(0.05)
             print(auxiliar)
             auxiliar = ""
     if auxiliar != "":
@@ -256,7 +257,6 @@ def generarListaPalabrasPorCantLetras(dic_palabras):
     return lista_palabras
 # Autor: Mauro C., genera una lista de palabras segun la cantidad de letras que decida el usuario
 
-
 def mostrarDatosTurno(diccionario_jugadores, jugador, jugador_eliminado):
     if not jugador_eliminado:
         print("\n"*100)
@@ -319,7 +319,6 @@ def mostrarDatosGeneralesPartidas(diccionario_partida):
         print("INFORMACION CANTIDAD DE ERRORES TOTALES: {}".format(dic_datos_generales[jugador][2]))
     print("-----------------------------------------\n")
 
-
 def limpiarDatosJugadoresPartidaAnterior(diccionario_jugadores):
     for jugador in diccionario_jugadores:
         diccionario_jugadores[jugador][palabra_a_adivinar] = []
@@ -330,125 +329,3 @@ def limpiarDatosJugadoresPartidaAnterior(diccionario_jugadores):
         diccionario_jugadores[jugador][jugador_eliminado] = False
         diccionario_jugadores[jugador][ganador_ultima_partida] = False
         diccionario_jugadores[jugador][hombrecito] = ""
-
-def incializarPartida(nro_partida, diccionario_partida, diccionario_jugadores, diccionario_palabras):
-    nro_ronda = 1
-
-    # si la partida es nueva, debe generarse un registro con los datos de la partida.
-    if nro_partida not in diccionario_partida:
-        # genero diccionario de Partida.
-        diccionario_partida = generarDiccionarioPartida(diccionario_partida, nro_partida)
-
-    # establezco el orden de los jugadores en diccionario_jugadores[orden_jugador]
-    otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
-
-    # borro datos residuales de la partida anterior
-    limpiarDatosJugadoresPartidaAnterior(diccionario_jugadores)
-
-    # establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
-    # establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
-    # actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
-    lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
-    lista_palabras_usadas = otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras)
-    actualizarDiccionarioPalabras(diccionario_palabras, lista_palabras_usadas)
-
-    # Se armó una lista de la clave de los jugadores ordenados por el campo orden
-    lista_jugadores_ordenada = [item[0] for item in
-                                sorted(diccionario_jugadores.items(), key=lambda x: x[1][orden_jugador])]
-
-    # cuando arranca la ronda, inicializo ronda en True. Mientras sea True, se jugaran los turnos de los jugadores.
-    ronda = True
-
-    # cuando arranca la partida, no hay ningún jugador eliminado.
-    contador_jugadores_eliminados = 0
-    return nro_ronda, diccionario_partida, lista_jugadores_ordenada, ronda, contador_jugadores_eliminados
-
-def procesarTurno(diccionario_jugadores,jugador,contador_jugadores_eliminados, cont_aciertos):
-    if not diccionario_jugadores[jugador][jugador_eliminado]:
-        continuar_buscando_letra = True
-
-        while continuar_buscando_letra:
-            mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
-            letra_ingresada = ingresarLetra()
-
-            # esto es para verificar si la letra está repetida más de una vez en v_palabra_a_adivinar
-            while letra_ingresada in diccionario_jugadores[jugador][palabra_a_adivinar]:
-                # agregamos la letra a una lista de letras acertadas durante el turno.
-                diccionario_jugadores[jugador][letras_acertadas].append(letra_ingresada)
-
-                # actualizo la palabra oculta, borrando los guiones bajos y guardando la posicion en la que lo borré
-                transformarGuionesBajos(letra_ingresada, jugador, diccionario_jugadores)
-
-                # por cada vez que encuentre la letra, sumo un punto al acumulador.
-                diccionario_jugadores[jugador][puntaje_jugador] += 1
-
-                cont_aciertos += 1
-
-            # si luego de verificar que existiera la letra en la palabra, no encontro nada, es porque el jugador falló.
-            if cont_aciertos == 0:
-                # resto dos puntos al acumulador
-                diccionario_jugadores[jugador][puntaje_jugador] -= 2
-
-                # agregamos la letra a una lista de letras erradas durante el turno.
-                diccionario_jugadores[jugador][letras_erradas].append(letra_ingresada)
-
-                # cantidad_de_errores equivale a la cantidad de errores del usuario
-                cantidad_de_errores = len(diccionario_jugadores[jugador][letras_erradas])
-
-                # dibujo en pantalla el hombrecito ahorcado. Por cada error se dibuja una parte del cuerpo
-                diccionario_jugadores[jugador][hombrecito] = dibujarHombrecito(cantidad_de_errores)
-
-                # muestro los datos del jugador.
-                mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
-                print("FALLASTE, {}. LE TOCA AL SIGUIENTE JUGADOR.".format(jugador))
-                pausaParaContinuar()
-
-                # si el jugador falla, deja de pedirle letras.
-                continuar_buscando_letra = False
-
-                # si la cantidad de errores es igual a siete, es porque el jugador perdió.
-                if cantidad_de_errores == 7:
-                    contador_jugadores_eliminados += 1
-
-                    # si el jugador perdió, queda eliminado, por lo que no podrá volver a jugar durante la partida.
-                    diccionario_jugadores[jugador][jugador_eliminado] = True
-
-                    # muestro los datos del jugador.
-                    mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
-                    print("PERDISTE, {}. SE ACABÓ LA PARTIDA PARA VOS.".format(jugador))
-                    pausaParaContinuar()
-
-                    # se deja un delay en pantalla para que el usuario pueda ver la información.
-
-            else:  # cont_aciertos > 0
-                # si coincide la palabra oculta con la palabra a adivinar, es porque el jugador ganó la partida.
-                if diccionario_jugadores[jugador][palabra_oculta] == diccionario_jugadores[jugador][palabra_actual]:
-                    # suma treinta puntos al acumulador
-                    diccionario_jugadores[jugador][puntaje_jugador] += 30
-
-                    # le avisa al diccionario que ganó la última partida.
-                    diccionario_jugadores[jugador][ganador_ultima_partida] = True
-
-                    # si ganó la partida, se acaba su turno.
-                    turno = False
-
-                    # si ganó la partida, se acaba la ronda.
-                    ronda = False
-
-                    # si ganó la partida, se acaba la partida.
-                    partida = False
-
-                    # muestro los datos del jugador.
-                    mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
-                    print("GANASTE, {}. ESTA PARTIDA SE ACABA ACÁ.".format(jugador))
-                    pausaParaContinuar()
-
-                    # si el jugador ganó, dejo de buscar letra.
-                    continuar_buscando_letra = False
-
-                else:
-                    mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
-                    print("ACERTASTE, {}. PODÉS SEGUIR INGRESANDO LETRAS.".format(jugador))
-                    pausaParaContinuar()
-
-                    cont_aciertos = 0
