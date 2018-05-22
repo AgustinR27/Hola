@@ -11,10 +11,10 @@ from TP_modulos import actualizarDiccionarioPalabras
 from TP_modulos import transformarGuionesBajos
 from TP_modulos import dibujarHombrecito
 from TP_modulos import mostrarDatosTurno
-from TP_modulos import mostrarPalabrasOrdenadas
-from TP_modulos import esperar
+from TP_modulos import pausaParaContinuar
 from TP_modulos import mostrarDatosPartida
 from TP_modulos import mostrarDatosGeneralesPartidas
+from TP_modulos import limpiarDatosJugadoresPartidaAnterior
 
 #DICCIONARIO PALABRAS
 cantidad_repeticiones_palabra = 0
@@ -42,6 +42,11 @@ juego = True
 nro_partida = 1
 
 while juego:
+    print("####TP1 AHORCADO####")
+    print("------------------------------------------------------------------------------------------------------------------")
+    print("Creadores: Mauro Cuquejo, Luan Corrionero, Agustín Ramirez Perez, Darío Giménez.")
+    print("------------------------------------------------------------------------------------------------------------------\n")
+    print("TIPS: cuando se ingrese una letra, correcta o incorrecta, la pantalla solicitará presionar Enter para continuar. Tenga en cuenta esto antes ingresar una letra, para evitar confusiones.\n")
 
     #genero diccionario de palabras
     diccionario_palabras = generarDiccionarioPalabras()
@@ -73,21 +78,13 @@ while juego:
         otorgarOrdenJugadores(nro_partida, diccionario_jugadores)
 
         #borro datos residuales de la partida anterior
-        for jugador in diccionario_jugadores:
-            diccionario_jugadores[jugador][palabra_a_adivinar] = []
-            diccionario_jugadores[jugador][palabra_actual] = []
-            diccionario_jugadores[jugador][palabra_oculta] = []
-            diccionario_jugadores[jugador][letras_acertadas] = []
-            diccionario_jugadores[jugador][letras_erradas] = []
-            diccionario_jugadores[jugador][jugador_eliminado] = False
-            diccionario_jugadores[jugador][ganador_ultima_partida] = False
-            diccionario_jugadores[jugador][hombrecito] = ""
+        limpiarDatosJugadoresPartidaAnterior(diccionario_jugadores)
 
 
         #establezco las palabras a adivinar en diccionario_jugadores[palabra_a_adivinar]
         #establezco las palabra oculta igual a la palabra a adivinar en diccionario_jugadores[palabra_oculta]
         #actualizo el diccionario_palabras[palabra_usada] = True para la palabra a adivinar
-        lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras)
+        lista_palabras = generarListaPalabrasPorCantLetras(diccionario_palabras, cant_jugadores)
         lista_palabras_usadas = otorgarPalabrasJugadores(diccionario_jugadores, lista_palabras)
         actualizarDiccionarioPalabras(diccionario_palabras, lista_palabras_usadas)
 
@@ -153,14 +150,14 @@ while juego:
 
                             #muestro los datos del jugador.
                             mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
-                            print("FALLASTE, {}. LE TOCA AL SIGUIENTE JUGADOR.".format(jugador))
-                            input("presione un Enter para continuar...")
+                            if cant_jugadores > 1:
+                                print("FALLASTE, {}. LE TOCA AL SIGUIENTE JUGADOR.".format(jugador))
+                            else:
+                                print("FALLASTE, {}. OTRA VEZ SERÁ.".format(jugador))
+                            pausaParaContinuar()
 
                             #si el jugador falla, deja de pedirle letras.
                             continuar_buscando_letra = False
-
-                            #se deja un delay en pantalla para que el usuario pueda ver la información.
-                            esperar(tiempo_de_espera_por_turno)
 
                             # si la cantidad de errores es igual a siete, es porque el jugador perdió.
                             if cantidad_de_errores == 7:
@@ -172,10 +169,8 @@ while juego:
                                 # muestro los datos del jugador.
                                 mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
                                 print("PERDISTE, {}. SE ACABÓ LA PARTIDA PARA VOS.".format(jugador))
-                                input("presione un Enter para continuar...")
+                                pausaParaContinuar()
 
-                                # se deja un delay en pantalla para que el usuario pueda ver la información.
-                                esperar(tiempo_de_espera_por_turno)
                         else: #cont_aciertos > 0
                             #si coincide la palabra oculta con la palabra a adivinar, es porque el jugador ganó la partida.
                             if diccionario_jugadores[jugador][palabra_oculta] == diccionario_jugadores[jugador][palabra_actual]:
@@ -197,18 +192,14 @@ while juego:
                                 # muestro los datos del jugador.
                                 mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
                                 print("GANASTE, {}. ESTA PARTIDA SE ACABA ACÁ.".format(jugador))
+                                pausaParaContinuar()
 
-                                esperar(tiempo_de_espera_por_turno)
                                 # si el jugador ganó, dejo de buscar letra.
                                 continuar_buscando_letra = False
-
-                                esperar(tiempo_de_espera_por_turno)
                             else:
                                 mostrarDatosTurno(diccionario_jugadores, jugador, diccionario_jugadores[jugador][jugador_eliminado])
                                 print("ACERTASTE, {}. PODÉS SEGUIR INGRESANDO LETRAS.".format(jugador))
-                                input("presione un Enter para continuar...")
-
-                                esperar(tiempo_de_espera_por_turno)
+                                pausaParaContinuar()
                                 cont_aciertos = 0
 
                 #verifico si todos los jugadores fueron eliminados:
@@ -260,11 +251,4 @@ while juego:
             partida = False
             juego = False
 
-            #se le pregunta al jugador si desea visualizar los datos generales de las partidas jugadas.
-            mostrar_datos_generales = input("¿Desea visualizar las estadísticas generales de las partidas jugadas? (S/N)")
-            while not mostrar_datos_generales.upper() in ("S", "N"):
-                mostrar_datos_generales = input("Opcion incorrecta. ¿Desea ver las palabras del diccionario? (S/N)")
-
-            # si decide mostrarlos, se actualizan el numero de partida
-            if mostrar_datos_generales.upper() == 'S':
-                mostrarDatosGeneralesPartidas(diccionario_partida)
+            mostrarDatosGeneralesPartidas(diccionario_partida)
