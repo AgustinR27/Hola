@@ -44,7 +44,7 @@ nro_partida = 1
 while juego:
     print("####TP1 AHORCADO####")
     print("------------------------------------------------------------------------------------------------------------------")
-    print("Creadores: Mauro Cuquejo, Luan Corrionero, Agustín Ramirez Perez, Darío Giménez.")
+    print("Creadores: Mauro Cuquejo, Luan Corrionero, Agustín Ramirez, Darío Giménez.")
     print("------------------------------------------------------------------------------------------------------------------\n")
     print("TIPS: cuando se ingrese una letra, correcta o incorrecta, la pantalla solicitará presionar Enter para continuar. Tenga en cuenta esto antes ingresar una letra, para evitar confusiones.\n")
 
