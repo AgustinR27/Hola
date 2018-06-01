@@ -86,9 +86,9 @@ def generar_diccionario_palabras():
                     else:
                         dic_palabras[formatear_palabra(palabra)][cantidad_repeticiones_palabra] += 1
 
-    mostrar_diccionario = input("¿Desea ver las palabras del diccionario? (S/N): ")
+    mostrar_diccionario = input("¿Queres ver las palabras del diccionario? (S/N): ")
     while not mostrar_diccionario.upper() in ("S", "N"):
-        mostrar_diccionario = input("Opcion incorrecta. ¿Desea ver las palabras del diccionario? (S/N): ")
+        mostrar_diccionario = input("Opcion incorrecta. ¿Queres ver las palabras del diccionario? (S/N): ")
 
     if mostrar_diccionario.upper() == 'S':
         mostrar_palabras_ordenadas(dic_palabras)
@@ -347,9 +347,9 @@ def mostrar_datos_partida(diccionario_partida, nro_partida):
 
 def mostrar_datos_generales_partidas(diccionario_partida):
     # Autor: Agustin Ramirez. Muestra la estadística de las partidas jugadas.
-    mostrar_datos_generales = input("¿Desea visualizar las estadísticas generales de las partidas jugadas? (S/N)")
+    mostrar_datos_generales = input("¿Queres visualizar las estadísticas generales de las partidas jugadas? (S/N)")
     while not mostrar_datos_generales.upper() in ("S", "N"):
-        mostrar_datos_generales = input("Opcion incorrecta. ¿Desea ver las palabras del diccionario? (S/N)")
+        mostrar_datos_generales = input("Opcion incorrecta. ¿Queres ver las palabras del diccionario? (S/N)")
 
     if mostrar_datos_generales.upper() == 'S':
         print("\n-----------------------------------------")
