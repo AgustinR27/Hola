@@ -47,7 +47,7 @@ def formatear_palabra(palabra):
 def pausa_para_continuar():
     # Autor: Mauro Cuquejo. Se genera un input que se utilizará durante la partida, para poder visualizar mejor la información. Esto porque cada vez que cambie el turno de un jugador, se limpiará la pantalla.
     # No retorna datos.
-    input("presione Enter para continuar...")
+    input("presiona Enter para continuar...")
     print("\n" * 100)
 
 
@@ -100,14 +100,14 @@ def solicitar_cantidad_jugadores():
     # Autor: Agustin Ramirez. solicita la cantidad de jugadores verificando que este dentro de los parametros del juego.
     # Retorna la cantidad de jugadores.
     continuar = True
-    cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+    cant_jugadores = input("Ingresa la cantidad de jugadores: ")
     while continuar:
         if not cant_jugadores.isdigit():
             print("Valor incorrecto. La cantidad de jugadores debe ser numérica.")
-            cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+            cant_jugadores = input("Ingresa la cantidad de jugadores: ")
         elif int(cant_jugadores) < 1 or int(cant_jugadores) > 10:
             print("Valor incorrecto, la cantidad de jugadores jugadores minima es de un jugador y como máximo, pueden jugar diez personas.")
-            cant_jugadores = input("Ingrese la cantidad de jugadores: ")
+            cant_jugadores = input("Ingresa la cantidad de jugadores: ")
         else:
             continuar = False
     return int(cant_jugadores)
@@ -115,9 +115,9 @@ def solicitar_cantidad_jugadores():
 
 def solicitar_nombre_jugador():
     # Autor: Darío Giménez  solicita el nombre al jugador y verifica que no se usen caracteres incorrectos. Retorna nombre del jugador.
-    nombre_jugador = input("Ingrese Nombre para el Jugador: ")
+    nombre_jugador = input("Ingresa Nombre para el Jugador: ")
     while not nombre_jugador.replace(" ", "").isalpha():
-        nombre_jugador = input("Nombre incorrecto. Ingrese Nombre Jugador: ")
+        nombre_jugador = input("Nombre incorrecto. Ingresa Nombre Jugador: ")
     return nombre_jugador
 
 
@@ -142,7 +142,7 @@ def generar_diccionario_jugadores(cant_jugadores):
             dic_jugadores[formatear_palabra(jugador)] = [0, 0, [], [], [], [], [], False, False, ""]
         else:
             while formatear_palabra(jugador) in dic_jugadores:
-                print("El nombre ingresado ya fue utilizado por otra persona. Ingrese un nombre distinto.")
+                print("El nombre ingresado ya fue utilizado por otra persona. Ingresa un nombre distinto.")
                 jugador = solicitar_nombre_jugador()
             dic_jugadores[formatear_palabra(jugador)] = [0, 0, [], [], [], [], [], False, False, ""]
     return dic_jugadores
@@ -270,7 +270,7 @@ def transformar_guiones_bajos(letraIngresada, jugador, diccionario_jugadores):
 def ingresar_letra():
     #Autor: Agustin Ramirez. Verifica que la letra ingresada sea correcta para el juego
     while True:
-        letra_ingresada = input("Ingrese una letra: ")
+        letra_ingresada = input("Ingresa una letra: ")
         print("\n")
         letra_ingresada = letra_ingresada.upper()
         if len(letra_ingresada) != 1 or not letra_ingresada.isalpha():
@@ -284,11 +284,11 @@ def generar_lista_palabras_por_cantidad_letras(dic_palabras, cant_jugadores):
     #Autor: Mauro Cuquejo. Genera una lista de palabras segun la cantidad de letras que decida el usuario
     lista_palabras = []
     while lista_palabras == [] or len(lista_palabras) < cant_jugadores:
-        cant_letras = input("Ingrese la cantidad de letras de la palabra a adivinar, la palabra debe tener al menos 5 letras: ")
-        while int(cant_letras) < 5:
-            cant_letras = input("Recuerde que debe elegir palabras de al menos 5 letras. Intenta nuevamente: ")
+        cant_letras = input("Ingresa la cantidad de letras de la palabra a adivinar, la palabra debe tener al menos 5 letras: ")
         while not cant_letras.isdigit():
-            cant_letras = input("Valor incorrecto. Debe ingresar un número. Ingrese la cantidad de letras de la palabra a adivinar: ")
+            cant_letras = input("Valor incorrecto. Debe ingresar un número. Ingresa la cantidad de letras de la palabra a adivinar: ")
+            while cant_letras.isdigit() and int(cant_letras) < 5:
+                cant_letras = input("Recuerde que debe elegir palabras de al menos 5 letras. Intenta nuevamente: ")
         for clave in dic_palabras:
             if dic_palabras[clave][1] == int(cant_letras) and dic_palabras[clave][2] == False:
                 lista_palabras.append(clave)
@@ -301,6 +301,7 @@ def generar_lista_palabras_por_cantidad_letras(dic_palabras, cant_jugadores):
 def mostrar_datos_turno(diccionario_jugadores, jugador, jugador_eliminado):
     #Autor: Luan Corrionero. Muestra los datos relevantes para el turno.
     if not jugador_eliminado:
+        print("-----------------------------------------\n")
         print("JUGADOR ACTUAL: {}".format(jugador))
         print("PUNTAJE: {} PUNTOS.".format(diccionario_jugadores[jugador][puntaje_jugador]))
     else:
@@ -396,9 +397,9 @@ def preguntar_continuar_juego(nro_partida, diccionario_partida):
     # Autor: Agustin Ramirez. Establece la continuación o finalización del juego.
     seguir_juego = True
 
-    continuar = input("desea continuar jugando? (S/N)")
+    continuar = input("¿queres continuar jugando? (S/N)")
     while not continuar.upper() in ("S", "N"):
-        continuar = input("Opcion incorrecta. ¿desea continuar jugando? (S/N)")
+        continuar = input("Opcion incorrecta. ¿queres continuar jugando? (S/N)")
 
     if continuar.upper() == 'S':
         nro_partida += 1
